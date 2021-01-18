@@ -1,5 +1,6 @@
 jupyter-book
 matplotlib
 numpy
-tslearn
+git+git://github.com/tslearn-team/tslearn@master
 celluloid
+h5py
