@@ -79,7 +79,7 @@ distances $d(x_i, x^\prime_j)^2$
 and $A_\gamma$ is a "soft path" matrix that informs, for each pair $(i, j)$,
 how much it will be taken into account in the matching.
 
-```{code-cell} python3
+```{code-cell} ipython3
 :tags: [hide-input]
 
 %config InlineBackend.figure_format = 'svg'
@@ -190,7 +190,7 @@ In such case, the parameters to be optimized are the coordinates of the
 barycenter.
 This is illustrated in the example below:
 
-```{code-cell} python3
+```{code-cell} ipython3
 from tslearn.datasets import CachedDatasets
 from tslearn.preprocessing import TimeSeriesScalerMinMax
 from tslearn.barycenters import softdtw_barycenter
