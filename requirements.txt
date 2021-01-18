@@ -1,5 +1,5 @@
 jupyter-book
-matplotlib
+matplotlib==3.3.3
 numpy
 git+git://github.com/tslearn-team/tslearn@master
 celluloid
