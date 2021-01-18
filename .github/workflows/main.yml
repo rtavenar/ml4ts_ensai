@@ -32,10 +32,11 @@ jobs:
       run: |
         pip install -r requirements.txt
 
-    # Install the latex things to create the pdf
-    - name: install latex dependencies
-      run: |
-        sudo apt-get install texlive-latex-recommended texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra texlive-xetex latexmk
+    # # Install the latex things to create the pdf
+    # - name: install latex dependencies
+    #   run: |
+    #     sudo apt-get install texlive-latex-recommended texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra texlive-xetex latexmk
+
     # Build the html version of the book
     - name: Build the html-book
       run: |
@@ -45,6 +46,7 @@ jobs:
     #   run: |
     #     jupyter-book build . --builder pdflatex
     # Push the book's HTML to github-pages
+    
     - name: GitHub Pages action
       uses: peaceiris/actions-gh-pages@v3.6.1
       with:
