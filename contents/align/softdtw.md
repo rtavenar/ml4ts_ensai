@@ -133,7 +133,6 @@ def plot_path(s_y1, s_y2, path_matrix, title):
 
     plt.title(title)
 
-    plt.tight_layout()
     plt.show()
 ```
 
@@ -150,7 +149,7 @@ sz = s_y1.shape[0]
 
 for gamma in [0., .1, 1.]:
     alignment, sim = metrics.soft_dtw_alignment(s_y1, s_y2, gamma=gamma)
-    plt.figure(figsize=(2.5, 2.5))
+    plt.figure(figsize=(2.5, 2.5), constrained_layout=True)
     plot_path(s_y1, s_y2, alignment, title="$\\gamma={:.1f}$".format(gamma))
 ```
 
