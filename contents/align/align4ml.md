@@ -155,7 +155,7 @@ that would operate in the Reproducing Kernel Hilbert Space associated to the
 chosen kernel, can be used in conjunction
 with Global Alignment Kernel (GAK).
 
-```{figure} ../fig/kernel_kmeans.svg
+```{figure} ../fig/kernel_kmeans.*
 ---
 width: 100%
 name: kernel_kmeans

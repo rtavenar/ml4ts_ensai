@@ -14,5 +14,5 @@
 
 - file: contents/deep/intro
 
-- url: https://github.com/rtavenar/ml4ts_ensai/raw/master/notes.pdf
-  title: "PDF version of these notes"
+# - url: https://github.com/rtavenar/ml4ts_ensai/raw/master/notes.pdf
+#   title: "PDF version of these notes"

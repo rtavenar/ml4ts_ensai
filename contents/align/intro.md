@@ -10,7 +10,7 @@ in order to leverage on desired notions of similarity.
 
 Let us illustrate our point with an example.
 
-```{figure} ../fig/kmeans.svg
+```{figure} ../fig/kmeans.*
 ---
 width: 100%
 name: kmeans_euc
@@ -27,7 +27,7 @@ the dataset at stake clearly holds such invariants.
 When using a shift-invariant similarity measure (discussed in our
 {ref}`sec:dtw` section) at the core of $k$-means, one gets:
 
-```{figure} ../fig/kmeans_dtw.svg
+```{figure} ../fig/kmeans_dtw.*
 ---
 width: 100%
 name: kmeans_dtw
