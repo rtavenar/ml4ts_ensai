@@ -1,0 +1,553 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Soft-DTW and Global Alignment Kernel &#8212; Machine Learning for Time Series</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Alignment-based metrics in Machine Learning" href="align4ml.html" />
+    <link rel="prev" title="Dynamic Time Warping" href="dtw.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">Machine Learning for Time Series</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../foreword.html">
+   Foreword
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="intro.html">
+   Alignment-based metrics
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="dtw.html">
+     Dynamic Time Warping
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Soft-DTW and Global Alignment Kernel
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="align4ml.html">
+     Alignment-based metrics in Machine Learning
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep/intro.html">
+   Dedicated neural-network architectures
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../../_sources/contents/align/softdtw.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/contents/align/softdtw.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/rtavenar/ml4ts_ensai"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/rtavenar/ml4ts_ensai/issues/new?title=Issue%20on%20page%20%2Fcontents/align/softdtw.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/rtavenar/ml4ts_ensai/master?urlpath=tree/contents/align/softdtw.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#soft-dtw">
+   Soft-DTW
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#global-alignment-kernel">
+   Global Alignment Kernel
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="soft-dtw-and-global-alignment-kernel">
+<h1>Soft-DTW and Global Alignment Kernel<a class="headerlink" href="#soft-dtw-and-global-alignment-kernel" title="Permalink to this headline">¶</a></h1>
+<p>One strong limitation of Dynamic Time Warping is that it cannot be
+differentiated everywhere because of the min operator that is used throughout
+the computations.
+This limitation is especially problematic given the importance of
+gradient-based optimization in Machine Learning.</p>
+<div class="section" id="soft-dtw">
+<span id="sec-softdtw"></span><h2>Soft-DTW<a class="headerlink" href="#soft-dtw" title="Permalink to this headline">¶</a></h2>
+<p>Soft-DTW <a class="bibtex reference internal" href="#cuturi2017soft" id="id1">[CB17]</a> has been introduced as a way to mitigate this
+limitation.
+The optimization problem that is tackled is the following:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-0d2dfc9e-0143-492d-95c9-d42af7b4fb65">
+<span class="eqno">(4)<a class="headerlink" href="#equation-0d2dfc9e-0143-492d-95c9-d42af7b4fb65" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+\text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime) =
+    \min_{\pi \in \mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)}{}^\gamma
+        \sum_{(i, j) \in \pi} d(x_i, x^\prime_j)^2
+\label{eq:softdtw}
+\end{equation}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\min{}^\gamma\)</span> is the soft-min operator parametrized by a smoothing
+factor <span class="math notranslate nohighlight">\(\gamma\)</span>.</p>
+<div class="admonition-a-note-on-soft-min admonition">
+<p class="admonition-title">A note on soft-min</p>
+<p>The soft-min operator <span class="math notranslate nohighlight">\(\min{}^\gamma\)</span> is defined as:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-0b61c803-e500-4809-8c6c-86ea2d6e6a84">
+<span class="eqno">(5)<a class="headerlink" href="#equation-0b61c803-e500-4809-8c6c-86ea2d6e6a84" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+    \min{}^\gamma(a_1, \dots, a_n) = - \gamma \log \sum_i e^{-a_i / \gamma}
+\end{equation}\]</div>
+<p>Note that when gamma tends to <span class="math notranslate nohighlight">\(0^+\)</span>, the term corresponding to the lower <span class="math notranslate nohighlight">\(a_i\)</span>
+value will dominate other terms in the sum, and the soft-min then tends to the
+hard minimum.</p>
+</div>
+<div class="sidebar">
+<p class="sidebar-title">Dot product notation</p>
+<p>This dot product notation can easily be extended to Dynamic Time Warping:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+DTW_q(\mathbf{x}, \mathbf{x}^\prime) =
+    \min_{\pi \in \mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)}
+        \langle A_\pi,  D_q(\mathbf{x}, \mathbf{x}^\prime) \rangle^{\frac{1}{q}}
+\end{equation*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(D_q(\mathbf{x}, \mathbf{x}^\prime)\)</span> stores distances
+<span class="math notranslate nohighlight">\(d(x_i, x^\prime_j)\)</span> at the power <span class="math notranslate nohighlight">\(q\)</span> and <span class="math notranslate nohighlight">\((A_\pi)_{i,j} = 1\)</span> iff
+<span class="math notranslate nohighlight">\((i, j) \in \pi\)</span> (0 otherwise).</p>
+</div>
+<p>Typically, when <span class="math notranslate nohighlight">\(\gamma\)</span> tends to 0, <span class="math notranslate nohighlight">\(DTW(\mathbf{x}, \mathbf{x}^\prime)^2\)</span> is
+retrieved.
+For strictly positive values of <span class="math notranslate nohighlight">\(\gamma\)</span>, the soft-DTW can be re-written</p>
+<div class="amsmath math notranslate nohighlight" id="equation-d47b3b77-6d6f-40bc-b2b4-791855e20eb9">
+<span class="eqno">(6)<a class="headerlink" href="#equation-d47b3b77-6d6f-40bc-b2b4-791855e20eb9" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+\text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime) =
+    \langle A_\gamma , D(\mathbf{x}, \mathbf{x}^\prime) \rangle
+\label{eq:softdtw:dot}
+\end{equation}\]</div>
+<p>where <span class="math notranslate nohighlight">\(D(\mathbf{x}, \mathbf{x}^\prime)\)</span> is a matrix that stores squared
+distances <span class="math notranslate nohighlight">\(d(x_i, x^\prime_j)^2\)</span>
+and <span class="math notranslate nohighlight">\(A_\gamma\)</span> is a “soft path” matrix that informs, for each pair <span class="math notranslate nohighlight">\((i, j)\)</span>,
+how much it will be taken into account in the matching.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;svg&#39;
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">plot_constraints</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">sz</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sz</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="o">-.</span><span class="mi">5</span><span class="p">,</span> <span class="n">sz</span> <span class="o">-</span> <span class="o">.</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="n">pos</span> <span class="o">+</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="n">pos</span> <span class="o">+</span> <span class="o">.</span><span class="mi">5</span><span class="p">],</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">pos</span> <span class="o">+</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="n">pos</span> <span class="o">+</span> <span class="o">.</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="o">-.</span><span class="mi">5</span><span class="p">,</span> <span class="n">sz</span> <span class="o">-</span> <span class="o">.</span><span class="mi">5</span><span class="p">],</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">plot_path</span><span class="p">(</span><span class="n">s_y1</span><span class="p">,</span> <span class="n">s_y2</span><span class="p">,</span> <span class="n">path_matrix</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+    <span class="n">sz</span> <span class="o">=</span> <span class="n">s_y1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># definitions for the axes</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span>
+    <span class="n">w_ts</span> <span class="o">=</span> <span class="n">h_ts</span> <span class="o">=</span> <span class="mf">0.2</span>
+    <span class="n">left_h</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="n">w_ts</span> <span class="o">+</span> <span class="mf">0.02</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">height</span> <span class="o">=</span> <span class="mf">0.65</span>
+    <span class="n">bottom_h</span> <span class="o">=</span> <span class="n">bottom</span> <span class="o">+</span> <span class="n">height</span> <span class="o">+</span> <span class="mf">0.02</span>
+
+    <span class="n">rect_s_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">left</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span> <span class="n">w_ts</span><span class="p">,</span> <span class="n">height</span><span class="p">]</span>
+    <span class="n">rect_gram</span> <span class="o">=</span> <span class="p">[</span><span class="n">left_h</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">]</span>
+    <span class="n">rect_s_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">left_h</span><span class="p">,</span> <span class="n">bottom_h</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">h_ts</span><span class="p">]</span>
+
+    <span class="n">ax_gram</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">rect_gram</span><span class="p">)</span>
+    <span class="n">ax_s_x</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">rect_s_x</span><span class="p">)</span>
+    <span class="n">ax_s_y</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">rect_s_y</span><span class="p">)</span>
+
+    <span class="n">ax_gram</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">path_matrix</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+    <span class="n">ax_gram</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">ax_gram</span><span class="o">.</span><span class="n">autoscale</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">ax_s_x</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">sz</span><span class="p">),</span> <span class="n">s_y2</span><span class="p">,</span> <span class="s2">&quot;b-&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">3.</span><span class="p">)</span>
+    <span class="n">ax_s_x</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">ax_s_x</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">sz</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="n">ax_s_y</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">-</span> <span class="n">s_y1</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">sz</span><span class="p">),</span> <span class="s2">&quot;b-&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">3.</span><span class="p">)</span>
+    <span class="n">ax_s_y</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">ax_s_y</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">sz</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">tslearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+
+<span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">s_x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;../data/sample_series.txt&quot;</span><span class="p">)</span>
+<span class="n">s_y1</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">s_x</span><span class="p">,</span> <span class="n">s_x</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">s_y2</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">s_x</span><span class="p">,</span> <span class="n">s_x</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">sz</span> <span class="o">=</span> <span class="n">s_y1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">gamma</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]:</span>
+    <span class="n">alignment</span><span class="p">,</span> <span class="n">sim</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">soft_dtw_alignment</span><span class="p">(</span><span class="n">s_y1</span><span class="p">,</span> <span class="n">s_y2</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">))</span>
+    <span class="n">plot_path</span><span class="p">(</span><span class="n">s_y1</span><span class="p">,</span> <span class="n">s_y2</span><span class="p">,</span> <span class="n">alignment</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">gamma=</span><span class="si">{:.1f}</span><span class="s2">$&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gamma</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/softdtw_2_0.svg" src="../../_images/softdtw_2_0.svg" /><img alt="../../_images/softdtw_2_1.svg" src="../../_images/softdtw_2_1.svg" /><img alt="../../_images/softdtw_2_2.svg" src="../../_images/softdtw_2_2.svg" /></div>
+</div>
+<p><span class="math notranslate nohighlight">\(A_\gamma\)</span> can be computed with complexity <span class="math notranslate nohighlight">\(O(mn)\)</span> and there is a link between
+this matrix and the gradients of the soft-DTW similarity measure:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-d62b68a4-a99f-4483-8929-40e67e01d5ad">
+<span class="eqno">(7)<a class="headerlink" href="#equation-d62b68a4-a99f-4483-8929-40e67e01d5ad" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+\nabla_{\mathbf{x}} \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime) =
+    \left(\frac{\partial D(\mathbf{x}, \mathbf{x}^\prime)}{\partial \mathbf{x}} \right)^T A_\gamma
+\end{equation}\]</div>
+<p>As discussed in <a class="bibtex reference internal" href="#janati2020spatio" id="id2">[JCG20]</a>, soft-DTW is not invariant to time
+shifts, as is DTW.
+Suppose <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is a time series that is constant except for a motif that
+occurs at some point in the series, and let us denote by <span class="math notranslate nohighlight">\(\mathbf{x}_{+k}\)</span> a
+copy of <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> in which the motif is temporally shifted by <span class="math notranslate nohighlight">\(k\)</span> timestamps.
+Then the quantity</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\left| \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}_{+k}) - \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}) \right|
+\end{equation*}\]</div>
+<p>grows linearly with <span class="math notranslate nohighlight">\(\gamma k^2\)</span>.
+The reason behind this sensibility to time shifts is that soft-DTW provides a
+weighted average similarity score across all alignment paths (where stronger
+weights are assigned to better paths), instead of focusing on the single best
+alignment as done in DTW.</p>
+<p>Being differentiable, soft-DTW can be used as a loss in neural networks.
+This use-case is discussed in more details in our <a class="reference internal" href="align4ml.html#sec-forecasting"><span class="std std-ref">Forecasting</span></a>
+section.</p>
+<p>Also, <strong>barycenters</strong> for the soft-DTW geometry can be estimated by
+minimization of the corresponding loss (<em>cf.</em> Equation <a class="reference internal" href="dtw.html#equation-eq-barycenter">(3)</a>)
+through gradient descent.
+In such case, the parameters to be optimized are the coordinates of the
+barycenter.
+This is illustrated in the example below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tslearn.datasets</span> <span class="kn">import</span> <span class="n">CachedDatasets</span>
+<span class="kn">from</span> <span class="nn">tslearn.preprocessing</span> <span class="kn">import</span> <span class="n">TimeSeriesScalerMinMax</span>
+<span class="kn">from</span> <span class="nn">tslearn.barycenters</span> <span class="kn">import</span> <span class="n">softdtw_barycenter</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">CachedDatasets</span><span class="p">()</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;Trace&quot;</span><span class="p">)</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">TimeSeriesScalerMinMax</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">y_train</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="nb">pow</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]):</span>
+    <span class="n">bar</span> <span class="o">=</span> <span class="n">softdtw_barycenter</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">10</span> <span class="o">**</span> <span class="nb">pow</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">gamma = 10^{</span><span class="si">%d</span><span class="s2">}$&quot;</span> <span class="o">%</span> <span class="nb">pow</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">X_train</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="s2">&quot;k-&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bar</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="s2">&quot;r-&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/softdtw_4_0.svg" src="../../_images/softdtw_4_0.svg" /></div>
+</div>
+<p>Note how large values of <span class="math notranslate nohighlight">\(\gamma\)</span> tend to smooth out the motifs from the input
+time series.
+The noisy barycenter obtained for low <span class="math notranslate nohighlight">\(\gamma\)</span> can be explained by the fact
+that low values of <span class="math notranslate nohighlight">\(\gamma\)</span> lead to a similarity measure that is
+less smooth (with the extreme case <span class="math notranslate nohighlight">\(\gamma = 0\)</span> for which DTW is retrieved and
+the function is not differentiable anymore), making the optimization problem
+harder.</p>
+<!-- **TODO: Lire et discuter le papier Blondel & Mensch** -->
+</div>
+<div class="section" id="global-alignment-kernel">
+<span id="sec-gak"></span><h2>Global Alignment Kernel<a class="headerlink" href="#global-alignment-kernel" title="Permalink to this headline">¶</a></h2>
+<p>Let us define the Global Alignment Kernel (GAK, <a class="bibtex reference internal" href="#cuturi2007kernel" id="id3">[CVBM07]</a>) as:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-00672159-a365-4c81-9986-fe6df1ea65a6">
+<span class="eqno">(8)<a class="headerlink" href="#equation-00672159-a365-4c81-9986-fe6df1ea65a6" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+k_\text{GA}^\gamma(\mathbf{x}, \mathbf{x}^\prime) =
+    \exp{- \frac{\text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)}{\gamma}}
+\end{equation}\]</div>
+<p>Though this kernel is not proved to be positive semi-definite, authors claim
+that, in practice, resulting Gram matrices happen to be psd in most of their
+experiments, hence allowing this kernel to be used in standard kernel methods,
+as discussed in the next section.</p>
+<!-- **TODO: better check** -->
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p id="bibtex-bibliography-contents/align/softdtw-0"><dl class="citation">
+<dt class="bibtex label" id="cuturi2017soft"><span class="brackets"><a class="fn-backref" href="#id1">CB17</a></span></dt>
+<dd><p>Marco Cuturi and Mathieu Blondel. Soft-DTW: a differentiable loss function for time-series. In <em>Proceedings of the International Conference on Machine Learning</em>, 894–903. JMLR. org, 2017.</p>
+</dd>
+<dt class="bibtex label" id="cuturi2007kernel"><span class="brackets"><a class="fn-backref" href="#id3">CVBM07</a></span></dt>
+<dd><p>Marco Cuturi, Jean-Philippe Vert, Oystein Birkenes, and Tomoko Matsui. A kernel for time series based on global alignments. In <em>Proceedings of the IEEE International Conference on Acoustics, Speech, and Signal Processing</em>, volume 2, II–413. IEEE, 2007.</p>
+</dd>
+<dt class="bibtex label" id="janati2020spatio"><span class="brackets"><a class="fn-backref" href="#id2">JCG20</a></span></dt>
+<dd><p>Hicham Janati, Marco Cuturi, and Alexandre Gramfort. Spatio-temporal alignments: optimal transport through space and time. In <em>Proceedings of the International Conference on Artificial Intelligence and Statistics</em>, 1695–1704. PMLR, 2020.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./contents/align"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="dtw.html" title="previous page">Dynamic Time Warping</a>
+    <a class='right-next' id="next-link" href="align4ml.html" title="next page">Alignment-based metrics in Machine Learning</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Romain Tavenard<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>
