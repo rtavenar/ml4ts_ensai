@@ -1,0 +1,18 @@
+# Table of content
+# Learn more at https://jupyterbook.org/customize/toc.html
+#
+
+- file: contents/foreword
+
+- file: contents/intro
+
+- file: contents/align/intro
+  sections:
+    - file: contents/align/dtw
+    - file: contents/align/softdtw
+    - file: contents/align/align4ml
+
+- file: contents/deep/intro
+
+- url: https://github.com/rtavenar/ml4ts_ensai/raw/master/notes.pdf
+  title: "PDF version of these notes"
