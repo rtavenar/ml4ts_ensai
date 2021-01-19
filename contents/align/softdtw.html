@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Soft-DTW and Global Alignment Kernel &#8212; Machine Learning for Time Series</title>
+    <title>Soft-DTW &#8212; Machine Learning for Time Series</title>
     
   <link rel="stylesheet" href="../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -110,7 +110,7 @@
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     Soft-DTW and Global Alignment Kernel
+     Soft-DTW
     </a>
    </li>
    <li class="toctree-l2">
@@ -234,16 +234,6 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#soft-dtw">
-   Soft-DTW
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#global-alignment-kernel">
-   Global Alignment Kernel
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#references">
    References
   </a>
@@ -259,20 +249,18 @@
         
               <div>
                 
-  <div class="section" id="soft-dtw-and-global-alignment-kernel">
-<h1>Soft-DTW and Global Alignment Kernel<a class="headerlink" href="#soft-dtw-and-global-alignment-kernel" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="soft-dtw">
+<span id="sec-softdtw"></span><h1>Soft-DTW<a class="headerlink" href="#soft-dtw" title="Permalink to this headline">¶</a></h1>
 <p>One strong limitation of Dynamic Time Warping is that it cannot be
 differentiated everywhere because of the min operator that is used throughout
 the computations.
 This limitation is especially problematic given the importance of
 gradient-based optimization in Machine Learning.</p>
-<div class="section" id="soft-dtw">
-<span id="sec-softdtw"></span><h2>Soft-DTW<a class="headerlink" href="#soft-dtw" title="Permalink to this headline">¶</a></h2>
 <p>Soft-DTW <a class="bibtex reference internal" href="#cuturi2017soft" id="id1">[CB17]</a> has been introduced as a way to mitigate this
 limitation.
 The optimization problem that is tackled is the following:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0d2dfc9e-0143-492d-95c9-d42af7b4fb65">
-<span class="eqno">(4)<a class="headerlink" href="#equation-0d2dfc9e-0143-492d-95c9-d42af7b4fb65" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-afb98423-cdda-4894-b823-3d5898f49476">
+<span class="eqno">(4)<a class="headerlink" href="#equation-afb98423-cdda-4894-b823-3d5898f49476" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime) =
     \min_{\pi \in \mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)}{}^\gamma
         \sum_{(i, j) \in \pi} d(x_i, x^\prime_j)^2
@@ -283,8 +271,8 @@ factor <span class="math notranslate nohighlight">\(\gamma\)</span>.</p>
 <div class="admonition-a-note-on-soft-min admonition">
 <p class="admonition-title">A note on soft-min</p>
 <p>The soft-min operator <span class="math notranslate nohighlight">\(\min{}^\gamma\)</span> is defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0b61c803-e500-4809-8c6c-86ea2d6e6a84">
-<span class="eqno">(5)<a class="headerlink" href="#equation-0b61c803-e500-4809-8c6c-86ea2d6e6a84" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-49e01c83-0f6b-460e-abb7-8a4c71a05fa9">
+<span class="eqno">(5)<a class="headerlink" href="#equation-49e01c83-0f6b-460e-abb7-8a4c71a05fa9" title="Permalink to this equation">¶</a></span>\[\begin{equation}
     \min{}^\gamma(a_1, \dots, a_n) = - \gamma \log \sum_i e^{-a_i / \gamma}
 \end{equation}\]</div>
 <p>Note that when gamma tends to <span class="math notranslate nohighlight">\(0^+\)</span>, the term corresponding to the lower <span class="math notranslate nohighlight">\(a_i\)</span>
@@ -307,8 +295,8 @@ DTW_q(\mathbf{x}, \mathbf{x}^\prime) =
 <p>Typically, when <span class="math notranslate nohighlight">\(\gamma\)</span> tends to 0, <span class="math notranslate nohighlight">\(DTW(\mathbf{x}, \mathbf{x}^\prime)^2\)</span> is
 retrieved.
 For strictly positive values of <span class="math notranslate nohighlight">\(\gamma\)</span>, the soft-DTW can be re-written</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d47b3b77-6d6f-40bc-b2b4-791855e20eb9">
-<span class="eqno">(6)<a class="headerlink" href="#equation-d47b3b77-6d6f-40bc-b2b4-791855e20eb9" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-80d7a71b-7796-44be-8567-6207fae58cef">
+<span class="eqno">(6)<a class="headerlink" href="#equation-80d7a71b-7796-44be-8567-6207fae58cef" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime) =
     \langle A_\gamma , D(\mathbf{x}, \mathbf{x}^\prime) \rangle
 \label{eq:softdtw:dot}
@@ -400,8 +388,8 @@ how much it will be taken into account in the matching.</p>
 </div>
 <p><span class="math notranslate nohighlight">\(A_\gamma\)</span> can be computed with complexity <span class="math notranslate nohighlight">\(O(mn)\)</span> and there is a link between
 this matrix and the gradients of the soft-DTW similarity measure:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d62b68a4-a99f-4483-8929-40e67e01d5ad">
-<span class="eqno">(7)<a class="headerlink" href="#equation-d62b68a4-a99f-4483-8929-40e67e01d5ad" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-5f0ba255-6253-4858-8d73-fa4495df76eb">
+<span class="eqno">(7)<a class="headerlink" href="#equation-5f0ba255-6253-4858-8d73-fa4495df76eb" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \nabla_{\mathbf{x}} \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime) =
     \left(\frac{\partial D(\mathbf{x}, \mathbf{x}^\prime)}{\partial \mathbf{x}} \right)^T A_\gamma
 \end{equation}\]</div>
@@ -464,29 +452,11 @@ less smooth (with the extreme case <span class="math notranslate nohighlight">\(
 the function is not differentiable anymore), making the optimization problem
 harder.</p>
 <!-- **TODO: Lire et discuter le papier Blondel & Mensch** -->
-</div>
-<div class="section" id="global-alignment-kernel">
-<span id="sec-gak"></span><h2>Global Alignment Kernel<a class="headerlink" href="#global-alignment-kernel" title="Permalink to this headline">¶</a></h2>
-<p>Let us define the Global Alignment Kernel (GAK, <a class="bibtex reference internal" href="#cuturi2007kernel" id="id3">[CVBM07]</a>) as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-00672159-a365-4c81-9986-fe6df1ea65a6">
-<span class="eqno">(8)<a class="headerlink" href="#equation-00672159-a365-4c81-9986-fe6df1ea65a6" title="Permalink to this equation">¶</a></span>\[\begin{equation}
-k_\text{GA}^\gamma(\mathbf{x}, \mathbf{x}^\prime) =
-    \exp{- \frac{\text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)}{\gamma}}
-\end{equation}\]</div>
-<p>Though this kernel is not proved to be positive semi-definite, authors claim
-that, in practice, resulting Gram matrices happen to be psd in most of their
-experiments, hence allowing this kernel to be used in standard kernel methods,
-as discussed in the next section.</p>
-<!-- **TODO: better check** -->
-</div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <p id="bibtex-bibliography-contents/align/softdtw-0"><dl class="citation">
 <dt class="bibtex label" id="cuturi2017soft"><span class="brackets"><a class="fn-backref" href="#id1">CB17</a></span></dt>
 <dd><p>Marco Cuturi and Mathieu Blondel. Soft-DTW: a differentiable loss function for time-series. In <em>Proceedings of the International Conference on Machine Learning</em>, 894–903. JMLR. org, 2017.</p>
-</dd>
-<dt class="bibtex label" id="cuturi2007kernel"><span class="brackets"><a class="fn-backref" href="#id3">CVBM07</a></span></dt>
-<dd><p>Marco Cuturi, Jean-Philippe Vert, Oystein Birkenes, and Tomoko Matsui. A kernel for time series based on global alignments. In <em>Proceedings of the IEEE International Conference on Acoustics, Speech, and Signal Processing</em>, volume 2, II–413. IEEE, 2007.</p>
 </dd>
 <dt class="bibtex label" id="janati2020spatio"><span class="brackets"><a class="fn-backref" href="#id2">JCG20</a></span></dt>
 <dd><p>Hicham Janati, Marco Cuturi, and Alexandre Gramfort. Spatio-temporal alignments: optimal transport through space and time. In <em>Proceedings of the International Conference on Artificial Intelligence and Statistics</em>, 1695–1704. PMLR, 2020.</p>

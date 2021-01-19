@@ -20,22 +20,58 @@ nbclient.exceptions.CellExecutionError: An error occurred while executing the fo
 plt.figure()
 
 n = 30
-positions = np.arange(n) / n
-mat = (positions.reshape((-1, 1)) - positions.reshape((1, -1))) ** 2
+positions = numpy.arange(n) / n
+#      ↓ column vector of positions   ↓ row vector of positions
+mat = (positions.reshape((-1, 1))   - positions.reshape((1, -1))) ** 2
 
-plt.grid("off")
-plt.imshow(mat);
+plt.xticks([])
+plt.yticks([])
+plt.imshow(mat)
+plt.colorbar(vmin=0., vmax=1.);
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mNameError[0m                                 Traceback (most recent call last)
-[0;32m<ipython-input-4-5149ddb6c5e8>[0m in [0;36m<module>[0;34m[0m
-[1;32m      2[0m [0;34m[0m[0m
-[1;32m      3[0m [0mn[0m [0;34m=[0m [0;36m30[0m[0;34m[0m[0;34m[0m[0m
-[0;32m----> 4[0;31m [0mpositions[0m [0;34m=[0m [0mnp[0m[0;34m.[0m[0marange[0m[0;34m([0m[0mn[0m[0;34m)[0m [0;34m/[0m [0mn[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m      5[0m [0mmat[0m [0;34m=[0m [0;34m([0m[0mpositions[0m[0;34m.[0m[0mreshape[0m[0;34m([0m[0;34m([0m[0;34m-[0m[0;36m1[0m[0;34m,[0m [0;36m1[0m[0;34m)[0m[0;34m)[0m [0;34m-[0m [0mpositions[0m[0;34m.[0m[0mreshape[0m[0;34m([0m[0;34m([0m[0;36m1[0m[0;34m,[0m [0;34m-[0m[0;36m1[0m[0;34m)[0m[0;34m)[0m[0;34m)[0m [0;34m**[0m [0;36m2[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      6[0m [0;34m[0m[0m
+[0;31mTypeError[0m                                 Traceback (most recent call last)
+[0;32m<ipython-input-4-2f9e3f2f42be>[0m in [0;36m<module>[0;34m[0m
+[1;32m      9[0m [0mplt[0m[0;34m.[0m[0myticks[0m[0;34m([0m[0;34m[[0m[0;34m][0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     10[0m [0mplt[0m[0;34m.[0m[0mimshow[0m[0;34m([0m[0mmat[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 11[0;31m [0mplt[0m[0;34m.[0m[0mcolorbar[0m[0;34m([0m[0mvmin[0m[0;34m=[0m[0;36m0.[0m[0;34m,[0m [0mvmax[0m[0;34m=[0m[0;36m1.[0m[0;34m)[0m[0;34m;[0m[0;34m[0m[0;34m[0m[0m
+[0m
+[0;32m~/py38_data/lib/python3.8/site-packages/matplotlib/pyplot.py[0m in [0;36mcolorbar[0;34m(mappable, cax, ax, **kw)[0m
+[1;32m   2192[0m     [0;32mif[0m [0max[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   2193[0m         [0max[0m [0;34m=[0m [0mgca[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 2194[0;31m     [0mret[0m [0;34m=[0m [0mgcf[0m[0;34m([0m[0;34m)[0m[0;34m.[0m[0mcolorbar[0m[0;34m([0m[0mmappable[0m[0;34m,[0m [0mcax[0m[0;34m=[0m[0mcax[0m[0;34m,[0m [0max[0m[0;34m=[0m[0max[0m[0;34m,[0m [0;34m**[0m[0mkw[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   2195[0m     [0;32mreturn[0m [0mret[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   2196[0m [0mcolorbar[0m[0;34m.[0m[0m__doc__[0m [0;34m=[0m [0mmatplotlib[0m[0;34m.[0m[0mcolorbar[0m[0;34m.[0m[0mcolorbar_doc[0m[0;34m[0m[0;34m[0m[0m
 
-[0;31mNameError[0m: name 'np' is not defined
-NameError: name 'np' is not defined
+[0;32m~/py38_data/lib/python3.8/site-packages/matplotlib/figure.py[0m in [0;36mcolorbar[0;34m(self, mappable, cax, ax, use_gridspec, **kw)[0m
+[1;32m   2341[0m                              'panchor']
+[1;32m   2342[0m         [0mcb_kw[0m [0;34m=[0m [0;34m{[0m[0mk[0m[0;34m:[0m [0mv[0m [0;32mfor[0m [0mk[0m[0;34m,[0m [0mv[0m [0;32min[0m [0mkw[0m[0;34m.[0m[0mitems[0m[0;34m([0m[0;34m)[0m [0;32mif[0m [0mk[0m [0;32mnot[0m [0;32min[0m [0mNON_COLORBAR_KEYS[0m[0;34m}[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 2343[0;31m         [0mcb[0m [0;34m=[0m [0mcbar[0m[0;34m.[0m[0mcolorbar_factory[0m[0;34m([0m[0mcax[0m[0;34m,[0m [0mmappable[0m[0;34m,[0m [0;34m**[0m[0mcb_kw[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   2344[0m [0;34m[0m[0m
+[1;32m   2345[0m         [0mself[0m[0;34m.[0m[0msca[0m[0;34m([0m[0mcurrent_ax[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/py38_data/lib/python3.8/site-packages/matplotlib/colorbar.py[0m in [0;36mcolorbar_factory[0;34m(cax, mappable, **kwargs)[0m
+[1;32m   1732[0m         [0mcb[0m [0;34m=[0m [0mColorbarPatch[0m[0;34m([0m[0mcax[0m[0;34m,[0m [0mmappable[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1733[0m     [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1734[0;31m         [0mcb[0m [0;34m=[0m [0mColorbar[0m[0;34m([0m[0mcax[0m[0;34m,[0m [0mmappable[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1735[0m [0;34m[0m[0m
+[1;32m   1736[0m     [0mcid[0m [0;34m=[0m [0mmappable[0m[0;34m.[0m[0mcallbacksSM[0m[0;34m.[0m[0mconnect[0m[0;34m([0m[0;34m'changed'[0m[0;34m,[0m [0mcb[0m[0;34m.[0m[0mupdate_normal[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/py38_data/lib/python3.8/site-packages/matplotlib/colorbar.py[0m in [0;36m__init__[0;34m(self, ax, mappable, **kwargs)[0m
+[1;32m   1226[0m             [0;32mif[0m [0misinstance[0m[0;34m([0m[0mmappable[0m[0;34m,[0m [0mmartist[0m[0;34m.[0m[0mArtist[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1227[0m                 [0m_add_disjoint_kwargs[0m[0;34m([0m[0mkwargs[0m[0;34m,[0m [0malpha[0m[0;34m=[0m[0mmappable[0m[0;34m.[0m[0mget_alpha[0m[0;34m([0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1228[0;31m             [0mColorbarBase[0m[0;34m.[0m[0m__init__[0m[0;34m([0m[0mself[0m[0;34m,[0m [0max[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1229[0m [0;34m[0m[0m
+[1;32m   1230[0m     [0;34m@[0m[0mcbook[0m[0;34m.[0m[0mdeprecated[0m[0;34m([0m[0;34m"3.3"[0m[0;34m,[0m [0malternative[0m[0;34m=[0m[0;34m"update_normal"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/py38_data/lib/python3.8/site-packages/matplotlib/cbook/deprecation.py[0m in [0;36mwrapper[0;34m(*args, **kwargs)[0m
+[1;32m    449[0m                 [0;34m"parameter will become keyword-only %(removal)s."[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    450[0m                 name=name, obj_type=f"parameter of {func.__name__}()")
+[0;32m--> 451[0;31m         [0;32mreturn[0m [0mfunc[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    452[0m [0;34m[0m[0m
+[1;32m    453[0m     [0;32mreturn[0m [0mwrapper[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mTypeError[0m: __init__() got an unexpected keyword argument 'vmin'
+TypeError: __init__() got an unexpected keyword argument 'vmin'
 

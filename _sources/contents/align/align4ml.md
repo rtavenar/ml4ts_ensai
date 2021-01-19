@@ -19,8 +19,20 @@ metrics at the core of Machine Learning (ML) systems is key.
 
 ## Classification
 
+### Nearest neighbors
+
 First, the similarity measures presented in this chapter can be used in
 conjunction with nearest-neighbor classifiers.
+To do so, it suffices to compute DTW (or any other time-series-specific)
+between a test time series $\mathbf{x}$ and all the series from the training
+set, and then assign a label to $\mathbf{x}$ based on a voting strategy.
+
+Note however that nearest neighbor searches in standard euclidean spaces are
+usually fastened by smart indexing strategy that are no longer available when
+using DTW in place of Euclidean distance.
+A typical example is the use of triangular inequality to prune the set of
+candidate neighbors (recall that DTW does not satisfy the triangular
+inequality).
 
 ````{admonition} tslearn tip
 :class: tip, dropdown
@@ -36,9 +48,23 @@ predicted_labels = knn_clf.predict(X_test)
 
 ````
 
-Also, the [Global Alignment Kernel](sec:gak) can be used at the core of Support
+(sec:gak)=
+### Global Alignment Kernel
+
+Let us define the Global Alignment Kernel (GAK, {cite}`cuturi2007kernel`) as:
+
+\begin{equation}
+k_\text{GA}^\gamma(\mathbf{x}, \mathbf{x}^\prime) =
+    \exp{- \frac{\text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)}{\gamma}}
+\end{equation}
+
+Though this kernel is not proved to be positive semi-definite, authors claim
+that, in practice, resulting Gram matrices happen to be psd in most of their
+experiments, hence allowing this kernel to be used in standard kernel methods,
+as discussed in the next section.
+One typical use-case consists in using this kernel in Support
 Vector Machines for classification.
-When doing so, support vectors are hence time series, as shown below:
+When doing so, resulting support vectors are hence time series, as shown below:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -208,8 +234,12 @@ An alternative differentiable loss (DILATE) is introduced in
 de-synchronized alignments.
 This is done by introducing an additional penalty to the loss to be optimized,
 which is the dot product between a "soft-mask matrix" $\Omega$
-(that favors diagonal matches) and the computed soft path matrix
-$A_\gamma$.
+and the computed soft path matrix $A_\gamma$, which tends to favor diagonal
+matches :
+
+\begin{equation}
+\mathcal{L}_\text{reg} = \mathcal{L}_\text{soft-DTW} + \langle \Omega , A_\gamma \rangle .
+\end{equation}
 
 The $\Omega$ matrix typically looks like:
 
@@ -224,7 +254,8 @@ mat = (positions.reshape((-1, 1))   - positions.reshape((1, -1))) ** 2
 
 plt.xticks([])
 plt.yticks([])
-plt.imshow(mat);
+plt.imshow(mat)
+plt.colorbar();
 ```
 
 As a result, the DILATE method allows to both better model shape matching than

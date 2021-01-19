@@ -12,16 +12,14 @@ kernelspec:
   name: python3
 ---
 
-# Soft-DTW and Global Alignment Kernel
+(sec:softdtw)=
+# Soft-DTW
 
 One strong limitation of Dynamic Time Warping is that it cannot be
 differentiated everywhere because of the min operator that is used throughout
 the computations.
 This limitation is especially problematic given the importance of
 gradient-based optimization in Machine Learning.
-
-(sec:softdtw)=
-## Soft-DTW
 
 Soft-DTW {cite}`cuturi2017soft` has been introduced as a way to mitigate this
 limitation.
@@ -222,22 +220,6 @@ harder.
 
 <!-- **TODO: Lire et discuter le papier Blondel & Mensch** -->
 
-(sec:gak)=
-## Global Alignment Kernel
-
-Let us define the Global Alignment Kernel (GAK, {cite}`cuturi2007kernel`) as:
-
-\begin{equation}
-k_\text{GA}^\gamma(\mathbf{x}, \mathbf{x}^\prime) =
-    \exp{- \frac{\text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)}{\gamma}}
-\end{equation}
-
-Though this kernel is not proved to be positive semi-definite, authors claim
-that, in practice, resulting Gram matrices happen to be psd in most of their
-experiments, hence allowing this kernel to be used in standard kernel methods,
-as discussed in the next section.
-
-<!-- **TODO: better check** -->
 
 ## References
 
