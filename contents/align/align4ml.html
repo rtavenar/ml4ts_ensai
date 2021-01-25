@@ -295,7 +295,7 @@ To do so, it suffices to compute DTW (or any other time-series-specific)
 between a test time series <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and all the series from the training
 set, and then assign a label to <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> based on a voting strategy.</p>
 <p>Note however that nearest neighbor searches in standard euclidean spaces are
-usually fastened by smart indexing strategy that are no longer available when
+usually fastened by smart indexing strategies that are no longer available when
 using DTW in place of Euclidean distance.
 A typical example is the use of triangular inequality to prune the set of
 candidate neighbors (recall that DTW does not satisfy the triangular
@@ -314,8 +314,8 @@ the code is as follows:</p>
 <div class="section" id="global-alignment-kernel">
 <span id="sec-gak"></span><h3>Global Alignment Kernel<a class="headerlink" href="#global-alignment-kernel" title="Permalink to this headline">¶</a></h3>
 <p>Let us define the Global Alignment Kernel (GAK, <a class="bibtex reference internal" href="#cuturi2007kernel" id="id1">[CVBM07]</a>) as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8a7f7de4-b2e4-4520-8782-67228fb38050">
-<span class="eqno">(8)<a class="headerlink" href="#equation-8a7f7de4-b2e4-4520-8782-67228fb38050" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-24ae4dee-e2c1-4ee7-ab0e-ae51d7acf04f">
+<span class="eqno">(10)<a class="headerlink" href="#equation-24ae4dee-e2c1-4ee7-ab0e-ae51d7acf04f" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 k_\text{GA}^\gamma(\mathbf{x}, \mathbf{x}^\prime) =
     \exp{- \frac{\text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)}{\gamma}}
 \end{equation}\]</div>
@@ -485,8 +485,8 @@ This is done by introducing an additional penalty to the loss to be optimized,
 which is the dot product between a “soft-mask matrix” <span class="math notranslate nohighlight">\(\Omega\)</span>
 and the computed soft path matrix <span class="math notranslate nohighlight">\(A_\gamma\)</span>, which tends to favor diagonal
 matches :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e17c3c05-190f-4c7d-8cf6-76bca2bca0fd">
-<span class="eqno">(9)<a class="headerlink" href="#equation-e17c3c05-190f-4c7d-8cf6-76bca2bca0fd" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-cb5587f6-f543-4783-b0f8-33f3e661032f">
+<span class="eqno">(11)<a class="headerlink" href="#equation-cb5587f6-f543-4783-b0f8-33f3e661032f" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \mathcal{L}_\text{reg} = \mathcal{L}_\text{soft-DTW} + \langle \Omega , A_\gamma \rangle .
 \end{equation}\]</div>
 <p>The <span class="math notranslate nohighlight">\(\Omega\)</span> matrix typically looks like:</p>

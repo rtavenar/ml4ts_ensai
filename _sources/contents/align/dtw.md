@@ -162,30 +162,43 @@ problem (assuming computation of $d(\cdot,\cdot)$ is $O(1)$):
 
 ```python
 def dtw(x, x_prime, q=2):
-  for i in range(n):
-    for j in range(m):
+  for i in 1..n:
+    for j in 1..m:
       dist = d(x[i], x_prime[j]) ** q
-      if i == 0 and j == 0:
-        C[i, j] = dist
+      if i == 1 and j == 1:
+        gamma[i, j] = dist
       else:
-        C[i, j] = dist + min(C[i-1, j] if i > 0
-                                       else inf,
-                             C[i, j-1] if j > 0
-                                       else inf,
-                             C[i-1, j-1] if (i > 0 and j > 0)
-                                         else inf)
+        gamma[i, j] = dist + min(gamma[i-1, j] if i > 1
+                                               else inf,
+                                 gamma[i, j-1] if j > 1
+                                               else inf,
+                                 gamma[i-1, j-1] if (i > 1 and j > 1)
+                                                 else inf)
 
-  return (C[n-1, m-1]) ** (1. / q)
+  return (gamma[n, m]) ** (1. / q)
 ```
 
 The basic idea behind this algorithm is that there exists a recurrence relationship between partial DTW computations.
-More precisely, if we denote by $C_{i,j}$ the $DTW_q$ (at power $q$) similarity between sequences $\mathbf{x}_{\rightarrow i}$ and $\mathbf{x}^\prime_{\rightarrow j}$ (where the notation $\mathbf{x}_{\rightarrow i}$ denotes sequence $\mathbf{x}$ observed up to time $i$), then we have:
+More precisely, if we denote by $\gamma_{i,j}$ the $DTW_q$ (at power $q$) similarity between sequences $\mathbf{x}_{\rightarrow i}$ and $\mathbf{x}^\prime_{\rightarrow j}$ (where the notation $\mathbf{x}_{\rightarrow i}$ denotes sequence $\mathbf{x}$ observed up to time $i$), then we have:
 
-\begin{equation}
-  C_{i, j} = d(x_i, x^\prime_j)^q + \min (C_{i-1, j}, C_{i, j-1}, C_{i-1, j-1})
-\end{equation}
+\begin{eqnarray}
 
-and $DTW_q(\mathbf{x}, \mathbf{x}^\prime)$ is then $(C_{n-1, m-1})^{\frac{1}{q}}$.
+\gamma_{i,j} &=& DTW_q(\mathbf{x}_{\rightarrow i}, \mathbf{x}^\prime_{\rightarrow j})^q \\
+&=&
+    \min_{\pi \in \mathcal{A}(\mathbf{x}_{\rightarrow i}, \mathbf{x}^\prime_{\rightarrow j})}
+        \sum_{(k, l) \in \pi} d(x_k, x^\prime_l)^q \\
+&\stackrel{*}{=}& d(x_i, x^\prime_j)^q +
+    \min_{\pi \in \mathcal{A}(\mathbf{x}_{\rightarrow i}, \mathbf{x}^\prime_{\rightarrow j})}
+        \sum_{(k, l) \in \pi[:-1]} d(x_k, x^\prime_l)^q \\
+&\stackrel{**}{=}& d(x_i, x^\prime_j)^q +
+    \min (\gamma_{i-1, j}, \gamma_{i, j-1}, \gamma_{i-1, j-1})
+\end{eqnarray}
+
+and $DTW_q(\mathbf{x}, \mathbf{x}^\prime)$ is then $(\gamma_{n, m})^{\frac{1}{q}}$.
+In more details:
+* $(*)$ comes from the constraints on admissible paths $\pi$: the last element on an admissible path needs to match the last elements of the series;
+* $(**)$ comes from the contiguity conditions on the admissible paths: all admissible paths that match $x_i$ with $x^\prime_j$ need to go through one of these 3 possible ancestors: $(i-1, j)$, $(i, j-1)$ or $(i-1, j-1)$.
+
 The dynamic programming algorithm presented above relies on this recurrence formula and stores intermediate computations for efficiency.
 
 

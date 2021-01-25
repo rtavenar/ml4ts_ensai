@@ -56,7 +56,7 @@
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Soft-DTW and Global Alignment Kernel" href="softdtw.html" />
+    <link rel="next" title="Soft-DTW" href="softdtw.html" />
     <link rel="prev" title="Alignment-based metrics" href="intro.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -110,7 +110,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="softdtw.html">
-     Soft-DTW and Global Alignment Kernel
+     Soft-DTW
     </a>
    </li>
    <li class="toctree-l2">
@@ -306,8 +306,8 @@ sequence of <span class="math notranslate nohighlight">\(K\)</span> index pairs
 <span class="math notranslate nohighlight">\(\left((i_0, j_0), \dots , (i_{K-1}, j_{K-1})\right)\)</span>.</p>
 <p>DTW between <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}^\prime\)</span> is formulated as the following
 optimization problem:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5df2087c-fea1-4c86-9f0b-c5a42e66a40a">
-<span class="eqno">(1)<a class="headerlink" href="#equation-5df2087c-fea1-4c86-9f0b-c5a42e66a40a" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-dd458a3b-fd28-42e3-badb-bff5af85f412">
+<span class="eqno">(1)<a class="headerlink" href="#equation-dd458a3b-fd28-42e3-badb-bff5af85f412" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 DTW_q(\mathbf{x}, \mathbf{x}^\prime) =
     \min_{\pi \in \mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)}
         \left( \sum_{(i, j) \in \pi} d(x_i, x^\prime_j)^q \right)^{\frac{1}{q}}
@@ -420,30 +420,44 @@ values.</p>
 <p>There exists an <span class="math notranslate nohighlight">\(O(mn)\)</span> algorithm to compute the exact optimum for this
 problem (assuming computation of <span class="math notranslate nohighlight">\(d(\cdot,\cdot)\)</span> is <span class="math notranslate nohighlight">\(O(1)\)</span>):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dtw</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_prime</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
-  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="mf">1.</span><span class="o">.</span><span class="n">n</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="mf">1.</span><span class="o">.</span><span class="n">m</span><span class="p">:</span>
       <span class="n">dist</span> <span class="o">=</span> <span class="n">d</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">x_prime</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">**</span> <span class="n">q</span>
-      <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist</span>
+      <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">gamma</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist</span>
       <span class="k">else</span><span class="p">:</span>
-        <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist</span> <span class="o">+</span> <span class="nb">min</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span>
-                                       <span class="k">else</span> <span class="n">inf</span><span class="p">,</span>
-                             <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span>
-                                       <span class="k">else</span> <span class="n">inf</span><span class="p">,</span>
-                             <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
-                                         <span class="k">else</span> <span class="n">inf</span><span class="p">)</span>
+        <span class="n">gamma</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist</span> <span class="o">+</span> <span class="nb">min</span><span class="p">(</span><span class="n">gamma</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span>
+                                               <span class="k">else</span> <span class="n">inf</span><span class="p">,</span>
+                                 <span class="n">gamma</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="mi">1</span>
+                                               <span class="k">else</span> <span class="n">inf</span><span class="p">,</span>
+                                 <span class="n">gamma</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+                                                 <span class="k">else</span> <span class="n">inf</span><span class="p">)</span>
 
-  <span class="k">return</span> <span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">q</span><span class="p">)</span>
+  <span class="k">return</span> <span class="p">(</span><span class="n">gamma</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">])</span> <span class="o">**</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">q</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The basic idea behind this algorithm is that there exists a recurrence relationship between partial DTW computations.
-More precisely, if we denote by <span class="math notranslate nohighlight">\(C_{i,j}\)</span> the <span class="math notranslate nohighlight">\(DTW_q\)</span> (at power <span class="math notranslate nohighlight">\(q\)</span>) similarity between sequences <span class="math notranslate nohighlight">\(\mathbf{x}_{\rightarrow i}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}^\prime_{\rightarrow j}\)</span> (where the notation <span class="math notranslate nohighlight">\(\mathbf{x}_{\rightarrow i}\)</span> denotes sequence <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> observed up to time <span class="math notranslate nohighlight">\(i\)</span>), then we have:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-930d8ef2-9f54-479a-8599-1399cf72bd4b">
-<span class="eqno">(2)<a class="headerlink" href="#equation-930d8ef2-9f54-479a-8599-1399cf72bd4b" title="Permalink to this equation">¶</a></span>\[\begin{equation}
-  C_{i, j} = d(x_i, x^\prime_j)^q + \min (C_{i-1, j}, C_{i, j-1}, C_{i-1, j-1})
-\end{equation}\]</div>
-<p>and <span class="math notranslate nohighlight">\(DTW_q(\mathbf{x}, \mathbf{x}^\prime)\)</span> is then <span class="math notranslate nohighlight">\((C_{n-1, m-1})^{\frac{1}{q}}\)</span>.
-The dynamic programming algorithm presented above relies on this recurrence formula and stores intermediate computations for efficiency.</p>
+More precisely, if we denote by <span class="math notranslate nohighlight">\(\gamma_{i,j}\)</span> the <span class="math notranslate nohighlight">\(DTW_q\)</span> (at power <span class="math notranslate nohighlight">\(q\)</span>) similarity between sequences <span class="math notranslate nohighlight">\(\mathbf{x}_{\rightarrow i}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}^\prime_{\rightarrow j}\)</span> (where the notation <span class="math notranslate nohighlight">\(\mathbf{x}_{\rightarrow i}\)</span> denotes sequence <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> observed up to time <span class="math notranslate nohighlight">\(i\)</span>), then we have:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-14cfad6f-80ac-4309-baea-79037b556281">
+<span class="eqno">(2)<a class="headerlink" href="#equation-14cfad6f-80ac-4309-baea-79037b556281" title="Permalink to this equation">¶</a></span>\[\begin{eqnarray}
+
+\gamma_{i,j} &amp;=&amp; DTW_q(\mathbf{x}_{\rightarrow i}, \mathbf{x}^\prime_{\rightarrow j})^q \\
+&amp;=&amp;
+    \min_{\pi \in \mathcal{A}(\mathbf{x}_{\rightarrow i}, \mathbf{x}^\prime_{\rightarrow j})}
+        \sum_{(k, l) \in \pi} d(x_k, x^\prime_l)^q \\
+&amp;\stackrel{*}{=}&amp; d(x_i, x^\prime_j)^q +
+    \min_{\pi \in \mathcal{A}(\mathbf{x}_{\rightarrow i}, \mathbf{x}^\prime_{\rightarrow j})}
+        \sum_{(k, l) \in \pi[:-1]} d(x_k, x^\prime_l)^q \\
+&amp;\stackrel{**}{=}&amp; d(x_i, x^\prime_j)^q +
+    \min (\gamma_{i-1, j}, \gamma_{i, j-1}, \gamma_{i-1, j-1})
+\end{eqnarray}\]</div>
+<p>and <span class="math notranslate nohighlight">\(DTW_q(\mathbf{x}, \mathbf{x}^\prime)\)</span> is then <span class="math notranslate nohighlight">\((\gamma_{n, m})^{\frac{1}{q}}\)</span>.
+In more details:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\((*)\)</span> comes from the constraints on admissible paths <span class="math notranslate nohighlight">\(\pi\)</span>: the last element on an admissible path needs to match the last elements of the series;</p></li>
+<li><p><span class="math notranslate nohighlight">\((**)\)</span> comes from the contiguity conditions on the admissible paths: all admissible paths that match <span class="math notranslate nohighlight">\(x_i\)</span> with <span class="math notranslate nohighlight">\(x^\prime_j\)</span> need to go through one of these 3 possible ancestors: <span class="math notranslate nohighlight">\((i-1, j)\)</span>, <span class="math notranslate nohighlight">\((i, j-1)\)</span> or <span class="math notranslate nohighlight">\((i-1, j-1)\)</span>.</p></li>
+</ul>
+<p>The dynamic programming algorithm presented above relies on this recurrence formula and stores intermediate computations for efficiency.</p>
 </div>
 <div class="section" id="properties">
 <h2>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h2>
@@ -1093,42 +1107,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imge5422177946d4c6badedccb43b61d67b">
+  <img id="_anim_img345024a1b8294b5ca5e325031af9df18">
   <div class="anim-controls">
-    <input id="_anim_slidere5422177946d4c6badedccb43b61d67b" type="range" class="anim-slider"
+    <input id="_anim_slider345024a1b8294b5ca5e325031af9df18" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anime5422177946d4c6badedccb43b61d67b.set_frame(parseInt(this.value));"></input>
+           oninput="anim345024a1b8294b5ca5e325031af9df18.set_frame(parseInt(this.value));"></input>
     <div class="anim-buttons">
-      <button title="Decrease speed" onclick="anime5422177946d4c6badedccb43b61d67b.slower()">
+      <button title="Decrease speed" onclick="anim345024a1b8294b5ca5e325031af9df18.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" onclick="anime5422177946d4c6badedccb43b61d67b.first_frame()">
+      <button title="First frame" onclick="anim345024a1b8294b5ca5e325031af9df18.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" onclick="anime5422177946d4c6badedccb43b61d67b.previous_frame()">
+      <button title="Previous frame" onclick="anim345024a1b8294b5ca5e325031af9df18.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" onclick="anime5422177946d4c6badedccb43b61d67b.reverse_animation()">
+      <button title="Play backwards" onclick="anim345024a1b8294b5ca5e325031af9df18.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" onclick="anime5422177946d4c6badedccb43b61d67b.pause_animation()">
+      <button title="Pause" onclick="anim345024a1b8294b5ca5e325031af9df18.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" onclick="anime5422177946d4c6badedccb43b61d67b.play_animation()">
+      <button title="Play" onclick="anim345024a1b8294b5ca5e325031af9df18.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" onclick="anime5422177946d4c6badedccb43b61d67b.next_frame()">
+      <button title="Next frame" onclick="anim345024a1b8294b5ca5e325031af9df18.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" onclick="anime5422177946d4c6badedccb43b61d67b.last_frame()">
+      <button title="Last frame" onclick="anim345024a1b8294b5ca5e325031af9df18.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" onclick="anime5422177946d4c6badedccb43b61d67b.faster()">
+      <button title="Increase speed" onclick="anim345024a1b8294b5ca5e325031af9df18.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" action="#n" name="_anim_loop_selecte5422177946d4c6badedccb43b61d67b"
+    <form title="Repetition mode" action="#n" name="_anim_loop_select345024a1b8294b5ca5e325031af9df18"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_e5422177946d4c6badedccb43b61d67b"
+      <input type="radio" name="state" value="once" id="_anim_radio1_345024a1b8294b5ca5e325031af9df18"
              >
-      <label for="_anim_radio1_e5422177946d4c6badedccb43b61d67b">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_e5422177946d4c6badedccb43b61d67b"
+      <label for="_anim_radio1_345024a1b8294b5ca5e325031af9df18">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_345024a1b8294b5ca5e325031af9df18"
              checked>
-      <label for="_anim_radio2_e5422177946d4c6badedccb43b61d67b">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_e5422177946d4c6badedccb43b61d67b"
+      <label for="_anim_radio2_345024a1b8294b5ca5e325031af9df18">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_345024a1b8294b5ca5e325031af9df18"
              >
-      <label for="_anim_radio3_e5422177946d4c6badedccb43b61d67b">Reflect</label>
+      <label for="_anim_radio3_345024a1b8294b5ca5e325031af9df18">Reflect</label>
     </form>
   </div>
 </div>
@@ -1138,9 +1152,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imge5422177946d4c6badedccb43b61d67b";
-    var slider_id = "_anim_slidere5422177946d4c6badedccb43b61d67b";
-    var loop_select_id = "_anim_loop_selecte5422177946d4c6badedccb43b61d67b";
+    var img_id = "_anim_img345024a1b8294b5ca5e325031af9df18";
+    var slider_id = "_anim_slider345024a1b8294b5ca5e325031af9df18";
+    var loop_select_id = "_anim_loop_select345024a1b8294b5ca5e325031af9df18";
     var frames = new Array(10);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -10211,7 +10225,7 @@ R7KlQfv0AAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anime5422177946d4c6badedccb43b61d67b = new Animation(frames, img_id, slider_id, 200.0,
+        anim345024a1b8294b5ca5e325031af9df18 = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -10292,7 +10306,7 @@ self-similarity matrices <a class="bibtex reference internal" href="#cohen2020al
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="intro.html" title="previous page">Alignment-based metrics</a>
-    <a class='right-next' id="next-link" href="softdtw.html" title="next page">Soft-DTW and Global Alignment Kernel</a>
+    <a class='right-next' id="next-link" href="softdtw.html" title="next page">Soft-DTW</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

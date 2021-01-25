@@ -77,6 +77,26 @@ distances $d(x_i, x^\prime_j)^2$
 and $A_\gamma$ is a "soft path" matrix that informs, for each pair $(i, j)$,
 how much it will be taken into account in the matching.
 
+$A_\gamma$ can be interpreted as a weighted average of paths in
+$\mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)$:
+
+\begin{eqnarray}
+A_\gamma =& \, \mathbb{E}_{\gamma}[A] \\
+=& \, \frac{1}{k_{\mathrm{GA}}^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)} \sum_{\pi \in \mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)} e^{-\langle A_\pi, D_2(\mathbf{x}, \mathbf{x}^\prime) / \gamma\rangle} A_\pi \, ,
+\end{eqnarray}
+
+where $k_{\mathrm{GA}}^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)$ can be
+seen as a normalization factor (see [](sec:gak) section for more
+details).
+
+Note that, by pushing $\gamma$ to the $+\infty$ limit in this formula, one gets:
+
+\begin{equation}
+\text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime) \xrightarrow{\gamma \to +\infty} \left\langle A_\infty, D_2(\mathbf{x}, \mathbf{x}^\prime) \right\rangle \, ,
+\end{equation}
+
+where $A_\infty$ tends to favor diagonal matches:
+
 ```{code-cell} ipython3
 :tags: [hide-input]
 
@@ -85,6 +105,28 @@ import matplotlib.pyplot as plt
 import numpy
 
 plt.ion()
+
+def delannoy(m, n):
+  numbers = numpy.zeros((m + 1, n + 1), dtype=numpy.float64)
+  numbers[0, 0] = 1
+  for i in range(1, m + 1):
+    for j in range(1, n + 1):
+      numbers[i, j] = numbers[i - 1, j - 1] + numbers[i, j - 1] + numbers[i - 1, j]
+  return numbers[1:, 1:]
+
+m = n = 30
+delannoy_numbers = delannoy(m, n)
+weight_matrix = delannoy_numbers * delannoy_numbers[::-1, ::-1] / delannoy_numbers[-1, -1]
+
+plt.imshow(weight_matrix)
+plt.colorbar()
+plt.title("$A_\infty$")
+plt.show()
+```
+
+
+```{code-cell} ipython3
+:tags: [hide-input]
 
 def plot_constraints(title, sz):
     for pos in range(sz):

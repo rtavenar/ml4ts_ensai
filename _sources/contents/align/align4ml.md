@@ -28,7 +28,7 @@ between a test time series $\mathbf{x}$ and all the series from the training
 set, and then assign a label to $\mathbf{x}$ based on a voting strategy.
 
 Note however that nearest neighbor searches in standard euclidean spaces are
-usually fastened by smart indexing strategy that are no longer available when
+usually fastened by smart indexing strategies that are no longer available when
 using DTW in place of Euclidean distance.
 A typical example is the use of triangular inequality to prune the set of
 candidate neighbors (recall that DTW does not satisfy the triangular

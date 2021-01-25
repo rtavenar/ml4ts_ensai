@@ -17,63 +17,34 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
+%config InlineBackend.figure_format = 'svg'
+import matplotlib.pyplot as plt
 import numpy
 
-from tslearn.datasets import CachedDatasets
-from tslearn.preprocessing import TimeSeriesScalerMinMax
-from tslearn.barycenters import softdtw_barycenter
+plt.ion()
 
-numpy.random.seed(0)
-X_train, y_train, X_test, y_test = CachedDatasets().load_dataset("Trace")
-X_train = TimeSeriesScalerMinMax().fit_transform(X_train)
-X_train = X_train[y_train == 0]
+def delannoy(m, n):
+  numbers = numpy.zeros((m + 1, n + 1), dtype=numpy.float64)
+  numbers[0, 0] = 1
+  for i in range(1, m + 1):
+    for j in range(1, n + 1):
+      numbers[i, j] = numbers[i - 1, j - 1] + numbers[i, j - 1] + numbers[i - 1, j]
+  return numbers[1:, 1:]
 
-plt.figure(figsize=(8, 3))
-for i, gamma in enumerate([.001, .1, 10.]):
-    bar = softdtw_barycenter(X_train, gamma=gamma, max_iter=50, tol=1e-3)
-    bar = softdtw_barycenter(X=X_train, gamma=gamma, weights=numpy.ones((len(X_train), )))
+m = n = 30
+delannoy_numbers = delannoy(m, n)
+weight_matrix = delannoy_numbers * delannoy_numbers[::-1, ::-1] / delannoy_numbers[-1, -1]
 
-    plt.subplot(1, 3, i + 1)
-    plt.title("$\\gamma = %3.f" % gamma)
-    for ts in X_train:
-        plt.plot(ts.ravel(), "k-", alpha=.2)
-    plt.plot(bar.ravel(), "r-")
-    plt.xlim(0, sz)
-    plt.ylim(-4, 4)
-
-plt.tight_layout()
+plt.imshow(weight_matrix)
+plt.colorbar()
+plt.title($A_\infty$)
+plt.show()
 ------------------
 
-[0;31m---------------------------------------------------------------------------[0m
-[0;31mZeroDivisionError[0m                         Traceback (most recent call last)
-[0;32m<ipython-input-3-2cbaba9a3b66>[0m in [0;36m<module>[0;34m[0m
-[1;32m     12[0m [0mplt[0m[0;34m.[0m[0mfigure[0m[0;34m([0m[0mfigsize[0m[0;34m=[0m[0;34m([0m[0;36m8[0m[0;34m,[0m [0;36m3[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     13[0m [0;32mfor[0m [0mi[0m[0;34m,[0m [0mgamma[0m [0;32min[0m [0menumerate[0m[0;34m([0m[0;34m[[0m[0;36m.001[0m[0;34m,[0m [0;36m.1[0m[0;34m,[0m [0;36m10.[0m[0;34m][0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 14[0;31m     [0mbar[0m [0;34m=[0m [0msoftdtw_barycenter[0m[0;34m([0m[0mX_train[0m[0;34m,[0m [0mgamma[0m[0;34m=[0m[0mgamma[0m[0;34m,[0m [0mmax_iter[0m[0;34m=[0m[0;36m50[0m[0;34m,[0m [0mtol[0m[0;34m=[0m[0;36m1e-3[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     15[0m     [0mbar[0m [0;34m=[0m [0msoftdtw_barycenter[0m[0;34m([0m[0mX[0m[0;34m=[0m[0mX_train[0m[0;34m,[0m [0mgamma[0m[0;34m=[0m[0mgamma[0m[0;34m,[0m [0mweights[0m[0;34m=[0m[0mnumpy[0m[0;34m.[0m[0mones[0m[0;34m([0m[0;34m([0m[0mlen[0m[0;34m([0m[0mX_train[0m[0;34m)[0m[0;34m,[0m [0;34m)[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     16[0m [0;34m[0m[0m
+[0;36m  File [0;32m"<ipython-input-1-7f650a5060f9>"[0;36m, line [0;32m21[0m
+[0;31m    plt.title($A_\infty$)[0m
+[0m              ^[0m
+[0;31mSyntaxError[0m[0;31m:[0m invalid syntax
 
-[0;32m~/Documents/costel/src/tslearn/tslearn/barycenters/softdtw.py[0m in [0;36msoftdtw_barycenter[0;34m(X, gamma, weights, method, tol, max_iter, init)[0m
-[1;32m     93[0m     [0;32mif[0m [0minit[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     94[0m         [0;32mif[0m [0mcheck_equal_size[0m[0;34m([0m[0mX_[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 95[0;31m             [0mbarycenter[0m [0;34m=[0m [0meuclidean_barycenter[0m[0;34m([0m[0mX_[0m[0;34m,[0m [0mweights[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     96[0m         [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     97[0m             [0mresampled_X[0m [0;34m=[0m [0mTimeSeriesResampler[0m[0;34m([0m[0msz[0m[0;34m=[0m[0mX_[0m[0;34m.[0m[0mshape[0m[0;34m[[0m[0;36m1[0m[0;34m][0m[0;34m)[0m[0;34m.[0m[0mfit_transform[0m[0;34m([0m[0mX_[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-
-[0;32m~/Documents/costel/src/tslearn/tslearn/barycenters/euclidean.py[0m in [0;36meuclidean_barycenter[0;34m(X, weights)[0m
-[1;32m     41[0m     [0mX_[0m [0;34m=[0m [0mto_time_series_dataset[0m[0;34m([0m[0mX[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     42[0m     [0mweights[0m [0;34m=[0m [0m_set_weights[0m[0;34m([0m[0mweights[0m[0;34m,[0m [0mX_[0m[0;34m.[0m[0mshape[0m[0;34m[[0m[0;36m0[0m[0;34m][0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 43[0;31m     [0;32mreturn[0m [0mnumpy[0m[0;34m.[0m[0maverage[0m[0;34m([0m[0mX_[0m[0;34m,[0m [0maxis[0m[0;34m=[0m[0;36m0[0m[0;34m,[0m [0mweights[0m[0;34m=[0m[0mweights[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m
-[0;32m<__array_function__ internals>[0m in [0;36maverage[0;34m(*args, **kwargs)[0m
-
-[0;32m~/py38_data/lib/python3.8/site-packages/numpy/lib/function_base.py[0m in [0;36maverage[0;34m(a, axis, weights, returned)[0m
-[1;32m    407[0m         [0mscl[0m [0;34m=[0m [0mwgt[0m[0;34m.[0m[0msum[0m[0;34m([0m[0maxis[0m[0;34m=[0m[0maxis[0m[0;34m,[0m [0mdtype[0m[0;34m=[0m[0mresult_dtype[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    408[0m         [0;32mif[0m [0mnp[0m[0;34m.[0m[0many[0m[0;34m([0m[0mscl[0m [0;34m==[0m [0;36m0.0[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m--> 409[0;31m             raise ZeroDivisionError(
-[0m[1;32m    410[0m                 "Weights sum to zero, can't be normalized")
-[1;32m    411[0m [0;34m[0m[0m
-
-[0;31mZeroDivisionError[0m: Weights sum to zero, can't be normalized
-ZeroDivisionError: Weights sum to zero, can't be normalized
+SyntaxError: invalid syntax (<ipython-input-1-7f650a5060f9>, line 21)
 
