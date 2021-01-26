@@ -115,7 +115,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="align4ml.html">
-     Alignment-based metrics in Machine Learning
+     Alignment-based Metrics in Machine Learning
     </a>
    </li>
   </ul>
@@ -250,12 +250,12 @@
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#setting-additional-constraints">
-   Setting additional constraints
+   Setting Additional Constraints
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#computing-barycenters">
-   Computing barycenters
+   Computing Barycenters
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -306,8 +306,8 @@ sequence of <span class="math notranslate nohighlight">\(K\)</span> index pairs
 <span class="math notranslate nohighlight">\(\left((i_0, j_0), \dots , (i_{K-1}, j_{K-1})\right)\)</span>.</p>
 <p>DTW between <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}^\prime\)</span> is formulated as the following
 optimization problem:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-dd458a3b-fd28-42e3-badb-bff5af85f412">
-<span class="eqno">(1)<a class="headerlink" href="#equation-dd458a3b-fd28-42e3-badb-bff5af85f412" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-5659f8c9-faad-4c40-b194-f1c78d675a53">
+<span class="eqno">(1)<a class="headerlink" href="#equation-5659f8c9-faad-4c40-b194-f1c78d675a53" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 DTW_q(\mathbf{x}, \mathbf{x}^\prime) =
     \min_{\pi \in \mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)}
         \left( \sum_{(i, j) \in \pi} d(x_i, x^\prime_j)^q \right)^{\frac{1}{q}}
@@ -438,8 +438,8 @@ problem (assuming computation of <span class="math notranslate nohighlight">\(d(
 </div>
 <p>The basic idea behind this algorithm is that there exists a recurrence relationship between partial DTW computations.
 More precisely, if we denote by <span class="math notranslate nohighlight">\(\gamma_{i,j}\)</span> the <span class="math notranslate nohighlight">\(DTW_q\)</span> (at power <span class="math notranslate nohighlight">\(q\)</span>) similarity between sequences <span class="math notranslate nohighlight">\(\mathbf{x}_{\rightarrow i}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}^\prime_{\rightarrow j}\)</span> (where the notation <span class="math notranslate nohighlight">\(\mathbf{x}_{\rightarrow i}\)</span> denotes sequence <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> observed up to time <span class="math notranslate nohighlight">\(i\)</span>), then we have:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-14cfad6f-80ac-4309-baea-79037b556281">
-<span class="eqno">(2)<a class="headerlink" href="#equation-14cfad6f-80ac-4309-baea-79037b556281" title="Permalink to this equation">¶</a></span>\[\begin{eqnarray}
+<div class="amsmath math notranslate nohighlight" id="equation-f5ae0cbf-64c9-43aa-b0cb-eb135b905046">
+<span class="eqno">(2)<a class="headerlink" href="#equation-f5ae0cbf-64c9-43aa-b0cb-eb135b905046" title="Permalink to this equation">¶</a></span>\[\begin{eqnarray}
 
 \gamma_{i,j} &amp;=&amp; DTW_q(\mathbf{x}_{\rightarrow i}, \mathbf{x}^\prime_{\rightarrow j})^q \\
 &amp;=&amp;
@@ -458,6 +458,25 @@ In more details:</p>
 <li><p><span class="math notranslate nohighlight">\((**)\)</span> comes from the contiguity conditions on the admissible paths: all admissible paths that match <span class="math notranslate nohighlight">\(x_i\)</span> with <span class="math notranslate nohighlight">\(x^\prime_j\)</span> need to go through one of these 3 possible ancestors: <span class="math notranslate nohighlight">\((i-1, j)\)</span>, <span class="math notranslate nohighlight">\((i, j-1)\)</span> or <span class="math notranslate nohighlight">\((i-1, j-1)\)</span>.</p></li>
 </ul>
 <p>The dynamic programming algorithm presented above relies on this recurrence formula and stores intermediate computations for efficiency.</p>
+<div class="admonition-dot-product-notation admonition">
+<p class="admonition-title">Dot product notation</p>
+<p>Dynamic Time Warping can also be formalized using the following
+notation:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+DTW_q(\mathbf{x}, \mathbf{x}^\prime) =
+    \min_{\pi \in \mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)}
+        \langle A_\pi,  D_q(\mathbf{x}, \mathbf{x}^\prime) \rangle^{\frac{1}{q}}
+\end{equation*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(D_q(\mathbf{x}, \mathbf{x}^\prime)\)</span> stores distances
+<span class="math notranslate nohighlight">\(d(x_i, x^\prime_j)\)</span> at the power <span class="math notranslate nohighlight">\(q\)</span> and</p>
+<div class="amsmath math notranslate nohighlight" id="equation-1ae72f52-6816-4a9c-9316-9ecc28f345f7">
+<span class="eqno">(3)<a class="headerlink" href="#equation-1ae72f52-6816-4a9c-9316-9ecc28f345f7" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+(A_\pi)_{i,j} = \left\{ \begin{array}{rl} 1 &amp; \text{ if } (i, j) \in \pi \\
+                                      0 &amp; \text{ otherwise}
+                        \end{array} \right. .
+\end{equation}\]</div>
+</div>
 </div>
 <div class="section" id="properties">
 <h2>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h2>
@@ -474,7 +493,7 @@ then <span class="math notranslate nohighlight">\(DTW_q(\mathbf{x}, \mathbf{x}_{
 satisfies neither the triangular inequality nor the identity of indiscernibles.</p>
 </div>
 <div class="section" id="setting-additional-constraints">
-<h2>Setting additional constraints<a class="headerlink" href="#setting-additional-constraints" title="Permalink to this headline">¶</a></h2>
+<h2>Setting Additional Constraints<a class="headerlink" href="#setting-additional-constraints" title="Permalink to this headline">¶</a></h2>
 <p>The set of temporal deformations to which DTW is invariant can be reduced by
 imposing additional constraints on the set of acceptable paths.
 Such constraints typically consist in forcing paths to stay close to the
@@ -550,7 +569,7 @@ paths, which leads to a parallelogram-shaped constraint:</p>
 </div>
 </div>
 <div class="section" id="computing-barycenters">
-<h2>Computing barycenters<a class="headerlink" href="#computing-barycenters" title="Permalink to this headline">¶</a></h2>
+<h2>Computing Barycenters<a class="headerlink" href="#computing-barycenters" title="Permalink to this headline">¶</a></h2>
 <p>As illustrated in our introductory example, the ability to compute barycenters
 for a given similarity measure is necessary for its use in some methods such as
 <span class="math notranslate nohighlight">\(k\)</span>-means.</p>
@@ -558,7 +577,7 @@ for a given similarity measure is necessary for its use in some methods such as
 is a solution, for a given metric <span class="math notranslate nohighlight">\(d(\cdot,\cdot)\)</span>,
 of the following optimization problem:</p>
 <div class="math notranslate nohighlight" id="equation-eq-barycenter">
-<span class="eqno">(3)<a class="headerlink" href="#equation-eq-barycenter" title="Permalink to this equation">¶</a></span>\[    \min_\mathbf{b} \sum_i d(\mathbf{b}, \mathbf{x}_i)^2 .\]</div>
+<span class="eqno">(4)<a class="headerlink" href="#equation-eq-barycenter" title="Permalink to this equation">¶</a></span>\[    \min_\mathbf{b} \sum_i d(\mathbf{b}, \mathbf{x}_i)^2 .\]</div>
 <p>When <span class="math notranslate nohighlight">\(d(\cdot,\cdot)\)</span> is the Euclidean distance, the exact minimizer of this
 quantity is known in closed form (each coordinate of the barycenter is the
 average – over points in the set – of the corresponding coordinate).</p>
@@ -1107,42 +1126,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img345024a1b8294b5ca5e325031af9df18">
+  <img id="_anim_img087f807dc0b24441b10d20c1722136c4">
   <div class="anim-controls">
-    <input id="_anim_slider345024a1b8294b5ca5e325031af9df18" type="range" class="anim-slider"
+    <input id="_anim_slider087f807dc0b24441b10d20c1722136c4" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim345024a1b8294b5ca5e325031af9df18.set_frame(parseInt(this.value));"></input>
+           oninput="anim087f807dc0b24441b10d20c1722136c4.set_frame(parseInt(this.value));"></input>
     <div class="anim-buttons">
-      <button title="Decrease speed" onclick="anim345024a1b8294b5ca5e325031af9df18.slower()">
+      <button title="Decrease speed" onclick="anim087f807dc0b24441b10d20c1722136c4.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" onclick="anim345024a1b8294b5ca5e325031af9df18.first_frame()">
+      <button title="First frame" onclick="anim087f807dc0b24441b10d20c1722136c4.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" onclick="anim345024a1b8294b5ca5e325031af9df18.previous_frame()">
+      <button title="Previous frame" onclick="anim087f807dc0b24441b10d20c1722136c4.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" onclick="anim345024a1b8294b5ca5e325031af9df18.reverse_animation()">
+      <button title="Play backwards" onclick="anim087f807dc0b24441b10d20c1722136c4.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" onclick="anim345024a1b8294b5ca5e325031af9df18.pause_animation()">
+      <button title="Pause" onclick="anim087f807dc0b24441b10d20c1722136c4.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" onclick="anim345024a1b8294b5ca5e325031af9df18.play_animation()">
+      <button title="Play" onclick="anim087f807dc0b24441b10d20c1722136c4.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" onclick="anim345024a1b8294b5ca5e325031af9df18.next_frame()">
+      <button title="Next frame" onclick="anim087f807dc0b24441b10d20c1722136c4.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" onclick="anim345024a1b8294b5ca5e325031af9df18.last_frame()">
+      <button title="Last frame" onclick="anim087f807dc0b24441b10d20c1722136c4.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" onclick="anim345024a1b8294b5ca5e325031af9df18.faster()">
+      <button title="Increase speed" onclick="anim087f807dc0b24441b10d20c1722136c4.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" action="#n" name="_anim_loop_select345024a1b8294b5ca5e325031af9df18"
+    <form title="Repetition mode" action="#n" name="_anim_loop_select087f807dc0b24441b10d20c1722136c4"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_345024a1b8294b5ca5e325031af9df18"
+      <input type="radio" name="state" value="once" id="_anim_radio1_087f807dc0b24441b10d20c1722136c4"
              >
-      <label for="_anim_radio1_345024a1b8294b5ca5e325031af9df18">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_345024a1b8294b5ca5e325031af9df18"
+      <label for="_anim_radio1_087f807dc0b24441b10d20c1722136c4">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_087f807dc0b24441b10d20c1722136c4"
              checked>
-      <label for="_anim_radio2_345024a1b8294b5ca5e325031af9df18">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_345024a1b8294b5ca5e325031af9df18"
+      <label for="_anim_radio2_087f807dc0b24441b10d20c1722136c4">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_087f807dc0b24441b10d20c1722136c4"
              >
-      <label for="_anim_radio3_345024a1b8294b5ca5e325031af9df18">Reflect</label>
+      <label for="_anim_radio3_087f807dc0b24441b10d20c1722136c4">Reflect</label>
     </form>
   </div>
 </div>
@@ -1152,9 +1171,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img345024a1b8294b5ca5e325031af9df18";
-    var slider_id = "_anim_slider345024a1b8294b5ca5e325031af9df18";
-    var loop_select_id = "_anim_loop_select345024a1b8294b5ca5e325031af9df18";
+    var img_id = "_anim_img087f807dc0b24441b10d20c1722136c4";
+    var slider_id = "_anim_slider087f807dc0b24441b10d20c1722136c4";
+    var loop_select_id = "_anim_loop_select087f807dc0b24441b10d20c1722136c4";
     var frames = new Array(10);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -10225,7 +10244,7 @@ R7KlQfv0AAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim345024a1b8294b5ca5e325031af9df18 = new Animation(frames, img_id, slider_id, 200.0,
+        anim087f807dc0b24441b10d20c1722136c4 = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()

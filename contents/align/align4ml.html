@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Alignment-based metrics in Machine Learning &#8212; Machine Learning for Time Series</title>
+    <title>Alignment-based Metrics in Machine Learning &#8212; Machine Learning for Time Series</title>
     
   <link rel="stylesheet" href="../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -115,7 +115,7 @@
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     Alignment-based metrics in Machine Learning
+     Alignment-based Metrics in Machine Learning
     </a>
    </li>
   </ul>
@@ -240,7 +240,7 @@
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#nearest-neighbors">
-     Nearest neighbors
+     Nearest Neighbors
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -282,13 +282,13 @@
               <div>
                 
   <div class="section" id="alignment-based-metrics-in-machine-learning">
-<h1>Alignment-based metrics in Machine Learning<a class="headerlink" href="#alignment-based-metrics-in-machine-learning" title="Permalink to this headline">¶</a></h1>
+<h1>Alignment-based Metrics in Machine Learning<a class="headerlink" href="#alignment-based-metrics-in-machine-learning" title="Permalink to this headline">¶</a></h1>
 <p>When learning from non-aligned time series, being able to use alignment-based
 metrics at the core of Machine Learning (ML) systems is key.</p>
 <div class="section" id="classification">
 <h2>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="nearest-neighbors">
-<h3>Nearest neighbors<a class="headerlink" href="#nearest-neighbors" title="Permalink to this headline">¶</a></h3>
+<h3>Nearest Neighbors<a class="headerlink" href="#nearest-neighbors" title="Permalink to this headline">¶</a></h3>
 <p>First, the similarity measures presented in this chapter can be used in
 conjunction with nearest-neighbor classifiers.
 To do so, it suffices to compute DTW (or any other time-series-specific)
@@ -314,12 +314,13 @@ the code is as follows:</p>
 <div class="section" id="global-alignment-kernel">
 <span id="sec-gak"></span><h3>Global Alignment Kernel<a class="headerlink" href="#global-alignment-kernel" title="Permalink to this headline">¶</a></h3>
 <p>Let us define the Global Alignment Kernel (GAK, <a class="bibtex reference internal" href="#cuturi2007kernel" id="id1">[CVBM07]</a>) as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-24ae4dee-e2c1-4ee7-ab0e-ae51d7acf04f">
-<span class="eqno">(10)<a class="headerlink" href="#equation-24ae4dee-e2c1-4ee7-ab0e-ae51d7acf04f" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-1dda46dc-b8b8-41bc-bb0a-ca4c49cd2c20">
+<span class="eqno">(13)<a class="headerlink" href="#equation-1dda46dc-b8b8-41bc-bb0a-ca4c49cd2c20" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 k_\text{GA}^\gamma(\mathbf{x}, \mathbf{x}^\prime) =
     \exp{- \frac{\text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)}{\gamma}}
 \end{equation}\]</div>
-<p>Though this kernel is not proved to be positive semi-definite, authors claim
+<p>Though this kernel is not proved to be positive semi-definite (except in the
+univariate case <a class="bibtex reference internal" href="softdtw.html#blondelmensch2020" id="id2">[BMV20]</a>), authors claim
 that, in practice, resulting Gram matrices happen to be psd in most of their
 experiments, hence allowing this kernel to be used in standard kernel methods,
 as discussed in the next section.
@@ -442,14 +443,14 @@ with respect to DTW, hence
 they allow to retrieve a sensible average shape whatever the temporal shifts
 in the cluster.</p>
 <p>Another option to deal with such time shifts is to rely on the kernel trick.
-Indeed, the kernel <span class="math notranslate nohighlight">\(k\)</span>-means algorithm <a class="bibtex reference internal" href="#dhillon2004kernel" id="id2">[DGK04]</a>, that is
+Indeed, the kernel <span class="math notranslate nohighlight">\(k\)</span>-means algorithm <a class="bibtex reference internal" href="#dhillon2004kernel" id="id3">[DGK04]</a>, that is
 equivalent to a <span class="math notranslate nohighlight">\(k\)</span>-means
 that would operate in the Reproducing Kernel Hilbert Space associated to the
 chosen kernel, can be used in conjunction
 with Global Alignment Kernel (GAK).</p>
 <div class="figure align-default" id="kernel-kmeans">
 <a class="reference internal image-reference" href="../../_images/kernel_kmeans.svg"><img alt="../../_images/kernel_kmeans.svg" src="../../_images/kernel_kmeans.svg" width="100%" /></a>
-<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Kernel <span class="math notranslate nohighlight">\(k\)</span>-means clustering with Global Alignment Kernel.
+<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Kernel <span class="math notranslate nohighlight">\(k\)</span>-means clustering with Global Alignment Kernel.
 Each subfigure represents series from a given cluster.</span><a class="headerlink" href="#kernel-kmeans" title="Permalink to this image">¶</a></p>
 </div>
 <p>A first significant difference (when compared to <span class="math notranslate nohighlight">\(k\)</span>-means) is that
@@ -468,25 +469,25 @@ discussed <a class="reference internal" href="softdtw.html#sec-softdtw"><span cl
 <span id="sec-forecasting"></span><h2>Forecasting<a class="headerlink" href="#forecasting" title="Permalink to this headline">¶</a></h2>
 <p>As discussed earlier, soft-DTW is differentiable with respect to its inputs.
 This is especially useful for forecasting tasks in which prediction is to be
-made for multiple time steps (<em>multi-step ahead forecasting</em>)<a class="footnote-reference brackets" href="#structpred" id="id3">1</a>.
+made for multiple time steps (<em>multi-step ahead forecasting</em>)<a class="footnote-reference brackets" href="#structpred" id="id4">1</a>.
 Indeed, in this context, soft-DTW can be used in place of a standard Mean
 Squared Error (MSE) loss in order to better take time shifts into account.</p>
 <p>This is done, for example, in the seminal paper by Cuturi and Blondel
-<a class="bibtex reference internal" href="#cuturi2017soft" id="id4">[CB17]</a>:</p>
+<a class="bibtex reference internal" href="softdtw.html#cuturi2017soft" id="id5">[CB17]</a>:</p>
 <div class="figure align-default" id="forecasting-cuturi-blondel">
 <a class="reference internal image-reference" href="../../_images/forecasting_cuturi_blondel.png"><img alt="../../_images/forecasting_cuturi_blondel.png" src="../../_images/forecasting_cuturi_blondel.png" style="width: 50%;" /></a>
-<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Using soft-DTW in place of a standard Euclidean loss for forecasting.
-This Figure is taken from <a class="bibtex reference internal" href="#cuturi2017soft" id="id5">[CB17]</a>.</span><a class="headerlink" href="#forecasting-cuturi-blondel" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">Using soft-DTW in place of a standard Euclidean loss for forecasting.
+This Figure is taken from <a class="bibtex reference internal" href="softdtw.html#cuturi2017soft" id="id6">[CB17]</a>.</span><a class="headerlink" href="#forecasting-cuturi-blondel" title="Permalink to this image">¶</a></p>
 </div>
 <p>An alternative differentiable loss (DILATE) is introduced in
-<a class="bibtex reference internal" href="#vincent2019shape" id="id6">[LGT19]</a> that relies on soft-DTW and penalizes
+<a class="bibtex reference internal" href="#vincent2019shape" id="id7">[LGT19]</a> that relies on soft-DTW and penalizes
 de-synchronized alignments.
 This is done by introducing an additional penalty to the loss to be optimized,
 which is the dot product between a “soft-mask matrix” <span class="math notranslate nohighlight">\(\Omega\)</span>
 and the computed soft path matrix <span class="math notranslate nohighlight">\(A_\gamma\)</span>, which tends to favor diagonal
 matches :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cb5587f6-f543-4783-b0f8-33f3e661032f">
-<span class="eqno">(11)<a class="headerlink" href="#equation-cb5587f6-f543-4783-b0f8-33f3e661032f" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-c2d02f6d-5011-4624-8292-c54bceb25e17">
+<span class="eqno">(14)<a class="headerlink" href="#equation-c2d02f6d-5011-4624-8292-c54bceb25e17" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \mathcal{L}_\text{reg} = \mathcal{L}_\text{soft-DTW} + \langle \Omega , A_\gamma \rangle .
 \end{equation}\]</div>
 <p>The <span class="math notranslate nohighlight">\(\Omega\)</span> matrix typically looks like:</p>
@@ -513,9 +514,9 @@ matches :</p>
 MSE and better localize shapes than soft-DTW:</p>
 <div class="figure align-default" id="forecasting-le-guen">
 <a class="reference internal image-reference" href="../../_images/forecasting_le_guen.png"><img alt="../../_images/forecasting_le_guen.png" src="../../_images/forecasting_le_guen.png" style="width: 100%;" /></a>
-<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">Comparison between MSE, soft-DTW (denoted <span class="math notranslate nohighlight">\(DTW_\gamma\)</span>) and DILATE as loss
+<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">Comparison between MSE, soft-DTW (denoted <span class="math notranslate nohighlight">\(DTW_\gamma\)</span>) and DILATE as loss
 functions for forecasting tasks.
-This Figure is taken from <a class="bibtex reference internal" href="#vincent2019shape" id="id7">[LGT19]</a>.</span><a class="headerlink" href="#forecasting-le-guen" title="Permalink to this image">¶</a></p>
+This Figure is taken from <a class="bibtex reference internal" href="#vincent2019shape" id="id8">[LGT19]</a>.</span><a class="headerlink" href="#forecasting-le-guen" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="conclusion">
@@ -536,23 +537,26 @@ neural networks.</p>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <p id="bibtex-bibliography-contents/align/align4ml-0"><dl class="citation">
-<dt class="bibtex label" id="cuturi2017soft"><span class="brackets">CB17</span><span class="fn-backref">(<a href="#id4">1</a>,<a href="#id5">2</a>)</span></dt>
+<dt class="bibtex label" id="blondelmensch2020"><span class="brackets"><a class="fn-backref" href="#id2">BMV20</a></span></dt>
+<dd><p>Mathieu Blondel, Arthur Mensch, and Jean-Philippe Vert. Differentiable divergences between time series. 2020. <a class="reference external" href="https://arxiv.org/abs/2010.08354">arXiv:2010.08354</a>.</p>
+</dd>
+<dt class="bibtex label" id="cuturi2017soft"><span class="brackets">CB17</span><span class="fn-backref">(<a href="#id5">1</a>,<a href="#id6">2</a>)</span></dt>
 <dd><p>Marco Cuturi and Mathieu Blondel. Soft-DTW: a differentiable loss function for time-series. In <em>Proceedings of the International Conference on Machine Learning</em>, 894–903. JMLR. org, 2017.</p>
 </dd>
 <dt class="bibtex label" id="cuturi2007kernel"><span class="brackets"><a class="fn-backref" href="#id1">CVBM07</a></span></dt>
 <dd><p>Marco Cuturi, Jean-Philippe Vert, Oystein Birkenes, and Tomoko Matsui. A kernel for time series based on global alignments. In <em>Proceedings of the IEEE International Conference on Acoustics, Speech, and Signal Processing</em>, volume 2, II–413. IEEE, 2007.</p>
 </dd>
-<dt class="bibtex label" id="dhillon2004kernel"><span class="brackets"><a class="fn-backref" href="#id2">DGK04</a></span></dt>
+<dt class="bibtex label" id="dhillon2004kernel"><span class="brackets"><a class="fn-backref" href="#id3">DGK04</a></span></dt>
 <dd><p>Inderjit S Dhillon, Yuqiang Guan, and Brian Kulis. Kernel k-means: spectral clustering and normalized cuts. In <em>Proceedings of the ACM SIGKDD International Conference on Knowledge Discovery and Data mining</em>, 551–556. 2004.</p>
 </dd>
-<dt class="bibtex label" id="vincent2019shape"><span class="brackets">LGT19</span><span class="fn-backref">(<a href="#id6">1</a>,<a href="#id7">2</a>)</span></dt>
+<dt class="bibtex label" id="vincent2019shape"><span class="brackets">LGT19</span><span class="fn-backref">(<a href="#id7">1</a>,<a href="#id8">2</a>)</span></dt>
 <dd><p>Vincent Le Guen and Nicolas Thome. Shape and time distortion loss for training deep time series forecasting models. In <em>Neural Information Processing Systems</em>, 4189–4201. 2019.</p>
 </dd>
 </dl>
 </p>
 <hr class="docutils" />
 <dl class="footnote brackets">
-<dt class="label" id="structpred"><span class="brackets"><a class="fn-backref" href="#id3">1</a></span></dt>
+<dt class="label" id="structpred"><span class="brackets"><a class="fn-backref" href="#id4">1</a></span></dt>
 <dd><p>This problem is an instance of a more general class of problems
 known as structured prediction problems, in which the target variable
 (to be predicted) has a specific structure (time series, graph, <em>etc.</em>).</p>

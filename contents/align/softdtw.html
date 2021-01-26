@@ -56,7 +56,7 @@
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Alignment-based metrics in Machine Learning" href="align4ml.html" />
+    <link rel="next" title="Alignment-based Metrics in Machine Learning" href="align4ml.html" />
     <link rel="prev" title="Dynamic Time Warping" href="dtw.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -115,7 +115,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="align4ml.html">
-     Alignment-based metrics in Machine Learning
+     Alignment-based Metrics in Machine Learning
     </a>
    </li>
   </ul>
@@ -234,6 +234,31 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#definition">
+   Definition
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#soft-alignment-path">
+   Soft-Alignment Path
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#properties">
+   Properties
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#related-similarity-measures">
+   Related Similarity Measures
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#barycenters">
+   Barycenters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#references">
    References
   </a>
@@ -257,10 +282,12 @@ the computations.
 This limitation is especially problematic given the importance of
 gradient-based optimization in Machine Learning.</p>
 <p>Soft-DTW <a class="bibtex reference internal" href="#cuturi2017soft" id="id1">[CB17]</a> has been introduced as a way to mitigate this
-limitation.
-The optimization problem that is tackled is the following:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e278fe05-1c0a-4673-af28-ee821ee8f4ae">
-<span class="eqno">(4)<a class="headerlink" href="#equation-e278fe05-1c0a-4673-af28-ee821ee8f4ae" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+limitation.</p>
+<div class="section" id="definition">
+<h2>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">¶</a></h2>
+<p>The formal definition for soft-DTW is the following:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-536651b2-e08c-42af-a470-61b0091e2b61">
+<span class="eqno">(5)<a class="headerlink" href="#equation-536651b2-e08c-42af-a470-61b0091e2b61" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime) =
     \min_{\pi \in \mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)}{}^\gamma
         \sum_{(i, j) \in \pi} d(x_i, x^\prime_j)^2
@@ -271,56 +298,40 @@ factor <span class="math notranslate nohighlight">\(\gamma\)</span>.</p>
 <div class="admonition-a-note-on-soft-min admonition">
 <p class="admonition-title">A note on soft-min</p>
 <p>The soft-min operator <span class="math notranslate nohighlight">\(\min{}^\gamma\)</span> is defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-dc77b4a8-a88b-473c-a73f-4b71abe419e2">
-<span class="eqno">(5)<a class="headerlink" href="#equation-dc77b4a8-a88b-473c-a73f-4b71abe419e2" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-ce7cebdf-78c1-41ec-a545-ca42492710d7">
+<span class="eqno">(6)<a class="headerlink" href="#equation-ce7cebdf-78c1-41ec-a545-ca42492710d7" title="Permalink to this equation">¶</a></span>\[\begin{equation}
     \min{}^\gamma(a_1, \dots, a_n) = - \gamma \log \sum_i e^{-a_i / \gamma}
 \end{equation}\]</div>
 <p>Note that when gamma tends to <span class="math notranslate nohighlight">\(0^+\)</span>, the term corresponding to the lower <span class="math notranslate nohighlight">\(a_i\)</span>
 value will dominate other terms in the sum, and the soft-min then tends to the
 hard minimum.</p>
 </div>
-<div class="sidebar">
-<p class="sidebar-title">Dot product notation</p>
-<p>This dot product notation can easily be extended to Dynamic Time Warping:</p>
-<div class="amsmath math notranslate nohighlight">
-\[\begin{equation*}
-DTW_q(\mathbf{x}, \mathbf{x}^\prime) =
-    \min_{\pi \in \mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)}
-        \langle A_\pi,  D_q(\mathbf{x}, \mathbf{x}^\prime) \rangle^{\frac{1}{q}}
-\end{equation*}\]</div>
-<p>where <span class="math notranslate nohighlight">\(D_q(\mathbf{x}, \mathbf{x}^\prime)\)</span> stores distances
-<span class="math notranslate nohighlight">\(d(x_i, x^\prime_j)\)</span> at the power <span class="math notranslate nohighlight">\(q\)</span> and <span class="math notranslate nohighlight">\((A_\pi)_{i,j} = 1\)</span> iff
-<span class="math notranslate nohighlight">\((i, j) \in \pi\)</span> (0 otherwise).</p>
-</div>
-<p>Typically, when <span class="math notranslate nohighlight">\(\gamma\)</span> tends to 0, <span class="math notranslate nohighlight">\(DTW(\mathbf{x}, \mathbf{x}^\prime)^2\)</span> is
-retrieved.
-For strictly positive values of <span class="math notranslate nohighlight">\(\gamma\)</span>, the soft-DTW can be re-written</p>
-<div class="amsmath math notranslate nohighlight" id="equation-04199eb0-ee81-4135-b4e8-05bed6863ff8">
-<span class="eqno">(6)<a class="headerlink" href="#equation-04199eb0-ee81-4135-b4e8-05bed6863ff8" title="Permalink to this equation">¶</a></span>\[\begin{equation}
-\text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime) =
-    \langle A_\gamma , D(\mathbf{x}, \mathbf{x}^\prime) \rangle
-\label{eq:softdtw:dot}
+<p>Typically, we have:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-f89029d5-784a-4597-b301-b4ee64daff63">
+<span class="eqno">(7)<a class="headerlink" href="#equation-f89029d5-784a-4597-b301-b4ee64daff63" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+    \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)
+    \xrightarrow{\gamma \to 0^+} DTW(\mathbf{x}, \mathbf{x}^\prime)^2 \, .
 \end{equation}\]</div>
-<p>where <span class="math notranslate nohighlight">\(D(\mathbf{x}, \mathbf{x}^\prime)\)</span> is a matrix that stores squared
-distances <span class="math notranslate nohighlight">\(d(x_i, x^\prime_j)^2\)</span>
-and <span class="math notranslate nohighlight">\(A_\gamma\)</span> is a “soft path” matrix that informs, for each pair <span class="math notranslate nohighlight">\((i, j)\)</span>,
-how much it will be taken into account in the matching.</p>
-<p><span class="math notranslate nohighlight">\(A_\gamma\)</span> can be interpreted as a weighted average of paths in
+<p>However, contrary to DTW, soft-DTW – being differentiable everywhere – can be
+used as a loss in neural networks.
+This use-case is discussed in more details in our <a class="reference internal" href="align4ml.html#sec-forecasting"><span class="std std-ref">Forecasting</span></a>
+section.</p>
+</div>
+<div class="section" id="soft-alignment-path">
+<h2>Soft-Alignment Path<a class="headerlink" href="#soft-alignment-path" title="Permalink to this headline">¶</a></h2>
+<p>Let us denote by <span class="math notranslate nohighlight">\(A_\gamma\)</span> the “soft path” matrix that informs, for each pair
+<span class="math notranslate nohighlight">\((i, j)\)</span>, how much it will be taken into account in the matching.
+<span class="math notranslate nohighlight">\(A_\gamma\)</span> can be interpreted as a weighted average of paths in
 <span class="math notranslate nohighlight">\(\mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0c2c81aa-96e3-4b78-afc4-188fa04fe998">
-<span class="eqno">(7)<a class="headerlink" href="#equation-0c2c81aa-96e3-4b78-afc4-188fa04fe998" title="Permalink to this equation">¶</a></span>\[\begin{eqnarray}
+<div class="amsmath math notranslate nohighlight" id="equation-e4fcdb57-59fb-4ffb-acc0-3f23cb0415c2">
+<span class="eqno">(8)<a class="headerlink" href="#equation-e4fcdb57-59fb-4ffb-acc0-3f23cb0415c2" title="Permalink to this equation">¶</a></span>\[\begin{eqnarray}
 A_\gamma =&amp; \, \mathbb{E}_{\gamma}[A] \\
 =&amp; \, \frac{1}{k_{\mathrm{GA}}^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)} \sum_{\pi \in \mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)} e^{-\langle A_\pi, D_2(\mathbf{x}, \mathbf{x}^\prime) / \gamma\rangle} A_\pi \, ,
 \end{eqnarray}\]</div>
 <p>where <span class="math notranslate nohighlight">\(k_{\mathrm{GA}}^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)\)</span> can be
 seen as a normalization factor (see <a class="reference internal" href="align4ml.html#sec-gak"><span class="std std-ref">Global Alignment Kernel</span></a> section for more
-details).</p>
-<p>Note that, by pushing <span class="math notranslate nohighlight">\(\gamma\)</span> to the <span class="math notranslate nohighlight">\(+\infty\)</span> limit in this formula, one gets:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-295b3a59-3ec6-44f6-9941-bb83206508a7">
-<span class="eqno">(8)<a class="headerlink" href="#equation-295b3a59-3ec6-44f6-9941-bb83206508a7" title="Permalink to this equation">¶</a></span>\[\begin{equation}
-\text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime) \xrightarrow{\gamma \to +\infty} \left\langle A_\infty, D_2(\mathbf{x}, \mathbf{x}^\prime) \right\rangle \, ,
-\end{equation}\]</div>
-<p>where <span class="math notranslate nohighlight">\(A_\infty\)</span> tends to favor diagonal matches:</p>
+details) and <span class="math notranslate nohighlight">\(D_2(\mathbf{x}, \mathbf{x}^\prime)\)</span> is a matrix that stores
+squared distances <span class="math notranslate nohighlight">\(d(x_i, x^\prime_j)^2\)</span></p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;svg&#39;
@@ -329,31 +340,7 @@ details).</p>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
 
-<span class="k">def</span> <span class="nf">delannoy</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-  <span class="n">numbers</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
-  <span class="n">numbers</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-      <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
-  <span class="k">return</span> <span class="n">numbers</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">1</span><span class="p">:]</span>
-
-<span class="n">m</span> <span class="o">=</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">30</span>
-<span class="n">delannoy_numbers</span> <span class="o">=</span> <span class="n">delannoy</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<span class="n">weight_matrix</span> <span class="o">=</span> <span class="n">delannoy_numbers</span> <span class="o">*</span> <span class="n">delannoy_numbers</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delannoy_numbers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">weight_matrix</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;$A_\infty$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../../_images/softdtw_1_0.svg" src="../../_images/softdtw_1_0.svg" /></div>
-</div>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_constraints</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">sz</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">plot_constraints</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">sz</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sz</span><span class="p">):</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="o">-.</span><span class="mi">5</span><span class="p">,</span> <span class="n">sz</span> <span class="o">-</span> <span class="o">.</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="n">pos</span> <span class="o">+</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="n">pos</span> <span class="o">+</span> <span class="o">.</span><span class="mi">5</span><span class="p">],</span>
                  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
@@ -424,15 +411,18 @@ details).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/softdtw_3_0.svg" src="../../_images/softdtw_3_0.svg" /><img alt="../../_images/softdtw_3_1.svg" src="../../_images/softdtw_3_1.svg" /><img alt="../../_images/softdtw_3_2.svg" src="../../_images/softdtw_3_2.svg" /></div>
+<img alt="../../_images/softdtw_2_0.svg" src="../../_images/softdtw_2_0.svg" /><img alt="../../_images/softdtw_2_1.svg" src="../../_images/softdtw_2_1.svg" /><img alt="../../_images/softdtw_2_2.svg" src="../../_images/softdtw_2_2.svg" /></div>
 </div>
 <p><span class="math notranslate nohighlight">\(A_\gamma\)</span> can be computed with complexity <span class="math notranslate nohighlight">\(O(mn)\)</span> and there is a link between
 this matrix and the gradients of the soft-DTW similarity measure:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cf4800ff-6515-4cff-b83e-aa705f3a85a3">
-<span class="eqno">(9)<a class="headerlink" href="#equation-cf4800ff-6515-4cff-b83e-aa705f3a85a3" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-c13a7c8c-79fe-4dac-a355-252d813d19d2">
+<span class="eqno">(9)<a class="headerlink" href="#equation-c13a7c8c-79fe-4dac-a355-252d813d19d2" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \nabla_{\mathbf{x}} \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime) =
-    \left(\frac{\partial D(\mathbf{x}, \mathbf{x}^\prime)}{\partial \mathbf{x}} \right)^T A_\gamma
+    \left(\frac{\partial D_2(\mathbf{x}, \mathbf{x}^\prime)}{\partial \mathbf{x}} \right)^T A_\gamma
 \end{equation}\]</div>
+</div>
+<div class="section" id="properties">
+<h2>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h2>
 <p>As discussed in <a class="bibtex reference internal" href="#janati2020spatio" id="id2">[JCG20]</a>, soft-DTW is not invariant to time
 shifts, as is DTW.
 Suppose <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is a time series that is constant except for a motif that
@@ -448,11 +438,85 @@ The reason behind this sensibility to time shifts is that soft-DTW provides a
 weighted average similarity score across all alignment paths (where stronger
 weights are assigned to better paths), instead of focusing on the single best
 alignment as done in DTW.</p>
-<p>Being differentiable, soft-DTW can be used as a loss in neural networks.
-This use-case is discussed in more details in our <a class="reference internal" href="align4ml.html#sec-forecasting"><span class="std std-ref">Forecasting</span></a>
-section.</p>
+<p>Another important property of soft-DTW is that is has a “denoising effect”, in
+the sense that, for a given time series <span class="math notranslate nohighlight">\(\mathbf{y}\)</span>, the minimizer of
+<span class="math notranslate nohighlight">\(\text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{y})\)</span> is not <span class="math notranslate nohighlight">\(\mathbf{y}\)</span>
+itself but rather a smoothed version:</p>
+<div class="figure align-default" id="denoising-sdtw">
+<a class="reference internal image-reference" href="../../_images/denoising_sdtw.png"><img alt="../../_images/denoising_sdtw.png" src="../../_images/denoising_sdtw.png" style="width: 50%;" /></a>
+<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Denoising effect of soft-DTW.
+Here, the optimization problem is
+<span class="math notranslate nohighlight">\(\min_\mathbf{x} \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{y})\)</span>
+and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> is used as an initialization for the gradient descent.
+This Figure is taken from <a class="bibtex reference internal" href="#blondelmensch2020" id="id3">[BMV20]</a>.</span><a class="headerlink" href="#denoising-sdtw" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="related-similarity-measures">
+<h2>Related Similarity Measures<a class="headerlink" href="#related-similarity-measures" title="Permalink to this headline">¶</a></h2>
+<p>In <a class="bibtex reference internal" href="#blondelmensch2020" id="id4">[BMV20]</a>, new similarity measures are defined, that rely on
+soft-DTW.</p>
+<p>First, <strong>soft-DTW divergence</strong> is defined as:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-b5f3ca09-5a6f-4568-a800-e003c63fffc1">
+<span class="eqno">(10)<a class="headerlink" href="#equation-b5f3ca09-5a6f-4568-a800-e003c63fffc1" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+    D^\gamma (\mathbf{x}, \mathbf{x}^\prime) =
+        \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)
+        - \frac{1}{2} \left(
+                \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}) +
+                \text{soft-}DTW^{\gamma}(\mathbf{x}^\prime, \mathbf{x}^\prime)
+            \right)
+\end{equation}\]</div>
+<p>and this divergence has the advantage of being minimized for
+<span class="math notranslate nohighlight">\(\mathbf{x} = \mathbf{x}^\prime\)</span> (and being exactly 0 in that case).</p>
+<p>Second, another interesting similarity measure introduced in the same paper is
+the <strong>sharp soft-DTW</strong> which is:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-45f620f4-1d62-48b8-a7e9-144685c05564">
+<span class="eqno">(11)<a class="headerlink" href="#equation-45f620f4-1d62-48b8-a7e9-144685c05564" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+    \text{sharp-soft-}DTW^{\gamma} (\mathbf{x}, \mathbf{x}^\prime) =
+        \langle A_\gamma,  D_2(\mathbf{x}, \mathbf{x}^\prime) \rangle
+\end{equation}\]</div>
+<p>Note that a <strong>sharp soft-DTW divergence</strong> can be derived from this
+(with a similar approach as for <span class="math notranslate nohighlight">\(D^\gamma\)</span>), which has the extra benefit
+(over the sharp soft-DTW) of
+being minimized at <span class="math notranslate nohighlight">\(\mathbf{x} = \mathbf{x}^\prime\)</span>.</p>
+<p>Further note that, by pushing <span class="math notranslate nohighlight">\(\gamma\)</span> to the <span class="math notranslate nohighlight">\(+\infty\)</span> limit in this formula,
+one gets:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-c13fcd9f-6e6d-408a-a9ba-ffcaede6b840">
+<span class="eqno">(12)<a class="headerlink" href="#equation-c13fcd9f-6e6d-408a-a9ba-ffcaede6b840" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+\text{sharp-soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)
+    \xrightarrow{\gamma \to +\infty}
+    \left\langle A_\infty, D_2(\mathbf{x}, \mathbf{x}^\prime) \right\rangle \, ,
+\end{equation}\]</div>
+<p>where <span class="math notranslate nohighlight">\(A_\infty\)</span> tends to favor diagonal matches:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">delannoy</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+  <span class="n">numbers</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+  <span class="n">numbers</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+      <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+  <span class="k">return</span> <span class="n">numbers</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">1</span><span class="p">:]</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">delannoy_numbers</span> <span class="o">=</span> <span class="n">delannoy</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">weight_matrix</span> <span class="o">=</span> <span class="n">delannoy_numbers</span> <span class="o">*</span> <span class="n">delannoy_numbers</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">delannoy_numbers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">weight_matrix</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;$A_\infty$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/softdtw_4_0.svg" src="../../_images/softdtw_4_0.svg" /></div>
+</div>
+</div>
+<div class="section" id="barycenters">
+<h2>Barycenters<a class="headerlink" href="#barycenters" title="Permalink to this headline">¶</a></h2>
 <p>Also, <strong>barycenters</strong> for the soft-DTW geometry can be estimated by
-minimization of the corresponding loss (<em>cf.</em> Equation <a class="reference internal" href="dtw.html#equation-eq-barycenter">(3)</a>)
+minimization of the corresponding loss (<em>cf.</em> Equation <a class="reference internal" href="dtw.html#equation-eq-barycenter">(4)</a>)
 through gradient descent.
 In such case, the parameters to be optimized are the coordinates of the
 barycenter.
@@ -482,19 +546,22 @@ This is illustrated in the example below:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/softdtw_5_0.svg" src="../../_images/softdtw_5_0.svg" /></div>
+<img alt="../../_images/softdtw_6_0.svg" src="../../_images/softdtw_6_0.svg" /></div>
 </div>
 <p>Note how large values of <span class="math notranslate nohighlight">\(\gamma\)</span> tend to smooth out the motifs from the input
 time series.
 The noisy barycenter obtained for low <span class="math notranslate nohighlight">\(\gamma\)</span> can be explained by the fact
 that low values of <span class="math notranslate nohighlight">\(\gamma\)</span> lead to a similarity measure that is
 less smooth (with the extreme case <span class="math notranslate nohighlight">\(\gamma = 0\)</span> for which DTW is retrieved and
-the function is not differentiable anymore), making the optimization problem
+the function faces differentiability issues), making the optimization problem
 harder.</p>
-<!-- **TODO: Lire et discuter le papier Blondel & Mensch** -->
+</div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <p id="bibtex-bibliography-contents/align/softdtw-0"><dl class="citation">
+<dt class="bibtex label" id="blondelmensch2020"><span class="brackets">BMV20</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id4">2</a>)</span></dt>
+<dd><p>Mathieu Blondel, Arthur Mensch, and Jean-Philippe Vert. Differentiable divergences between time series. 2020. <a class="reference external" href="https://arxiv.org/abs/2010.08354">arXiv:2010.08354</a>.</p>
+</dd>
 <dt class="bibtex label" id="cuturi2017soft"><span class="brackets"><a class="fn-backref" href="#id1">CB17</a></span></dt>
 <dd><p>Marco Cuturi and Mathieu Blondel. Soft-DTW: a differentiable loss function for time-series. In <em>Proceedings of the International Conference on Machine Learning</em>, 894–903. JMLR. org, 2017.</p>
 </dd>
@@ -535,7 +602,7 @@ harder.</p>
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="dtw.html" title="previous page">Dynamic Time Warping</a>
-    <a class='right-next' id="next-link" href="align4ml.html" title="next page">Alignment-based metrics in Machine Learning</a>
+    <a class='right-next' id="next-link" href="align4ml.html" title="next page">Alignment-based Metrics in Machine Learning</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

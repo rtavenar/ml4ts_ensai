@@ -35,16 +35,20 @@ m = n = 30
 delannoy_numbers = delannoy(m, n)
 weight_matrix = delannoy_numbers * delannoy_numbers[::-1, ::-1] / delannoy_numbers[-1, -1]
 
+fig = plt.figure()
 plt.imshow(weight_matrix)
 plt.colorbar()
-plt.title($A_\infty$)
-plt.show()
+plt.title("$A_\infty$")
+glue("A_inf", fig, display=False)
 ------------------
 
-[0;36m  File [0;32m"<ipython-input-1-7f650a5060f9>"[0;36m, line [0;32m21[0m
-[0;31m    plt.title($A_\infty$)[0m
-[0m              ^[0m
-[0;31mSyntaxError[0m[0;31m:[0m invalid syntax
-
-SyntaxError: invalid syntax (<ipython-input-1-7f650a5060f9>, line 21)
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mNameError[0m                                 Traceback (most recent call last)
+[0;32m<ipython-input-1-b65d22701f6c>[0m in [0;36m<module>[0;34m[0m
+[1;32m     21[0m [0mplt[0m[0;34m.[0m[0mcolorbar[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     22[0m [0mplt[0m[0;34m.[0m[0mtitle[0m[0;34m([0m[0;34m"$A_\infty$"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 23[0;31m [0mglue[0m[0;34m([0m[0;34m"A_inf"[0m[0;34m,[0m [0mfig[0m[0;34m,[0m [0mdisplay[0m[0;34m=[0m[0;32mFalse[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m
+[0;31mNameError[0m: name 'glue' is not defined
+NameError: name 'glue' is not defined
 
