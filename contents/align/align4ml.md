@@ -12,14 +12,14 @@ kernelspec:
   name: python3
 ---
 
-# Alignment-based metrics in Machine Learning
+# Alignment-based Metrics in Machine Learning
 
 When learning from non-aligned time series, being able to use alignment-based
 metrics at the core of Machine Learning (ML) systems is key.
 
 ## Classification
 
-### Nearest neighbors
+### Nearest Neighbors
 
 First, the similarity measures presented in this chapter can be used in
 conjunction with nearest-neighbor classifiers.
@@ -58,7 +58,8 @@ k_\text{GA}^\gamma(\mathbf{x}, \mathbf{x}^\prime) =
     \exp{- \frac{\text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)}{\gamma}}
 \end{equation}
 
-Though this kernel is not proved to be positive semi-definite, authors claim
+Though this kernel is not proved to be positive semi-definite (except in the
+univariate case {cite}`blondelmensch2020`), authors claim
 that, in practice, resulting Gram matrices happen to be psd in most of their
 experiments, hence allowing this kernel to be used in standard kernel methods,
 as discussed in the next section.

@@ -23,7 +23,10 @@ gradient-based optimization in Machine Learning.
 
 Soft-DTW {cite}`cuturi2017soft` has been introduced as a way to mitigate this
 limitation.
-The optimization problem that is tackled is the following:
+
+## Definition
+
+The formal definition for soft-DTW is the following:
 
 \begin{equation}
 \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime) =
@@ -48,35 +51,21 @@ value will dominate other terms in the sum, and the soft-min then tends to the
 hard minimum.
 ````
 
-```{sidebar} Dot product notation
-This dot product notation can easily be extended to Dynamic Time Warping:
-
-\begin{equation*}
-DTW_q(\mathbf{x}, \mathbf{x}^\prime) =
-    \min_{\pi \in \mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)}
-        \langle A_\pi,  D_q(\mathbf{x}, \mathbf{x}^\prime) \rangle^{\frac{1}{q}}
-\end{equation*}
-
-where $D_q(\mathbf{x}, \mathbf{x}^\prime)$ stores distances
-$d(x_i, x^\prime_j)$ at the power $q$ and $(A_\pi)_{i,j} = 1$ iff
-$(i, j) \in \pi$ (0 otherwise).
-```
-
-Typically, when $\gamma$ tends to 0, $DTW(\mathbf{x}, \mathbf{x}^\prime)^2$ is
-retrieved.
-For strictly positive values of $\gamma$, the soft-DTW can be re-written
+Typically, we have:
 
 \begin{equation}
-\text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime) =
-    \langle A_\gamma , D(\mathbf{x}, \mathbf{x}^\prime) \rangle
-\label{eq:softdtw:dot}
+    \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)
+    \xrightarrow{\gamma \to 0^+} DTW(\mathbf{x}, \mathbf{x}^\prime)^2 \, .
 \end{equation}
+However, contrary to DTW, soft-DTW -- being differentiable everywhere -- can be
+used as a loss in neural networks.
+This use-case is discussed in more details in our {ref}`sec:forecasting`
+section.
 
-where $D(\mathbf{x}, \mathbf{x}^\prime)$ is a matrix that stores squared
-distances $d(x_i, x^\prime_j)^2$
-and $A_\gamma$ is a "soft path" matrix that informs, for each pair $(i, j)$,
-how much it will be taken into account in the matching.
+## Soft-Alignment Path
 
+Let us denote by $A_\gamma$ the "soft path" matrix that informs, for each pair
+$(i, j)$, how much it will be taken into account in the matching.
 $A_\gamma$ can be interpreted as a weighted average of paths in
 $\mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)$:
 
@@ -87,15 +76,8 @@ A_\gamma =& \, \mathbb{E}_{\gamma}[A] \\
 
 where $k_{\mathrm{GA}}^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)$ can be
 seen as a normalization factor (see [](sec:gak) section for more
-details).
-
-Note that, by pushing $\gamma$ to the $+\infty$ limit in this formula, one gets:
-
-\begin{equation}
-\text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime) \xrightarrow{\gamma \to +\infty} \left\langle A_\infty, D_2(\mathbf{x}, \mathbf{x}^\prime) \right\rangle \, ,
-\end{equation}
-
-where $A_\infty$ tends to favor diagonal matches:
+details) and $D_2(\mathbf{x}, \mathbf{x}^\prime)$ is a matrix that stores
+squared distances $d(x_i, x^\prime_j)^2$
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -105,28 +87,6 @@ import matplotlib.pyplot as plt
 import numpy
 
 plt.ion()
-
-def delannoy(m, n):
-  numbers = numpy.zeros((m + 1, n + 1), dtype=numpy.float64)
-  numbers[0, 0] = 1
-  for i in range(1, m + 1):
-    for j in range(1, n + 1):
-      numbers[i, j] = numbers[i - 1, j - 1] + numbers[i, j - 1] + numbers[i - 1, j]
-  return numbers[1:, 1:]
-
-m = n = 30
-delannoy_numbers = delannoy(m, n)
-weight_matrix = delannoy_numbers * delannoy_numbers[::-1, ::-1] / delannoy_numbers[-1, -1]
-
-plt.imshow(weight_matrix)
-plt.colorbar()
-plt.title("$A_\infty$")
-plt.show()
-```
-
-
-```{code-cell} ipython3
-:tags: [hide-input]
 
 def plot_constraints(title, sz):
     for pos in range(sz):
@@ -199,8 +159,10 @@ this matrix and the gradients of the soft-DTW similarity measure:
 
 \begin{equation}
 \nabla_{\mathbf{x}} \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime) =
-    \left(\frac{\partial D(\mathbf{x}, \mathbf{x}^\prime)}{\partial \mathbf{x}} \right)^T A_\gamma
+    \left(\frac{\partial D_2(\mathbf{x}, \mathbf{x}^\prime)}{\partial \mathbf{x}} \right)^T A_\gamma
 \end{equation}
+
+## Properties
 
 As discussed in {cite}`janati2020spatio`, soft-DTW is not invariant to time
 shifts, as is DTW.
@@ -219,9 +181,89 @@ weighted average similarity score across all alignment paths (where stronger
 weights are assigned to better paths), instead of focusing on the single best
 alignment as done in DTW.
 
-Being differentiable, soft-DTW can be used as a loss in neural networks.
-This use-case is discussed in more details in our {ref}`sec:forecasting`
-section.
+Another important property of soft-DTW is that is has a "denoising effect", in
+the sense that, for a given time series $\mathbf{y}$, the minimizer of
+$\text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{y})$ is not $\mathbf{y}$
+itself but rather a smoothed version:
+
+```{figure} ../fig/denoising_sdtw.*
+---
+width: 50%
+name: denoising_sdtw
+---
+Denoising effect of soft-DTW.
+Here, the optimization problem is
+$\min_\mathbf{x} \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{y})$
+and $\mathbf{y}$ is used as an initialization for the gradient descent.
+This Figure is taken from {cite}`blondelmensch2020`.
+```
+
+## Related Similarity Measures
+
+In {cite}`blondelmensch2020`, new similarity measures are defined, that rely on
+soft-DTW.
+
+First, **soft-DTW divergence** is defined as:
+
+\begin{equation}
+    D^\gamma (\mathbf{x}, \mathbf{x}^\prime) =
+        \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)
+        - \frac{1}{2} \left(
+                \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}) +
+                \text{soft-}DTW^{\gamma}(\mathbf{x}^\prime, \mathbf{x}^\prime)
+            \right)
+\end{equation}
+
+and this divergence has the advantage of being minimized for
+$\mathbf{x} = \mathbf{x}^\prime$ (and being exactly 0 in that case).
+
+Second, another interesting similarity measure introduced in the same paper is
+the **sharp soft-DTW** which is:
+
+\begin{equation}
+    \text{sharp-soft-}DTW^{\gamma} (\mathbf{x}, \mathbf{x}^\prime) =
+        \langle A_\gamma,  D_2(\mathbf{x}, \mathbf{x}^\prime) \rangle
+\end{equation}
+
+Note that a **sharp soft-DTW divergence** can be derived from this
+(with a similar approach as for $D^\gamma$), which has the extra benefit
+(over the sharp soft-DTW) of
+being minimized at $\mathbf{x} = \mathbf{x}^\prime$.
+
+Further note that, by pushing $\gamma$ to the $+\infty$ limit in this formula,
+one gets:
+
+\begin{equation}
+\text{sharp-soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)
+    \xrightarrow{\gamma \to +\infty}
+    \left\langle A_\infty, D_2(\mathbf{x}, \mathbf{x}^\prime) \right\rangle \, ,
+\end{equation}
+
+where $A_\infty$ tends to favor diagonal matches:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+
+def delannoy(m, n):
+  numbers = numpy.zeros((m + 1, n + 1), dtype=numpy.float64)
+  numbers[0, 0] = 1
+  for i in range(1, m + 1):
+    for j in range(1, n + 1):
+      numbers[i, j] = numbers[i - 1, j - 1] + numbers[i, j - 1] + numbers[i - 1, j]
+  return numbers[1:, 1:]
+
+m = n = 30
+delannoy_numbers = delannoy(m, n)
+weight_matrix = delannoy_numbers * delannoy_numbers[::-1, ::-1] / delannoy_numbers[-1, -1]
+
+fig = plt.figure()
+plt.imshow(weight_matrix)
+plt.colorbar()
+plt.title("$A_\infty$")
+plt.show()
+```
+
+## Barycenters
 
 Also, **barycenters** for the soft-DTW geometry can be estimated by
 minimization of the corresponding loss (_cf._ Equation {eq}`eq:barycenter`)
@@ -257,10 +299,8 @@ time series.
 The noisy barycenter obtained for low $\gamma$ can be explained by the fact
 that low values of $\gamma$ lead to a similarity measure that is
 less smooth (with the extreme case $\gamma = 0$ for which DTW is retrieved and
-the function is not differentiable anymore), making the optimization problem
+the function faces differentiability issues), making the optimization problem
 harder.
-
-<!-- **TODO: Lire et discuter le papier Blondel & Mensch** -->
 
 
 ## References

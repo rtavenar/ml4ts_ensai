@@ -201,6 +201,24 @@ In more details:
 
 The dynamic programming algorithm presented above relies on this recurrence formula and stores intermediate computations for efficiency.
 
+```{admonition} Dot product notation
+Dynamic Time Warping can also be formalized using the following
+notation:
+
+\begin{equation*}
+DTW_q(\mathbf{x}, \mathbf{x}^\prime) =
+    \min_{\pi \in \mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)}
+        \langle A_\pi,  D_q(\mathbf{x}, \mathbf{x}^\prime) \rangle^{\frac{1}{q}}
+\end{equation*}
+
+where $D_q(\mathbf{x}, \mathbf{x}^\prime)$ stores distances
+$d(x_i, x^\prime_j)$ at the power $q$ and
+\begin{equation}
+(A_\pi)_{i,j} = \left\{ \begin{array}{rl} 1 & \text{ if } (i, j) \in \pi \\
+                                      0 & \text{ otherwise}
+                        \end{array} \right. .
+\end{equation}
+```
 
 ## Properties
 
@@ -216,7 +234,7 @@ then $DTW_q(\mathbf{x}, \mathbf{x}_{+k}) = 0$.
 However, mathematically speaking, DTW is not a valid metric since it
 satisfies neither the triangular inequality nor the identity of indiscernibles.
 
-## Setting additional constraints
+## Setting Additional Constraints
 
 The set of temporal deformations to which DTW is invariant can be reduced by
 imposing additional constraints on the set of acceptable paths.
@@ -296,7 +314,7 @@ cost = dtw(
 ```
 ````
 
-## Computing barycenters
+## Computing Barycenters
 
 As illustrated in our introductory example, the ability to compute barycenters
 for a given similarity measure is necessary for its use in some methods such as
