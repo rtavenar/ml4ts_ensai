@@ -127,6 +127,11 @@
    Dedicated neural-network architectures
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../conclu.html">
+   Conclusion
+  </a>
+ </li>
 </ul>
 
 </nav> <!-- To handle the deprecated key -->
@@ -314,8 +319,8 @@ the code is as follows:</p>
 <div class="section" id="global-alignment-kernel">
 <span id="sec-gak"></span><h3>Global Alignment Kernel<a class="headerlink" href="#global-alignment-kernel" title="Permalink to this headline">¶</a></h3>
 <p>Let us define the Global Alignment Kernel (GAK, <a class="bibtex reference internal" href="#cuturi2007kernel" id="id1">[CVBM07]</a>) as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1dda46dc-b8b8-41bc-bb0a-ca4c49cd2c20">
-<span class="eqno">(13)<a class="headerlink" href="#equation-1dda46dc-b8b8-41bc-bb0a-ca4c49cd2c20" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-6cd119a0-a553-472c-81bb-bc7e9572ed15">
+<span class="eqno">(13)<a class="headerlink" href="#equation-6cd119a0-a553-472c-81bb-bc7e9572ed15" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 k_\text{GA}^\gamma(\mathbf{x}, \mathbf{x}^\prime) =
     \exp{- \frac{\text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)}{\gamma}}
 \end{equation}\]</div>
@@ -486,8 +491,8 @@ This is done by introducing an additional penalty to the loss to be optimized,
 which is the dot product between a “soft-mask matrix” <span class="math notranslate nohighlight">\(\Omega\)</span>
 and the computed soft path matrix <span class="math notranslate nohighlight">\(A_\gamma\)</span>, which tends to favor diagonal
 matches :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c2d02f6d-5011-4624-8292-c54bceb25e17">
-<span class="eqno">(14)<a class="headerlink" href="#equation-c2d02f6d-5011-4624-8292-c54bceb25e17" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-637fc4d0-4126-4f94-abfb-761a3546c5a9">
+<span class="eqno">(14)<a class="headerlink" href="#equation-637fc4d0-4126-4f94-abfb-761a3546c5a9" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \mathcal{L}_\text{reg} = \mathcal{L}_\text{soft-DTW} + \langle \Omega , A_\gamma \rangle .
 \end{equation}\]</div>
 <p>The <span class="math notranslate nohighlight">\(\Omega\)</span> matrix typically looks like:</p>

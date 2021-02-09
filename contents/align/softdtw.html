@@ -127,6 +127,11 @@
    Dedicated neural-network architectures
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../conclu.html">
+   Conclusion
+  </a>
+ </li>
 </ul>
 
 </nav> <!-- To handle the deprecated key -->
@@ -286,8 +291,8 @@ limitation.</p>
 <div class="section" id="definition">
 <h2>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">¶</a></h2>
 <p>The formal definition for soft-DTW is the following:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-536651b2-e08c-42af-a470-61b0091e2b61">
-<span class="eqno">(5)<a class="headerlink" href="#equation-536651b2-e08c-42af-a470-61b0091e2b61" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-33d7a456-8ae9-42db-a737-3edbe458a626">
+<span class="eqno">(5)<a class="headerlink" href="#equation-33d7a456-8ae9-42db-a737-3edbe458a626" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime) =
     \min_{\pi \in \mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)}{}^\gamma
         \sum_{(i, j) \in \pi} d(x_i, x^\prime_j)^2
@@ -298,8 +303,8 @@ factor <span class="math notranslate nohighlight">\(\gamma\)</span>.</p>
 <div class="admonition-a-note-on-soft-min admonition">
 <p class="admonition-title">A note on soft-min</p>
 <p>The soft-min operator <span class="math notranslate nohighlight">\(\min{}^\gamma\)</span> is defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ce7cebdf-78c1-41ec-a545-ca42492710d7">
-<span class="eqno">(6)<a class="headerlink" href="#equation-ce7cebdf-78c1-41ec-a545-ca42492710d7" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-db15e582-7114-43b6-9e46-0ea5991ecb47">
+<span class="eqno">(6)<a class="headerlink" href="#equation-db15e582-7114-43b6-9e46-0ea5991ecb47" title="Permalink to this equation">¶</a></span>\[\begin{equation}
     \min{}^\gamma(a_1, \dots, a_n) = - \gamma \log \sum_i e^{-a_i / \gamma}
 \end{equation}\]</div>
 <p>Note that when gamma tends to <span class="math notranslate nohighlight">\(0^+\)</span>, the term corresponding to the lower <span class="math notranslate nohighlight">\(a_i\)</span>
@@ -307,8 +312,8 @@ value will dominate other terms in the sum, and the soft-min then tends to the
 hard minimum.</p>
 </div>
 <p>Typically, we have:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f89029d5-784a-4597-b301-b4ee64daff63">
-<span class="eqno">(7)<a class="headerlink" href="#equation-f89029d5-784a-4597-b301-b4ee64daff63" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-3a41e305-64d3-4084-847f-ed1866f52ee6">
+<span class="eqno">(7)<a class="headerlink" href="#equation-3a41e305-64d3-4084-847f-ed1866f52ee6" title="Permalink to this equation">¶</a></span>\[\begin{equation}
     \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)
     \xrightarrow{\gamma \to 0^+} DTW(\mathbf{x}, \mathbf{x}^\prime)^2 \, .
 \end{equation}\]</div>
@@ -323,8 +328,8 @@ section.</p>
 <span class="math notranslate nohighlight">\((i, j)\)</span>, how much it will be taken into account in the matching.
 <span class="math notranslate nohighlight">\(A_\gamma\)</span> can be interpreted as a weighted average of paths in
 <span class="math notranslate nohighlight">\(\mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e4fcdb57-59fb-4ffb-acc0-3f23cb0415c2">
-<span class="eqno">(8)<a class="headerlink" href="#equation-e4fcdb57-59fb-4ffb-acc0-3f23cb0415c2" title="Permalink to this equation">¶</a></span>\[\begin{eqnarray}
+<div class="amsmath math notranslate nohighlight" id="equation-31dac97f-64ff-43a2-92c4-f536a219aca7">
+<span class="eqno">(8)<a class="headerlink" href="#equation-31dac97f-64ff-43a2-92c4-f536a219aca7" title="Permalink to this equation">¶</a></span>\[\begin{eqnarray}
 A_\gamma =&amp; \, \mathbb{E}_{\gamma}[A] \\
 =&amp; \, \frac{1}{k_{\mathrm{GA}}^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)} \sum_{\pi \in \mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)} e^{-\langle A_\pi, D_2(\mathbf{x}, \mathbf{x}^\prime) / \gamma\rangle} A_\pi \, ,
 \end{eqnarray}\]</div>
@@ -415,8 +420,8 @@ squared distances <span class="math notranslate nohighlight">\(d(x_i, x^\prime_j
 </div>
 <p><span class="math notranslate nohighlight">\(A_\gamma\)</span> can be computed with complexity <span class="math notranslate nohighlight">\(O(mn)\)</span> and there is a link between
 this matrix and the gradients of the soft-DTW similarity measure:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c13a7c8c-79fe-4dac-a355-252d813d19d2">
-<span class="eqno">(9)<a class="headerlink" href="#equation-c13a7c8c-79fe-4dac-a355-252d813d19d2" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-694a2fe8-61b5-4c3d-9e99-974d6dbe0bce">
+<span class="eqno">(9)<a class="headerlink" href="#equation-694a2fe8-61b5-4c3d-9e99-974d6dbe0bce" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \nabla_{\mathbf{x}} \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime) =
     \left(\frac{\partial D_2(\mathbf{x}, \mathbf{x}^\prime)}{\partial \mathbf{x}} \right)^T A_\gamma
 \end{equation}\]</div>
@@ -456,8 +461,8 @@ This Figure is taken from <a class="bibtex reference internal" href="#blondelmen
 <p>In <a class="bibtex reference internal" href="#blondelmensch2020" id="id4">[BMV20]</a>, new similarity measures are defined, that rely on
 soft-DTW.</p>
 <p>First, <strong>soft-DTW divergence</strong> is defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b5f3ca09-5a6f-4568-a800-e003c63fffc1">
-<span class="eqno">(10)<a class="headerlink" href="#equation-b5f3ca09-5a6f-4568-a800-e003c63fffc1" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-f512bb72-9c8a-4fce-b116-ff16c4d32202">
+<span class="eqno">(10)<a class="headerlink" href="#equation-f512bb72-9c8a-4fce-b116-ff16c4d32202" title="Permalink to this equation">¶</a></span>\[\begin{equation}
     D^\gamma (\mathbf{x}, \mathbf{x}^\prime) =
         \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)
         - \frac{1}{2} \left(
@@ -469,8 +474,8 @@ soft-DTW.</p>
 <span class="math notranslate nohighlight">\(\mathbf{x} = \mathbf{x}^\prime\)</span> (and being exactly 0 in that case).</p>
 <p>Second, another interesting similarity measure introduced in the same paper is
 the <strong>sharp soft-DTW</strong> which is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-45f620f4-1d62-48b8-a7e9-144685c05564">
-<span class="eqno">(11)<a class="headerlink" href="#equation-45f620f4-1d62-48b8-a7e9-144685c05564" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-748243f0-9b3d-4f53-b987-976ee1daf0bc">
+<span class="eqno">(11)<a class="headerlink" href="#equation-748243f0-9b3d-4f53-b987-976ee1daf0bc" title="Permalink to this equation">¶</a></span>\[\begin{equation}
     \text{sharp-soft-}DTW^{\gamma} (\mathbf{x}, \mathbf{x}^\prime) =
         \langle A_\gamma,  D_2(\mathbf{x}, \mathbf{x}^\prime) \rangle
 \end{equation}\]</div>
@@ -480,8 +485,8 @@ the <strong>sharp soft-DTW</strong> which is:</p>
 being minimized at <span class="math notranslate nohighlight">\(\mathbf{x} = \mathbf{x}^\prime\)</span>.</p>
 <p>Further note that, by pushing <span class="math notranslate nohighlight">\(\gamma\)</span> to the <span class="math notranslate nohighlight">\(+\infty\)</span> limit in this formula,
 one gets:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c13fcd9f-6e6d-408a-a9ba-ffcaede6b840">
-<span class="eqno">(12)<a class="headerlink" href="#equation-c13fcd9f-6e6d-408a-a9ba-ffcaede6b840" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-9f721aff-eddc-4651-bde1-2228f5597701">
+<span class="eqno">(12)<a class="headerlink" href="#equation-9f721aff-eddc-4651-bde1-2228f5597701" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \text{sharp-soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)
     \xrightarrow{\gamma \to +\infty}
     \left\langle A_\infty, D_2(\mathbf{x}, \mathbf{x}^\prime) \right\rangle \, ,

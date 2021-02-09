@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Foreword &#8212; Machine Learning for Time Series</title>
+    <title>Conclusion &#8212; Machine Learning for Time Series</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -56,7 +56,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Introduction" href="intro.html" />
+    <link rel="prev" title="Dedicated neural-network architectures" href="deep/intro.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -85,13 +85,13 @@
 </form>
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
     <ul class="nav sidenav_l1">
- <li class="toctree-l1 current active">
-  <a class="reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="foreword.html">
    Foreword
   </a>
  </li>
 </ul>
-<ul class="nav sidenav_l1">
+<ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
    Introduction
@@ -126,8 +126,8 @@
    Dedicated neural-network architectures
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="conclu.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Conclusion
   </a>
  </li>
@@ -171,7 +171,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/contents/foreword.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/contents/conclu.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -191,7 +191,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/rtavenar/ml4ts_ensai/issues/new?title=Issue%20on%20page%20%2Fcontents/foreword.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/rtavenar/ml4ts_ensai/issues/new?title=Issue%20on%20page%20%2Fcontents/conclu.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -212,6 +212,20 @@
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
         
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lab-sessions">
+   Lab sessions
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
     </div>
 </div>
     <div id="main-content" class="row">
@@ -219,37 +233,29 @@
         
               <div>
                 
-  <div class="section" id="foreword">
-<h1>Foreword<a class="headerlink" href="#foreword" title="Permalink to this headline">¶</a></h1>
-<p>These are lecture notes from a course given at ENSAI (Rennes, France).
-A first part of this course about auto regressive models for time series
-forecasting is taught by Valentin Patilea.</p>
-<p>These notes cover the content of the second part of the course:</p>
+  <div class="section" id="conclusion">
+<h1>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h1>
+<p>In this course, we have focused on learning from time series and we have
+detailed two families of methods.</p>
+<p>The first one relies on matching-based metrics that aim at assessing similarity
+between time series through temporal alignment.
+In this context, we have focused on the Dynamic Time Warping (DTW) method and
+its differentiable counterpart softDTW.</p>
+<p>In a second part, we have focused on neural network architectures tailored to
+deal with time series, and more specifically convolutional models as well as
+recurrent ones.</p>
+<p>Finally, we have seen that methods from both parts of the course could be
+combined, through the use of differentiable alignment-based similarity measures
+as loss functions when time series are provided as model outputs.</p>
+<div class="section" id="lab-sessions">
+<h2>Lab sessions<a class="headerlink" href="#lab-sessions" title="Permalink to this headline">¶</a></h2>
+<p>The following lab sessions were used in this course:</p>
 <ul class="simple">
-<li><p>alignment-based metrics and their use in machine learning ;</p></li>
-<li><p>standard neural network architectures for time series.</p></li>
+<li><p><a class="reference external" href="https://deepnote.com/project/875be644-b8e9-4b7a-9ad0-a51b71d99277">Dynamic Time Warping (DTW)</a></p></li>
+<li><p><a class="reference external" href="https://deepnote.com/project/e4dadc00-2adf-46ff-9917-d8e28866115a">Soft-DTW</a></p></li>
+<li><p><a class="reference external" href="https://deepnote.com/project/3d477a4a-aae0-4ca4-8312-12cf53579ac6">Alignment-based metrics in Machine Learning</a></p></li>
+<li><p><a class="reference external" href="https://deepnote.com/project/8b324446-5acf-431b-834e-0f07585889d7">Neural networks for Time Series</a></p></li>
 </ul>
-<p>In order to execute the code provided in this book, you will need the
-following Python packages:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span><span class="o">-</span><span class="n">book</span>
-<span class="n">matplotlib</span>
-<span class="n">numpy</span>
-<span class="n">tslearn</span>
-<span class="n">celluloid</span>
-</pre></div>
-</div>
-<p>If you want to cite these notes, please use the following bibtex entry:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>@misc{
-    author = {Romain Tavenard},
-    title = {Machine Learning for Time Series -- Notes from Lectures at ENSAI}
-    year = {2021}
-}
-</pre></div>
-</div>
-<p>Finally, if you spot typos or would like to suggest improvements to these notes,
-do not hesitate to
-<a class="reference external" href="https://github.com/rtavenar/ml4ts_ensai/issues/new">open an issue on GitHub</a>.</p>
-<div class="toctree-wrapper compound">
 </div>
 </div>
 
@@ -281,7 +287,7 @@ do not hesitate to
     
     <div class='prev-next-bottom'>
         
-    <a class='right-next' id="next-link" href="intro.html" title="next page">Introduction</a>
+    <a class='left-prev' id="prev-link" href="deep/intro.html" title="previous page">Dedicated neural-network architectures</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

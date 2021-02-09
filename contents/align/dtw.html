@@ -127,6 +127,11 @@
    Dedicated neural-network architectures
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../conclu.html">
+   Conclusion
+  </a>
+ </li>
 </ul>
 
 </nav> <!-- To handle the deprecated key -->
@@ -306,8 +311,8 @@ sequence of <span class="math notranslate nohighlight">\(K\)</span> index pairs
 <span class="math notranslate nohighlight">\(\left((i_0, j_0), \dots , (i_{K-1}, j_{K-1})\right)\)</span>.</p>
 <p>DTW between <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}^\prime\)</span> is formulated as the following
 optimization problem:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5659f8c9-faad-4c40-b194-f1c78d675a53">
-<span class="eqno">(1)<a class="headerlink" href="#equation-5659f8c9-faad-4c40-b194-f1c78d675a53" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-82501fae-a606-48f3-aa36-e2eb0a2fdb71">
+<span class="eqno">(1)<a class="headerlink" href="#equation-82501fae-a606-48f3-aa36-e2eb0a2fdb71" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 DTW_q(\mathbf{x}, \mathbf{x}^\prime) =
     \min_{\pi \in \mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)}
         \left( \sum_{(i, j) \in \pi} d(x_i, x^\prime_j)^q \right)^{\frac{1}{q}}
@@ -438,8 +443,8 @@ problem (assuming computation of <span class="math notranslate nohighlight">\(d(
 </div>
 <p>The basic idea behind this algorithm is that there exists a recurrence relationship between partial DTW computations.
 More precisely, if we denote by <span class="math notranslate nohighlight">\(\gamma_{i,j}\)</span> the <span class="math notranslate nohighlight">\(DTW_q\)</span> (at power <span class="math notranslate nohighlight">\(q\)</span>) similarity between sequences <span class="math notranslate nohighlight">\(\mathbf{x}_{\rightarrow i}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}^\prime_{\rightarrow j}\)</span> (where the notation <span class="math notranslate nohighlight">\(\mathbf{x}_{\rightarrow i}\)</span> denotes sequence <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> observed up to time <span class="math notranslate nohighlight">\(i\)</span>), then we have:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f5ae0cbf-64c9-43aa-b0cb-eb135b905046">
-<span class="eqno">(2)<a class="headerlink" href="#equation-f5ae0cbf-64c9-43aa-b0cb-eb135b905046" title="Permalink to this equation">¶</a></span>\[\begin{eqnarray}
+<div class="amsmath math notranslate nohighlight" id="equation-1e7124ea-2608-4d23-8c68-5912272db725">
+<span class="eqno">(2)<a class="headerlink" href="#equation-1e7124ea-2608-4d23-8c68-5912272db725" title="Permalink to this equation">¶</a></span>\[\begin{eqnarray}
 
 \gamma_{i,j} &amp;=&amp; DTW_q(\mathbf{x}_{\rightarrow i}, \mathbf{x}^\prime_{\rightarrow j})^q \\
 &amp;=&amp;
@@ -470,8 +475,8 @@ DTW_q(\mathbf{x}, \mathbf{x}^\prime) =
 \end{equation*}\]</div>
 <p>where <span class="math notranslate nohighlight">\(D_q(\mathbf{x}, \mathbf{x}^\prime)\)</span> stores distances
 <span class="math notranslate nohighlight">\(d(x_i, x^\prime_j)\)</span> at the power <span class="math notranslate nohighlight">\(q\)</span> and</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1ae72f52-6816-4a9c-9316-9ecc28f345f7">
-<span class="eqno">(3)<a class="headerlink" href="#equation-1ae72f52-6816-4a9c-9316-9ecc28f345f7" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-38cc401a-d3a8-4042-ac17-bd0c744bf4eb">
+<span class="eqno">(3)<a class="headerlink" href="#equation-38cc401a-d3a8-4042-ac17-bd0c744bf4eb" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 (A_\pi)_{i,j} = \left\{ \begin{array}{rl} 1 &amp; \text{ if } (i, j) \in \pi \\
                                       0 &amp; \text{ otherwise}
                         \end{array} \right. .
@@ -1126,42 +1131,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img087f807dc0b24441b10d20c1722136c4">
+  <img id="_anim_imgccbdcc84ffee4cbe979f4641a90c12eb">
   <div class="anim-controls">
-    <input id="_anim_slider087f807dc0b24441b10d20c1722136c4" type="range" class="anim-slider"
+    <input id="_anim_sliderccbdcc84ffee4cbe979f4641a90c12eb" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim087f807dc0b24441b10d20c1722136c4.set_frame(parseInt(this.value));"></input>
+           oninput="animccbdcc84ffee4cbe979f4641a90c12eb.set_frame(parseInt(this.value));"></input>
     <div class="anim-buttons">
-      <button title="Decrease speed" onclick="anim087f807dc0b24441b10d20c1722136c4.slower()">
+      <button title="Decrease speed" onclick="animccbdcc84ffee4cbe979f4641a90c12eb.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" onclick="anim087f807dc0b24441b10d20c1722136c4.first_frame()">
+      <button title="First frame" onclick="animccbdcc84ffee4cbe979f4641a90c12eb.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" onclick="anim087f807dc0b24441b10d20c1722136c4.previous_frame()">
+      <button title="Previous frame" onclick="animccbdcc84ffee4cbe979f4641a90c12eb.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" onclick="anim087f807dc0b24441b10d20c1722136c4.reverse_animation()">
+      <button title="Play backwards" onclick="animccbdcc84ffee4cbe979f4641a90c12eb.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" onclick="anim087f807dc0b24441b10d20c1722136c4.pause_animation()">
+      <button title="Pause" onclick="animccbdcc84ffee4cbe979f4641a90c12eb.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" onclick="anim087f807dc0b24441b10d20c1722136c4.play_animation()">
+      <button title="Play" onclick="animccbdcc84ffee4cbe979f4641a90c12eb.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" onclick="anim087f807dc0b24441b10d20c1722136c4.next_frame()">
+      <button title="Next frame" onclick="animccbdcc84ffee4cbe979f4641a90c12eb.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" onclick="anim087f807dc0b24441b10d20c1722136c4.last_frame()">
+      <button title="Last frame" onclick="animccbdcc84ffee4cbe979f4641a90c12eb.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" onclick="anim087f807dc0b24441b10d20c1722136c4.faster()">
+      <button title="Increase speed" onclick="animccbdcc84ffee4cbe979f4641a90c12eb.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" action="#n" name="_anim_loop_select087f807dc0b24441b10d20c1722136c4"
+    <form title="Repetition mode" action="#n" name="_anim_loop_selectccbdcc84ffee4cbe979f4641a90c12eb"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_087f807dc0b24441b10d20c1722136c4"
+      <input type="radio" name="state" value="once" id="_anim_radio1_ccbdcc84ffee4cbe979f4641a90c12eb"
              >
-      <label for="_anim_radio1_087f807dc0b24441b10d20c1722136c4">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_087f807dc0b24441b10d20c1722136c4"
+      <label for="_anim_radio1_ccbdcc84ffee4cbe979f4641a90c12eb">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_ccbdcc84ffee4cbe979f4641a90c12eb"
              checked>
-      <label for="_anim_radio2_087f807dc0b24441b10d20c1722136c4">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_087f807dc0b24441b10d20c1722136c4"
+      <label for="_anim_radio2_ccbdcc84ffee4cbe979f4641a90c12eb">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_ccbdcc84ffee4cbe979f4641a90c12eb"
              >
-      <label for="_anim_radio3_087f807dc0b24441b10d20c1722136c4">Reflect</label>
+      <label for="_anim_radio3_ccbdcc84ffee4cbe979f4641a90c12eb">Reflect</label>
     </form>
   </div>
 </div>
@@ -1171,9 +1176,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img087f807dc0b24441b10d20c1722136c4";
-    var slider_id = "_anim_slider087f807dc0b24441b10d20c1722136c4";
-    var loop_select_id = "_anim_loop_select087f807dc0b24441b10d20c1722136c4";
+    var img_id = "_anim_imgccbdcc84ffee4cbe979f4641a90c12eb";
+    var slider_id = "_anim_sliderccbdcc84ffee4cbe979f4641a90c12eb";
+    var loop_select_id = "_anim_loop_selectccbdcc84ffee4cbe979f4641a90c12eb";
     var frames = new Array(10);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -10244,7 +10249,7 @@ R7KlQfv0AAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim087f807dc0b24441b10d20c1722136c4 = new Animation(frames, img_id, slider_id, 200.0,
+        animccbdcc84ffee4cbe979f4641a90c12eb = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
