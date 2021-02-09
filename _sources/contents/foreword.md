@@ -13,7 +13,6 @@ In order to execute the code provided in this book, you will need the
 following Python packages:
 
 ```
-jupyter-book
 matplotlib
 numpy
 tslearn
