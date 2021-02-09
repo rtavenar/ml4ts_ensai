@@ -1,6 +1,7 @@
 jupyter-book
 matplotlib==3.3.3
 numpy
-git+git://github.com/tslearn-team/tslearn@master
+tslearn
 celluloid
 h5py
+torch
