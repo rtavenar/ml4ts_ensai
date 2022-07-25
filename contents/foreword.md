@@ -1,10 +1,7 @@
 # Foreword
 
 These are lecture notes from a course given at ENSAI (Rennes, France).
-A first part of this course about auto regressive models for time series
-forecasting is taught by Valentin Patilea.
-
-These notes cover the content of the second part of the course:
+These course covers the following topics:
 
 - alignment-based metrics and their use in machine learning ;
 - standard neural network architectures for time series.
