@@ -5,3 +5,4 @@ tslearn
 celluloid
 h5py
 torch
+docutils==0.17.1
