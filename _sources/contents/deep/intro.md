@@ -42,6 +42,8 @@ The following code illustrates this notion using a Gaussian filter:
 
 %config InlineBackend.figure_format = 'svg'
 import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings('ignore')
 
 plt.ion()
 ```
@@ -128,13 +130,13 @@ especially vague).
 Most standard time series architectures that rely on convolutional blocks
 are straight-forward adaptations of
 models from the computer vision community
-({cite}`leguennec:halshs-01357973` relies on an
+({cite:p}`leguennec:halshs-01357973` relies on an
 old-fashioned alternance between convolution and pooling layers,
 while more recent works rely on residual connections and
-inception modules {cite}`fawaz2020inceptiontime`).
+inception modules {cite:p}`fawaz2020inceptiontime`).
 
 These models (and more) are presented and benchmarked in
-{cite}`fawaz2019deep` that we
+{cite:p}`fawaz2019deep` that we
 advise the interested reader to refer to for more details.
 
 ```{admonition} The "Learning Shapelet" model
@@ -155,12 +157,12 @@ through the "shapelet distance"
     d_S(\mathbf{x}, \mathbf{s}) = \min_t \| \mathbf{x}_{t \rightarrow t + L} - \mathbf{s} \|_2
 \end{equation}
 
-Early works {cite}`ye2009time` focused on building decision trees whose nodes
+Early works {cite:p}`ye2009time` focused on building decision trees whose nodes
 were attached each a shapelet and a distance threshold (to discriminate between
 the series that have a least one part similar to the shapelets and series that
 don't).
 
-Then, {cite}`grabocka2014learning` proposed to learn the contents of the
+Then, {cite:p}`grabocka2014learning` proposed to learn the contents of the
 shapelets jointly
 with a linear classifier that would operate in the shapelet transform space
 (the space in which a time series is represented by its distances to all the
@@ -284,7 +286,7 @@ This is an occurrence of a more general phenomenon known as the
 
 ### Long Short-Term Memory
 
-The Long Short-Term Memory (LSTM, {cite}`hochreiter1997long`) blocks have
+The Long Short-Term Memory (LSTM, {cite:p}`hochreiter1997long`) blocks have
 been designed as an alternative
 recurrent block that aims at mitigating this vanishing gradient effect through
 the use of gates that explicitly encode pieces of information that should
@@ -354,7 +356,7 @@ on the same basic principles.
 ### Gated Recurrent Unit
 
 A slightly different parametrization of a recurrent block is used in the
-so-called Gatted Recurrent Unit (GRU, {cite}`cho2014properties`).
+so-called Gatted Recurrent Unit (GRU, {cite:p}`cho2014properties`).
 
 GRUs also rely on the use of gates to (adaptively) let information flow
 through time.
@@ -401,6 +403,6 @@ learn meaningful representations.
 
 ## References
 
-```{bibliography} ../../references.bib
+```{bibliography}
 :filter: docname in docnames
 ```

@@ -18,9 +18,4 @@ as loss functions when time series are provided as model outputs.
 
 ## Lab sessions
 
-The following lab sessions were used in this course:
-
-* [Dynamic Time Warping (DTW)](https://deepnote.com/project/875be644-b8e9-4b7a-9ad0-a51b71d99277)
-* [Soft-DTW](https://deepnote.com/project/e4dadc00-2adf-46ff-9917-d8e28866115a)
-* [Alignment-based metrics in Machine Learning](https://deepnote.com/project/3d477a4a-aae0-4ca4-8312-12cf53579ac6)
-* [Neural networks for Time Series](https://deepnote.com/project/8b324446-5acf-431b-834e-0f07585889d7)
+The lab sessions for this course are available on GitHub at <https://github.com/rtavenar/notebooks-ml4ts>.

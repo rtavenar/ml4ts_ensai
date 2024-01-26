@@ -17,7 +17,7 @@ kernelspec:
 
 This section covers works related to Dynamic Time Warping for time series.
 
-Dynamic Time Warping (DTW) {cite}`sakoe1978dynamic` is a similarity measure
+Dynamic Time Warping (DTW) {cite:p}`sakoe1978dynamic` is a similarity measure
 between time series.
 Consider two time series $\mathbf{x}$ and
 $\mathbf{x}^\prime$ of respective lengths $n$ and
@@ -87,6 +87,8 @@ values.
 %config InlineBackend.figure_format = 'svg'
 import matplotlib.pyplot as plt
 import numpy
+import warnings
+warnings.filterwarnings('ignore')
 
 plt.ion()
 
@@ -337,7 +339,7 @@ However, here we are rather interested in computing barycenters with
 respect to the Dynamic Time Warping similarity measure.
 Optimizing this quantity can be done through the
 **DTW Barycenter Averaging (DBA)** algorithm presented in
-{cite}`PETITJEAN2011678`.
+{cite:p}`PETITJEAN2011678`.
 This algorithm repeats the following two steps until convergence:
 
 1. Compute Dynamic Time Warping and associated matching $\pi$ between the
@@ -708,16 +710,16 @@ Also, the problem of aligning heterogeneous time series (_i.e._ time series
 whose elements either do not lie in the same ambient space or cannot be
 compared directly) has received some attention.
 A first similarity measure in this context is Canonical Time Warping
-{cite}`zhou2009canonical` which finds both a common embedding space for features
+{cite:p}`zhou2009canonical` which finds both a common embedding space for features
 of both time series (using Canonical Correlation Analysis) and an optimal
 alignment path _à la_ DTW.
 More recent works on this problem aim at either mapping one series' features
-to the other series' feature space {cite}`vayer2020time` or matching
-self-similarity matrices {cite}`cohen2020aligning`.
+to the other series' feature space {cite:p}`vayer2020time` or matching
+self-similarity matrices {cite:p}`cohen2020aligning`.
 ```
 
 ## References
 
-```{bibliography} ../../references.bib
+```{bibliography}
 :filter: docname in docnames
 ```

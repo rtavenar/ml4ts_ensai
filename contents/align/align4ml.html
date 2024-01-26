@@ -1,299 +1,402 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>Alignment-based Metrics in Machine Learning &#8212; Machine Learning for Time Series</title>
-    
-  <link rel="stylesheet" href="../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    
-      
-  <link rel="stylesheet"
-    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
-  <link rel="stylesheet"
-    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
-
-    
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    
-  <link rel="preload" as="script" href="../../_static/js/index.3da636dd464baa7582d2.js">
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/togglebutton.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'contents/align/align4ml';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Dedicated neural-network architectures" href="../deep/intro.html" />
     <link rel="prev" title="Soft-DTW" href="softdtw.html" />
-
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
-
-
-
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
-    
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    <div class="container-xl">
-      <div class="row">
-          
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
     
-        <div class="navbar-brand-box">
-<a class="navbar-brand text-wrap" href="../../index.html">
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../foreword.html">
   
   
-  <h1 class="site-logo" id="site-title">Machine Learning for Time Series</h1>
   
+  
+  
+  
+    <p class="title logo__title">Machine Learning for Time Series</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../foreword.html">
+                    Foreword
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="intro.html">Alignment-based metrics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="dtw.html">Dynamic Time Warping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="softdtw.html">Soft-DTW</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Alignment-based Metrics in Machine Learning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../deep/intro.html">Dedicated neural-network architectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conclu.html">Conclusion</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/rtavenar/ml4ts_ensai" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
 </a>
-</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form>
-<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-    <ul class="nav sidenav_l1">
- <li class="toctree-l1">
-  <a class="reference internal" href="../foreword.html">
-   Foreword
-  </a>
- </li>
-</ul>
-<ul class="current nav sidenav_l1">
- <li class="toctree-l1">
-  <a class="reference internal" href="../intro.html">
-   Introduction
-  </a>
- </li>
- <li class="toctree-l1 current active collapsible-parent">
-  <a class="reference internal" href="intro.html">
-   Alignment-based metrics
-  </a>
-  <ul class="current collapse-ul">
-   <li class="toctree-l2">
-    <a class="reference internal" href="dtw.html">
-     Dynamic Time Warping
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="softdtw.html">
-     Soft-DTW
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Alignment-based Metrics in Machine Learning
-    </a>
-   </li>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/rtavenar/ml4ts_ensai/issues/new?title=Issue%20on%20page%20%2Fcontents/align/align4ml.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
   </ul>
-  <i class="fas fa-chevron-down">
-  </i>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../deep/intro.html">
-   Dedicated neural-network architectures
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../conclu.html">
-   Conclusion
-  </a>
- </li>
-</ul>
-
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
 </div>
 
 
-          
 
 
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="row topbar fixed-top container-xl">
-    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
-    </div>
-    <div class="col pl-2 topbar-main">
-        
-        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-            <i class="fas fa-bars"></i>
-            <i class="fas fa-arrow-left"></i>
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        
-        
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
 
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        <a class="dropdown-buttons"
-            href="../../_sources/contents/align/align4ml.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/contents/align/align4ml.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
 
-        <!-- Source interaction buttons -->
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/contents/align/align4ml.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/rtavenar/ml4ts_ensai"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/rtavenar/ml4ts_ensai/issues/new?title=Issue%20on%20page%20%2Fcontents/align/align4ml.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
 </div>
 
 
-        <!-- Full screen (wrap in <a> to have style consistency -->
-        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-                title="Fullscreen mode"><i
-                    class="fas fa-expand"></i></button></a>
 
-        <!-- Launch buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/rtavenar/ml4ts_ensai/master?urlpath=tree/contents/align/align4ml.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
     </div>
+  
 </div>
+</div>
+              
+              
 
-    </div>
-
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Alignment-based Metrics in Machine Learning</h1>
     <!-- Table of contents -->
-    <div class="d-none d-md-block col-md-2 bd-toc show">
-        
-        <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
-        </div>
-        <nav id="bd-toc-nav">
-            <ul class="nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#classification">
-   Classification
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#nearest-neighbors">
-     Nearest Neighbors
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#global-alignment-kernel">
-     Global Alignment Kernel
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#clustering">
-   Clustering
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#forecasting">
-   Forecasting
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#conclusion">
-   Conclusion
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#references">
-   References
-  </a>
- </li>
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification">Classification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-neighbors">Nearest Neighbors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#global-alignment-kernel">Global Alignment Kernel</a></li>
 </ul>
-
-        </nav>
-        
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering">Clustering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#forecasting">Forecasting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
     </div>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
-              <div>
+
+              
                 
-  <div class="section" id="alignment-based-metrics-in-machine-learning">
-<h1>Alignment-based Metrics in Machine Learning<a class="headerlink" href="#alignment-based-metrics-in-machine-learning" title="Permalink to this headline">¶</a></h1>
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="alignment-based-metrics-in-machine-learning">
+<h1>Alignment-based Metrics in Machine Learning<a class="headerlink" href="#alignment-based-metrics-in-machine-learning" title="Permalink to this heading">#</a></h1>
 <p>When learning from non-aligned time series, being able to use alignment-based
 metrics at the core of Machine Learning (ML) systems is key.</p>
-<div class="section" id="classification">
-<h2>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="nearest-neighbors">
-<h3>Nearest Neighbors<a class="headerlink" href="#nearest-neighbors" title="Permalink to this headline">¶</a></h3>
+<section id="classification">
+<h2>Classification<a class="headerlink" href="#classification" title="Permalink to this heading">#</a></h2>
+<section id="nearest-neighbors">
+<h3>Nearest Neighbors<a class="headerlink" href="#nearest-neighbors" title="Permalink to this heading">#</a></h3>
 <p>First, the similarity measures presented in this chapter can be used in
 conjunction with nearest-neighbor classifiers.
 To do so, it suffices to compute DTW (or any other time-series-specific)
@@ -315,17 +418,17 @@ the code is as follows:</p>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="global-alignment-kernel">
-<span id="sec-gak"></span><h3>Global Alignment Kernel<a class="headerlink" href="#global-alignment-kernel" title="Permalink to this headline">¶</a></h3>
-<p>Let us define the Global Alignment Kernel (GAK, <a class="bibtex reference internal" href="#cuturi2007kernel" id="id1">[CVBM07]</a>) as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6cd119a0-a553-472c-81bb-bc7e9572ed15">
-<span class="eqno">(13)<a class="headerlink" href="#equation-6cd119a0-a553-472c-81bb-bc7e9572ed15" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+</section>
+<section id="global-alignment-kernel">
+<span id="sec-gak"></span><h3>Global Alignment Kernel<a class="headerlink" href="#global-alignment-kernel" title="Permalink to this heading">#</a></h3>
+<p>Let us define the Global Alignment Kernel (GAK, <span id="id1">[<a class="reference internal" href="#id16" title="Marco Cuturi, Jean-Philippe Vert, Oystein Birkenes, and Tomoko Matsui. A kernel for time series based on global alignments. In Proceedings of the IEEE International Conference on Acoustics, Speech, and Signal Processing, volume 2, II–413. IEEE, 2007.">Cuturi <em>et al.</em>, 2007</a>]</span>) as:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-91e121f7-30c9-40ee-b088-e27eab96a14e">
+<span class="eqno">(13)<a class="headerlink" href="#equation-91e121f7-30c9-40ee-b088-e27eab96a14e" title="Permalink to this equation">#</a></span>\[\begin{equation}
 k_\text{GA}^\gamma(\mathbf{x}, \mathbf{x}^\prime) =
     \exp{- \frac{\text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)}{\gamma}}
 \end{equation}\]</div>
 <p>Though this kernel is not proved to be positive semi-definite (except in the
-univariate case <a class="bibtex reference internal" href="softdtw.html#blondelmensch2020" id="id2">[BMV20]</a>), authors claim
+univariate case <span id="id2">[<a class="reference internal" href="softdtw.html#id17" title="Mathieu Blondel, Arthur Mensch, and Jean-Philippe Vert. Differentiable divergences between time series. 2020. arXiv:2010.08354.">Blondel <em>et al.</em>, 2020</a>]</span>), authors claim
 that, in practice, resulting Gram matrices happen to be psd in most of their
 experiments, hence allowing this kernel to be used in standard kernel methods,
 as discussed in the next section.
@@ -333,14 +436,22 @@ One typical use-case consists in using this kernel in Support
 Vector Machines for classification.
 When doing so, resulting support vectors are hence time series, as shown below:</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;svg&#39;
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -355,7 +466,7 @@ When doing so, resulting support vectors are hence time series, as shown below:<
 <span class="n">X_train</span> <span class="o">=</span> <span class="n">TimeSeriesScalerMinMax</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
 <span class="n">X_test</span> <span class="o">=</span> <span class="n">TimeSeriesScalerMinMax</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 
-<span class="n">clf</span> <span class="o">=</span> <span class="n">TimeSeriesSVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;gak&quot;</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=.</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">TimeSeriesSVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;gak&quot;</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">.1</span><span class="p">)</span>
 <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 
 <span class="n">n_classes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">y_train</span><span class="p">))</span>
@@ -373,22 +484,22 @@ When doing so, resulting support vectors are hence time series, as shown below:<
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/align4ml_2_0.svg" src="../../_images/align4ml_2_0.svg" /></div>
+<img alt="../../_images/a77301b1d9f04cc8796e339034bc983e37fece4bee817fc0d1f9e762e17f5b4f.svg" src="../../_images/a77301b1d9f04cc8796e339034bc983e37fece4bee817fc0d1f9e762e17f5b4f.svg" /></div>
 </div>
 <p>Note that methods presented in this section straight-forwardly extend to
 regression setups in
 which the target variable is not a time series itself (for this specific case,
 refer to our <a class="reference internal" href="#sec-forecasting"><span class="std std-ref">Forecasting</span></a> section).</p>
-</div>
-</div>
-<div class="section" id="clustering">
-<h2>Clustering<a class="headerlink" href="#clustering" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="clustering">
+<h2>Clustering<a class="headerlink" href="#clustering" title="Permalink to this heading">#</a></h2>
 <p>As shown above in our <a class="reference internal" href="intro.html#sec-intro-align"><span class="std std-ref">Alignment-based metrics</span></a> section, using standard clustering
 algorithms can cause trouble when dealing with time-shifted time series.</p>
 <p>In what follows, we discuss the use of Dynamic Time Warping at the core of
 <span class="math notranslate nohighlight">\(k\)</span>-means clustering.</p>
 <p>The <span class="math notranslate nohighlight">\(k\)</span>-means algorithm repeats the same two steps until convergence:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>assign all samples to their closest centroid ;</p></li>
 <li><p>update centroids as the barycenters of the samples assigned to their
 associated cluster.</p></li>
@@ -428,7 +539,7 @@ metric:</p>
 <span class="k">for</span> <span class="n">yi</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">yi</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">xx</span> <span class="ow">in</span> <span class="n">X_train</span><span class="p">[</span><span class="n">y_pred</span> <span class="o">==</span> <span class="n">yi</span><span class="p">]:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="s2">&quot;k-&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="s2">&quot;k-&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.2</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dba_km</span><span class="o">.</span><span class="n">cluster_centers_</span><span class="p">[</span><span class="n">yi</span><span class="p">]</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="s2">&quot;r-&quot;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sz</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
@@ -438,7 +549,7 @@ metric:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/align4ml_4_0.svg" src="../../_images/align4ml_4_0.svg" /></div>
+<img alt="../../_images/3a3804da7f14142c34f881087ae98de8ece73f783ade3576668e31edc14f1f8d.svg" src="../../_images/3a3804da7f14142c34f881087ae98de8ece73f783ade3576668e31edc14f1f8d.svg" /></div>
 </div>
 <p>As a result, clusters gather time series of similar shapes, which is due to the
 ability of Dynamic Time Warping (DTW) to deal with time shifts, as explained
@@ -448,16 +559,18 @@ with respect to DTW, hence
 they allow to retrieve a sensible average shape whatever the temporal shifts
 in the cluster.</p>
 <p>Another option to deal with such time shifts is to rely on the kernel trick.
-Indeed, the kernel <span class="math notranslate nohighlight">\(k\)</span>-means algorithm <a class="bibtex reference internal" href="#dhillon2004kernel" id="id3">[DGK04]</a>, that is
+Indeed, the kernel <span class="math notranslate nohighlight">\(k\)</span>-means algorithm <span id="id3">[<a class="reference internal" href="#id18" title="Inderjit S Dhillon, Yuqiang Guan, and Brian Kulis. Kernel k-means: spectral clustering and normalized cuts. In Proceedings of the ACM SIGKDD International Conference on Knowledge Discovery and Data mining, 551–556. 2004.">Dhillon <em>et al.</em>, 2004</a>]</span>, that is
 equivalent to a <span class="math notranslate nohighlight">\(k\)</span>-means
 that would operate in the Reproducing Kernel Hilbert Space associated to the
 chosen kernel, can be used in conjunction
 with Global Alignment Kernel (GAK).</p>
-<div class="figure align-default" id="kernel-kmeans">
+<figure class="align-default" id="kernel-kmeans">
 <a class="reference internal image-reference" href="../../_images/kernel_kmeans.svg"><img alt="../../_images/kernel_kmeans.svg" src="../../_images/kernel_kmeans.svg" width="100%" /></a>
-<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Kernel <span class="math notranslate nohighlight">\(k\)</span>-means clustering with Global Alignment Kernel.
-Each subfigure represents series from a given cluster.</span><a class="headerlink" href="#kernel-kmeans" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Kernel <span class="math notranslate nohighlight">\(k\)</span>-means clustering with Global Alignment Kernel.
+Each subfigure represents series from a given cluster.</span><a class="headerlink" href="#kernel-kmeans" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>A first significant difference (when compared to <span class="math notranslate nohighlight">\(k\)</span>-means) is that
 cluster centers are never computed
 explicitly, hence time series assignments to cluster are the only kind of
@@ -469,34 +582,41 @@ shape).
 This is because, contrary to DTW, Global Alignment Kernel is not invariant to
 time shifts, as
 discussed <a class="reference internal" href="softdtw.html#sec-softdtw"><span class="std std-ref">earlier</span></a> for the closely related soft-DTW.</p>
-</div>
-<div class="section" id="forecasting">
-<span id="sec-forecasting"></span><h2>Forecasting<a class="headerlink" href="#forecasting" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="forecasting">
+<span id="sec-forecasting"></span><h2>Forecasting<a class="headerlink" href="#forecasting" title="Permalink to this heading">#</a></h2>
 <p>As discussed earlier, soft-DTW is differentiable with respect to its inputs.
 This is especially useful for forecasting tasks in which prediction is to be
-made for multiple time steps (<em>multi-step ahead forecasting</em>)<a class="footnote-reference brackets" href="#structpred" id="id4">1</a>.
+made for multiple time steps (<em>multi-step ahead forecasting</em>)<a class="footnote-reference brackets" href="#structpred" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.
 Indeed, in this context, soft-DTW can be used in place of a standard Mean
 Squared Error (MSE) loss in order to better take time shifts into account.</p>
 <p>This is done, for example, in the seminal paper by Cuturi and Blondel
-<a class="bibtex reference internal" href="softdtw.html#cuturi2017soft" id="id5">[CB17]</a>:</p>
-<div class="figure align-default" id="forecasting-cuturi-blondel">
+<span id="id5">[<a class="reference internal" href="softdtw.html#id10" title="Marco Cuturi and Mathieu Blondel. Soft-DTW: a differentiable loss function for time-series. In Proceedings of the International Conference on Machine Learning, 894–903. JMLR. org, 2017.">Cuturi and Blondel, 2017</a>]</span>:</p>
+<figure class="align-default" id="forecasting-cuturi-blondel">
 <a class="reference internal image-reference" href="../../_images/forecasting_cuturi_blondel.png"><img alt="../../_images/forecasting_cuturi_blondel.png" src="../../_images/forecasting_cuturi_blondel.png" style="width: 50%;" /></a>
-<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">Using soft-DTW in place of a standard Euclidean loss for forecasting.
-This Figure is taken from <a class="bibtex reference internal" href="softdtw.html#cuturi2017soft" id="id6">[CB17]</a>.</span><a class="headerlink" href="#forecasting-cuturi-blondel" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Using soft-DTW in place of a standard Euclidean loss for forecasting.
+This Figure is taken from <span id="id6">[<a class="reference internal" href="softdtw.html#id10" title="Marco Cuturi and Mathieu Blondel. Soft-DTW: a differentiable loss function for time-series. In Proceedings of the International Conference on Machine Learning, 894–903. JMLR. org, 2017.">Cuturi and Blondel, 2017</a>]</span>.</span><a class="headerlink" href="#forecasting-cuturi-blondel" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>An alternative differentiable loss (DILATE) is introduced in
-<a class="bibtex reference internal" href="#vincent2019shape" id="id7">[LGT19]</a> that relies on soft-DTW and penalizes
+<span id="id7">[<a class="reference internal" href="#id15" title="Vincent Le Guen and Nicolas Thome. Shape and time distortion loss for training deep time series forecasting models. In Neural Information Processing Systems, 4189–4201. 2019.">Le Guen and Thome, 2019</a>]</span> that relies on soft-DTW and penalizes
 de-synchronized alignments.
 This is done by introducing an additional penalty to the loss to be optimized,
 which is the dot product between a “soft-mask matrix” <span class="math notranslate nohighlight">\(\Omega\)</span>
 and the computed soft path matrix <span class="math notranslate nohighlight">\(A_\gamma\)</span>, which tends to favor diagonal
 matches :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-637fc4d0-4126-4f94-abfb-761a3546c5a9">
-<span class="eqno">(14)<a class="headerlink" href="#equation-637fc4d0-4126-4f94-abfb-761a3546c5a9" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-55045203-1465-48f2-9e9d-a34b45627651">
+<span class="eqno">(14)<a class="headerlink" href="#equation-55045203-1465-48f2-9e9d-a34b45627651" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \mathcal{L}_\text{reg} = \mathcal{L}_\text{soft-DTW} + \langle \Omega , A_\gamma \rangle .
 \end{equation}\]</div>
 <p>The <span class="math notranslate nohighlight">\(\Omega\)</span> matrix typically looks like:</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 
@@ -512,20 +632,23 @@ matches :</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../../_images/align4ml_6_0.svg" src="../../_images/align4ml_6_0.svg" /></div>
+<img alt="../../_images/ae1196f7e3091c84efe9fc4b9fd82869361b3c0f9aa3e046475312f59eb13b3a.svg" src="../../_images/ae1196f7e3091c84efe9fc4b9fd82869361b3c0f9aa3e046475312f59eb13b3a.svg" /></div>
 </div>
 <p>As a result, the DILATE method allows to both better model shape matching than
 MSE and better localize shapes than soft-DTW:</p>
-<div class="figure align-default" id="forecasting-le-guen">
+<figure class="align-default" id="forecasting-le-guen">
 <a class="reference internal image-reference" href="../../_images/forecasting_le_guen.png"><img alt="../../_images/forecasting_le_guen.png" src="../../_images/forecasting_le_guen.png" style="width: 100%;" /></a>
-<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">Comparison between MSE, soft-DTW (denoted <span class="math notranslate nohighlight">\(DTW_\gamma\)</span>) and DILATE as loss
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Comparison between MSE, soft-DTW (denoted <span class="math notranslate nohighlight">\(DTW_\gamma\)</span>) and DILATE as loss
 functions for forecasting tasks.
-This Figure is taken from <a class="bibtex reference internal" href="#vincent2019shape" id="id8">[LGT19]</a>.</span><a class="headerlink" href="#forecasting-le-guen" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-<div class="section" id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+This Figure is taken from <span id="id8">[<a class="reference internal" href="#id15" title="Vincent Le Guen and Nicolas Thome. Shape and time distortion loss for training deep time series forecasting models. In Neural Information Processing Systems, 4189–4201. 2019.">Le Guen and Thome, 2019</a>]</span>.</span><a class="headerlink" href="#forecasting-le-guen" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
 <p>In this part of the course, we have presented similarity measures for time
 series that aim to
 tackle time shift invariance (a.k.a. temporal localization invariance) and their
@@ -538,37 +661,43 @@ We have also presented one of its strongest limitations which is its
 non-differentiability, which has led to the introduction of a soft variant
 that can hence be used as a loss (for structured prediction settings) in
 neural networks.</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<div class="docutils container" id="id9">
+<div class="citation" id="id21" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">BMV20</a><span class="fn-bracket">]</span></span>
+<p>Mathieu Blondel, Arthur Mensch, and Jean-Philippe Vert. Differentiable divergences between time series. 2020. <a class="reference external" href="https://arxiv.org/abs/2010.08354">arXiv:2010.08354</a>.</p>
 </div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<p id="bibtex-bibliography-contents/align/align4ml-0"><dl class="citation">
-<dt class="bibtex label" id="blondelmensch2020"><span class="brackets"><a class="fn-backref" href="#id2">BMV20</a></span></dt>
-<dd><p>Mathieu Blondel, Arthur Mensch, and Jean-Philippe Vert. Differentiable divergences between time series. 2020. <a class="reference external" href="https://arxiv.org/abs/2010.08354">arXiv:2010.08354</a>.</p>
-</dd>
-<dt class="bibtex label" id="cuturi2017soft"><span class="brackets">CB17</span><span class="fn-backref">(<a href="#id5">1</a>,<a href="#id6">2</a>)</span></dt>
-<dd><p>Marco Cuturi and Mathieu Blondel. Soft-DTW: a differentiable loss function for time-series. In <em>Proceedings of the International Conference on Machine Learning</em>, 894–903. JMLR. org, 2017.</p>
-</dd>
-<dt class="bibtex label" id="cuturi2007kernel"><span class="brackets"><a class="fn-backref" href="#id1">CVBM07</a></span></dt>
-<dd><p>Marco Cuturi, Jean-Philippe Vert, Oystein Birkenes, and Tomoko Matsui. A kernel for time series based on global alignments. In <em>Proceedings of the IEEE International Conference on Acoustics, Speech, and Signal Processing</em>, volume 2, II–413. IEEE, 2007.</p>
-</dd>
-<dt class="bibtex label" id="dhillon2004kernel"><span class="brackets"><a class="fn-backref" href="#id3">DGK04</a></span></dt>
-<dd><p>Inderjit S Dhillon, Yuqiang Guan, and Brian Kulis. Kernel k-means: spectral clustering and normalized cuts. In <em>Proceedings of the ACM SIGKDD International Conference on Knowledge Discovery and Data mining</em>, 551–556. 2004.</p>
-</dd>
-<dt class="bibtex label" id="vincent2019shape"><span class="brackets">LGT19</span><span class="fn-backref">(<a href="#id7">1</a>,<a href="#id8">2</a>)</span></dt>
-<dd><p>Vincent Le Guen and Nicolas Thome. Shape and time distortion loss for training deep time series forecasting models. In <em>Neural Information Processing Systems</em>, 4189–4201. 2019.</p>
-</dd>
-</dl>
-</p>
-<hr class="docutils" />
-<dl class="footnote brackets">
-<dt class="label" id="structpred"><span class="brackets"><a class="fn-backref" href="#id4">1</a></span></dt>
-<dd><p>This problem is an instance of a more general class of problems
+<div class="citation" id="id14" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>CB17<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id5">1</a>,<a role="doc-backlink" href="#id6">2</a>)</span>
+<p>Marco Cuturi and Mathieu Blondel. Soft-DTW: a differentiable loss function for time-series. In <em>Proceedings of the International Conference on Machine Learning</em>, 894–903. JMLR. org, 2017.</p>
+</div>
+<div class="citation" id="id16" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">CVBM07</a><span class="fn-bracket">]</span></span>
+<p>Marco Cuturi, Jean-Philippe Vert, Oystein Birkenes, and Tomoko Matsui. A kernel for time series based on global alignments. In <em>Proceedings of the IEEE International Conference on Acoustics, Speech, and Signal Processing</em>, volume 2, II–413. IEEE, 2007.</p>
+</div>
+<div class="citation" id="id18" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">DGK04</a><span class="fn-bracket">]</span></span>
+<p>Inderjit S Dhillon, Yuqiang Guan, and Brian Kulis. Kernel k-means: spectral clustering and normalized cuts. In <em>Proceedings of the ACM SIGKDD International Conference on Knowledge Discovery and Data mining</em>, 551–556. 2004.</p>
+</div>
+<div class="citation" id="id15" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>LGT19<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id7">1</a>,<a role="doc-backlink" href="#id8">2</a>)</span>
+<p>Vincent Le Guen and Nicolas Thome. Shape and time distortion loss for training deep time series forecasting models. In <em>Neural Information Processing Systems</em>, 4189–4201. 2019.</p>
+</div>
+</div>
+</div>
+<hr class="footnotes docutils" />
+<aside class="footnote brackets" id="structpred" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">1</a><span class="fn-bracket">]</span></span>
+<p>This problem is an instance of a more general class of problems
 known as structured prediction problems, in which the target variable
 (to be predicted) has a specific structure (time series, graph, <em>etc.</em>).</p>
-</dd>
-</dl>
-</div>
-</div>
+</aside>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -582,7 +711,7 @@ known as structured prediction problems, in which the target variable
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./contents/align"
         },
         predefinedOutput: true
@@ -590,38 +719,110 @@ known as structured prediction problems, in which the target variable
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-        </div>
-    </div>
-    
-    
-    <div class='prev-next-bottom'>
-        
-    <a class='left-prev' id="prev-link" href="softdtw.html" title="previous page">Soft-DTW</a>
-    <a class='right-next' id="next-link" href="../deep/intro.html" title="next page">Dedicated neural-network architectures</a>
 
-    </div>
-    <footer class="footer mt-5 mt-md-0">
-    <div class="container">
-      <p>
-        
-          By Romain Tavenard<br/>
-        
-            &copy; Copyright 2020.<br/>
-      </p>
-    </div>
-  </footer>
-</main>
-
-
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="softdtw.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Soft-DTW</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="../deep/intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Dedicated neural-network architectures</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification">Classification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-neighbors">Nearest Neighbors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#global-alignment-kernel">Global Alignment Kernel</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering">Clustering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#forecasting">Forecasting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Romain Tavenard
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
-    
-  <script src="../../_static/js/index.3da636dd464baa7582d2.js"></script>
-
-
-    
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

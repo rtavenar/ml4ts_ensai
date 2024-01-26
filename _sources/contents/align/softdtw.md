@@ -21,7 +21,7 @@ the computations.
 This limitation is especially problematic given the importance of
 gradient-based optimization in Machine Learning.
 
-Soft-DTW {cite}`cuturi2017soft` has been introduced as a way to mitigate this
+Soft-DTW {cite:p}`cuturi2017soft` has been introduced as a way to mitigate this
 limitation.
 
 ## Definition
@@ -85,6 +85,8 @@ squared distances $d(x_i, x^\prime_j)^2$
 %config InlineBackend.figure_format = 'svg'
 import matplotlib.pyplot as plt
 import numpy
+import warnings
+warnings.filterwarnings('ignore')
 
 plt.ion()
 
@@ -164,7 +166,7 @@ this matrix and the gradients of the soft-DTW similarity measure:
 
 ## Properties
 
-As discussed in {cite}`janati2020spatio`, soft-DTW is not invariant to time
+As discussed in {cite:p}`janati2020spatio`, soft-DTW is not invariant to time
 shifts, as is DTW.
 Suppose $\mathbf{x}$ is a time series that is constant except for a motif that
 occurs at some point in the series, and let us denote by $\mathbf{x}_{+k}$ a
@@ -195,12 +197,12 @@ Denoising effect of soft-DTW.
 Here, the optimization problem is
 $\min_\mathbf{x} \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{y})$
 and $\mathbf{y}$ is used as an initialization for the gradient descent.
-This Figure is taken from {cite}`blondelmensch2020`.
+This Figure is taken from {cite:p}`blondelmensch2020`.
 ```
 
 ## Related Similarity Measures
 
-In {cite}`blondelmensch2020`, new similarity measures are defined, that rely on
+In {cite:p}`blondelmensch2020`, new similarity measures are defined, that rely on
 soft-DTW.
 
 First, **soft-DTW divergence** is defined as:
@@ -305,6 +307,6 @@ harder.
 
 ## References
 
-```{bibliography} ../../references.bib
+```{bibliography}
 :filter: docname in docnames
 ```
