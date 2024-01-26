@@ -1,67 +1,67 @@
 # name: deploy-notes
 #
-# # Only run this when the master branch changes
-# on:
-#   push:
-#     branches:
-#     - master
-#     # If your git repository has the Jupyter Book within some-subfolder next to
-#     # unrelated files, you can make this run only if a file within that specific
-#     # folder has been modified.
-#     #
-#     # paths:
-#     # - some-subfolder/**
-#
-# # This job installs dependencies, build the book, and pushes it to `gh-pages`
-# jobs:
-#   deploy-book:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - uses: actions/checkout@v2
-#       with:
-#         persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
-#         fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
-#
-#     # Install Python
-#     - name: Set up Python 3.8
-#       uses: actions/setup-python@v1
-#       with:
-#         python-version: 3.8
-#     # Install the python packages (from requirements.txt)
-#     - name: Install python packages
-#       run: |
-#         pip install -r requirements.txt
-#
-#     # # Install the latex things to create the pdf
-#     # - name: install latex dependencies
-#     #   run: |
-#     #     sudo apt-get install texlive-latex-recommended texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra texlive-xetex latexmk
-#
-#     # Build the html version of the book
-#     - name: Build the html-book
-#       run: |
-#         jupyter-book build .
-#
-#     # - name: Build the pdf book
-#     #   run: |
-#     #     jupyter-book build . --builder pdflatex
-#     # Push the book's HTML to github-pages
-#
-#     - name: GitHub Pages action
-#       uses: peaceiris/actions-gh-pages@v3.6.1
-#       with:
-#         github_token: ${{ secrets.GITHUB_TOKEN }}
-#         publish_dir: ./_build/html
-#
-#     # # This next step moves, renames and commits the created pdf
-#     # - name: Commit and rename pdf
-#     #   run: |
-#     #     mv ./_build/latex/book.pdf notes.pdf
-#     #     git config --local user.email "action@github.com"
-#     #     git config --local user.name "GitHub Action"
-#     #     git add book.pdf
-#     #     git commit -m "update PDF version of the notes"
-#     # - name: Push changes
-#     #   uses: ad-m/github-push-action@master
-#     #   with:
-#     #     github_token: ${{ secrets.GITHUB_TOKEN }}
+# Only run this when the master branch changes
+on:
+  push:
+    branches:
+    - master
+    # If your git repository has the Jupyter Book within some-subfolder next to
+    # unrelated files, you can make this run only if a file within that specific
+    # folder has been modified.
+    #
+    # paths:
+    # - some-subfolder/**
+
+# This job installs dependencies, build the book, and pushes it to `gh-pages`
+jobs:
+  deploy-book:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
+        fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+
+    # Install Python
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    # Install the python packages (from requirements.txt)
+    - name: Install python packages
+      run: |
+        pip install -r requirements.txt
+
+    # # Install the latex things to create the pdf
+    # - name: install latex dependencies
+    #   run: |
+    #     sudo apt-get install texlive-latex-recommended texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra texlive-xetex latexmk
+
+    # Build the html version of the book
+    - name: Build the html-book
+      run: |
+        jupyter-book build .
+
+    # - name: Build the pdf book
+    #   run: |
+    #     jupyter-book build . --builder pdflatex
+    # Push the book's HTML to github-pages
+
+    - name: GitHub Pages action
+      uses: peaceiris/actions-gh-pages@v3.6.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./_build/html
+
+    # # This next step moves, renames and commits the created pdf
+    # - name: Commit and rename pdf
+    #   run: |
+    #     mv ./_build/latex/book.pdf notes.pdf
+    #     git config --local user.email "action@github.com"
+    #     git config --local user.name "GitHub Action"
+    #     git add book.pdf
+    #     git commit -m "update PDF version of the notes"
+    # - name: Push changes
+    #   uses: ad-m/github-push-action@master
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
