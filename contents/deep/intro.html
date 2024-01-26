@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Dedicated neural-network architectures &#8212; Machine Learning for Time Series</title>
   
@@ -400,8 +400,8 @@ convolutional models on the one hand and recurrent models on the other hand.</p>
 <p>Convolutional neural networks are very efficient models that rely on the
 convolution operator that, given a time series <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and a filter
 <span class="math notranslate nohighlight">\(\mathbf{f}\)</span>, computes an activation map as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-41bb2e17-570d-48eb-a603-3939bc2fb0be">
-<span class="eqno">(15)<a class="headerlink" href="#equation-41bb2e17-570d-48eb-a603-3939bc2fb0be" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-e7434e1d-1da6-46b0-a500-9a22e7351162">
+<span class="eqno">(15)<a class="headerlink" href="#equation-e7434e1d-1da6-46b0-a500-9a22e7351162" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(t) = \sum_{k=1}^L f_{k} x_{t + k - L}
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(L\)</span> is the length (number of timestamps) of the filter <span class="math notranslate nohighlight">\(\mathbf{f}\)</span>.</p>
@@ -454,7 +454,7 @@ why the term “convolution” is used.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/11f48fb41fcc5c83c29d8cef298d9dbc90211fa171a8b60843b20821c45df06b.svg" src="../../_images/11f48fb41fcc5c83c29d8cef298d9dbc90211fa171a8b60843b20821c45df06b.svg" /></div>
+<img alt="../../_images/4ad946f08b2c36d40a30034298f8bdfaec34e106673f9d157001f6ec95034fff.svg" src="../../_images/4ad946f08b2c36d40a30034298f8bdfaec34e106673f9d157001f6ec95034fff.svg" /></div>
 </div>
 <p>Convolutional neural networks are made of convolution blocks whose parameters
 are the coefficients of the filters they embed (hence filters are not fixed
@@ -697,42 +697,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgff6631d34fa44051902cd04f6f6386d1">
+  <img id="_anim_img9932874198124e07821d75323c98a470">
   <div class="anim-controls">
-    <input id="_anim_sliderff6631d34fa44051902cd04f6f6386d1" type="range" class="anim-slider"
+    <input id="_anim_slider9932874198124e07821d75323c98a470" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animff6631d34fa44051902cd04f6f6386d1.set_frame(parseInt(this.value));"></input>
+           oninput="anim9932874198124e07821d75323c98a470.set_frame(parseInt(this.value));"></input>
     <div class="anim-buttons">
-      <button title="Decrease speed" onclick="animff6631d34fa44051902cd04f6f6386d1.slower()">
+      <button title="Decrease speed" onclick="anim9932874198124e07821d75323c98a470.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" onclick="animff6631d34fa44051902cd04f6f6386d1.first_frame()">
+      <button title="First frame" onclick="anim9932874198124e07821d75323c98a470.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" onclick="animff6631d34fa44051902cd04f6f6386d1.previous_frame()">
+      <button title="Previous frame" onclick="anim9932874198124e07821d75323c98a470.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" onclick="animff6631d34fa44051902cd04f6f6386d1.reverse_animation()">
+      <button title="Play backwards" onclick="anim9932874198124e07821d75323c98a470.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" onclick="animff6631d34fa44051902cd04f6f6386d1.pause_animation()">
+      <button title="Pause" onclick="anim9932874198124e07821d75323c98a470.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" onclick="animff6631d34fa44051902cd04f6f6386d1.play_animation()">
+      <button title="Play" onclick="anim9932874198124e07821d75323c98a470.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" onclick="animff6631d34fa44051902cd04f6f6386d1.next_frame()">
+      <button title="Next frame" onclick="anim9932874198124e07821d75323c98a470.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" onclick="animff6631d34fa44051902cd04f6f6386d1.last_frame()">
+      <button title="Last frame" onclick="anim9932874198124e07821d75323c98a470.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" onclick="animff6631d34fa44051902cd04f6f6386d1.faster()">
+      <button title="Increase speed" onclick="anim9932874198124e07821d75323c98a470.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" action="#n" name="_anim_loop_selectff6631d34fa44051902cd04f6f6386d1"
+    <form title="Repetition mode" action="#n" name="_anim_loop_select9932874198124e07821d75323c98a470"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_ff6631d34fa44051902cd04f6f6386d1"
+      <input type="radio" name="state" value="once" id="_anim_radio1_9932874198124e07821d75323c98a470"
              >
-      <label for="_anim_radio1_ff6631d34fa44051902cd04f6f6386d1">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_ff6631d34fa44051902cd04f6f6386d1"
+      <label for="_anim_radio1_9932874198124e07821d75323c98a470">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_9932874198124e07821d75323c98a470"
              checked>
-      <label for="_anim_radio2_ff6631d34fa44051902cd04f6f6386d1">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_ff6631d34fa44051902cd04f6f6386d1"
+      <label for="_anim_radio2_9932874198124e07821d75323c98a470">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_9932874198124e07821d75323c98a470"
              >
-      <label for="_anim_radio3_ff6631d34fa44051902cd04f6f6386d1">Reflect</label>
+      <label for="_anim_radio3_9932874198124e07821d75323c98a470">Reflect</label>
     </form>
   </div>
 </div>
@@ -742,9 +742,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgff6631d34fa44051902cd04f6f6386d1";
-    var slider_id = "_anim_sliderff6631d34fa44051902cd04f6f6386d1";
-    var loop_select_id = "_anim_loop_selectff6631d34fa44051902cd04f6f6386d1";
+    var img_id = "_anim_img9932874198124e07821d75323c98a470";
+    var slider_id = "_anim_slider9932874198124e07821d75323c98a470";
+    var loop_select_id = "_anim_loop_select9932874198124e07821d75323c98a470";
     var frames = new Array(60);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -31906,7 +31906,7 @@ ER+jAlBERETEx6gAFBEREfEx/weU0FcRFhj5jAAAAABJRU5ErkJggg==\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animff6631d34fa44051902cd04f6f6386d1 = new Animation(frames, img_id, slider_id, 200.0,
+        anim9932874198124e07821d75323c98a470 = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -31939,8 +31939,8 @@ or absence is informative about the class of the time series.</p>
 <p>Presence of a shapelet <span class="math notranslate nohighlight">\(\mathbf{s}\)</span> in a series <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is evaluated
 through the “shapelet distance”
 (which is not a distance, mathematically speaking):</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ee96029b-8b02-4a4a-b1d0-de1b15cbab71">
-<span class="eqno">(16)<a class="headerlink" href="#equation-ee96029b-8b02-4a4a-b1d0-de1b15cbab71" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-39fe95d3-b964-47aa-96ad-8173430066ed">
+<span class="eqno">(16)<a class="headerlink" href="#equation-39fe95d3-b964-47aa-96ad-8173430066ed" title="Permalink to this equation">#</a></span>\[\begin{equation}
     d_S(\mathbf{x}, \mathbf{s}) = \min_t \| \mathbf{x}_{t \rightarrow t + L} - \mathbf{s} \|_2
 \end{equation}\]</div>
 <p>Early works <span id="id4">[<a class="reference internal" href="#id26" title="Lexiang Ye and Eamonn Keogh. Time series shapelets: a new primitive for data mining. In Proceedings of the ACM SIGKDD International Conference on Knowledge Discovery and Data mining, 947–956. 2009.">Ye and Keogh, 2009</a>]</span> focused on building decision trees whose nodes
@@ -31978,8 +31978,8 @@ computed.</p>
 <section id="vanilla-rnns">
 <h3>“Vanilla” RNNs<a class="headerlink" href="#vanilla-rnns" title="Permalink to this heading">#</a></h3>
 <p>The basic formulation for a RNN block is as follows:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b73db6b3-aa55-4af7-bebf-61859534ad61">
-<span class="eqno">(17)<a class="headerlink" href="#equation-b73db6b3-aa55-4af7-bebf-61859534ad61" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-91ac5167-dd4f-4d0a-b892-d84d4430f4dd">
+<span class="eqno">(17)<a class="headerlink" href="#equation-91ac5167-dd4f-4d0a-b892-d84d4430f4dd" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \forall t, h_t = \text{tanh}(W_h h_{t-1} + W_x x_t + b)
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(W_h\)</span> is a weight matrix associated to the processing of the previous
@@ -31995,19 +31995,19 @@ networks are optimized through stochastic gradient descent algorithms.</p>
 <span class="math notranslate nohighlight">\(h_t\)</span> and <span class="math notranslate nohighlight">\(x_t\)</span> are both scalar values, and let us have a look at what the
 actual gradient of the output <span class="math notranslate nohighlight">\(h_t\)</span> is, with
 respect to <span class="math notranslate nohighlight">\(W_h\)</span> (which is then also a scalar):</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1680d8f0-ac3f-494c-8ccd-d64bcdf44c7c">
-<span class="eqno">(18)<a class="headerlink" href="#equation-1680d8f0-ac3f-494c-8ccd-d64bcdf44c7c" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-b7fae58f-617e-43a2-8cf8-5418a8642645">
+<span class="eqno">(18)<a class="headerlink" href="#equation-b7fae58f-617e-43a2-8cf8-5418a8642645" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \nabla_{W_h}(h_t) = \text{tanh}^\prime(o_t) \cdot \frac{\partial o_t}{\partial W_h}
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(o_t = W_h h_{t-1} + W_x x_t + b\)</span>, hence:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5a9632cc-e0a8-41e0-b879-8d1ca51bf1a0">
-<span class="eqno">(19)<a class="headerlink" href="#equation-5a9632cc-e0a8-41e0-b879-8d1ca51bf1a0" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-3f983d07-edf6-42bb-9df5-a5fc289076f1">
+<span class="eqno">(19)<a class="headerlink" href="#equation-3f983d07-edf6-42bb-9df5-a5fc289076f1" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \frac{\partial o_t}{\partial W_h} = h_{t-1} + W_h \cdot \frac{\partial h_{t-1}}{\partial W_h} \, .
 \end{equation}\]</div>
 <p>Here, the form of <span class="math notranslate nohighlight">\(\frac{\partial h_{t-1}}{\partial W_h}\)</span> will be similar to
 that of <span class="math notranslate nohighlight">\(\nabla_{W_h}(h_t)\)</span> above, and, in the end, one gets:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0c64fe32-5d44-4f09-9379-3f44ee6f95a1">
-<span class="eqno">(20)<a class="headerlink" href="#equation-0c64fe32-5d44-4f09-9379-3f44ee6f95a1" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
+<div class="amsmath math notranslate nohighlight" id="equation-402f68be-c4be-48a9-9e90-60d1652582c1">
+<span class="eqno">(20)<a class="headerlink" href="#equation-402f68be-c4be-48a9-9e90-60d1652582c1" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
     \nabla_{W_h}(h_t) &amp;=&amp; \text{tanh}^\prime(o_t) \cdot
         \left[
             h_{t-1} + W_h \cdot \frac{\partial h_{t-1}}{\partial W_h}
@@ -32055,7 +32055,7 @@ that of <span class="math notranslate nohighlight">\(\nabla_{W_h}(h_t)\)</span> 
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/12df55d420cfb3832f99c9c02afc9711b80b697f426c3228772e404da350994b.svg" src="../../_images/12df55d420cfb3832f99c9c02afc9711b80b697f426c3228772e404da350994b.svg" /></div>
+<img alt="../../_images/4d2953c2373d6a21b3e6d16b6f501e18d3d15bc17d9cb3f181be10faa5515814.svg" src="../../_images/4d2953c2373d6a21b3e6d16b6f501e18d3d15bc17d9cb3f181be10faa5515814.svg" /></div>
 </div>
 <p>One can see how quickly gradients gets close to 0 for inputs larger
 (in absolute value) than 2, and having multiple such terms in a
@@ -32085,8 +32085,8 @@ The gate <span class="math notranslate nohighlight">\(g\)</span> will hence tend
 </div>
 <p>In these blocks, an extra state is used, referred to as the cell state <span class="math notranslate nohighlight">\(C_t\)</span>.
 This state is computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d006250f-9242-469d-a1f9-a4a39702201e">
-<span class="eqno">(21)<a class="headerlink" href="#equation-d006250f-9242-469d-a1f9-a4a39702201e" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-565085e4-69ad-41d2-8146-3749924fa474">
+<span class="eqno">(21)<a class="headerlink" href="#equation-565085e4-69ad-41d2-8146-3749924fa474" title="Permalink to this equation">#</a></span>\[\begin{equation}
     C_t = f_t \odot C_{t-1} + i_t \odot \tilde{C}_t
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(f_t\)</span> is the forget gate (which pushes the network to forget about
@@ -32101,15 +32101,15 @@ Indeed, in this case, if the network learns so (through <span class="math notran
 full information from the previous cell state <span class="math notranslate nohighlight">\(C_{t-1}\)</span> can be recovered,
 which would allow gradients to flow through time (and not vanish anymore).</p>
 <p>Then, the link between the cell and hidden states is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d8c70b20-9932-4909-afe1-53d8676d5aa4">
-<span class="eqno">(22)<a class="headerlink" href="#equation-d8c70b20-9932-4909-afe1-53d8676d5aa4" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-520e4e42-e791-45d3-a41c-36f3a49a5aa7">
+<span class="eqno">(22)<a class="headerlink" href="#equation-520e4e42-e791-45d3-a41c-36f3a49a5aa7" title="Permalink to this equation">#</a></span>\[\begin{equation}
     h_t = o_t \odot \text{tanh}(C_{t}) \, .
 \end{equation}\]</div>
 <p>In words, the hidden state is the tanh-transformed version of the cell state,
 further censored by an output gate <span class="math notranslate nohighlight">\(o_t\)</span>.</p>
 <p>All gates used in the formulas above are defined similarly:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-24cae686-2ead-41a4-9538-1930dcb8466c">
-<span class="eqno">(23)<a class="headerlink" href="#equation-24cae686-2ead-41a4-9538-1930dcb8466c" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
+<div class="amsmath math notranslate nohighlight" id="equation-2f26859f-d304-41f5-ba95-ec55e8c5e96f">
+<span class="eqno">(23)<a class="headerlink" href="#equation-2f26859f-d304-41f5-ba95-ec55e8c5e96f" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
     f_t &amp;=&amp; \sigma ( W_f \cdot [h_{t-1}, x_t] + b_f) \\
     i_t &amp;=&amp; \sigma ( W_i \cdot [h_{t-1}, x_t] + b_i) \\
     o_t &amp;=&amp; \sigma ( W_o \cdot [h_{t-1}, x_t] + b_o)
@@ -32118,8 +32118,8 @@ further censored by an output gate <span class="math notranslate nohighlight">\(
 (which has values in <span class="math notranslate nohighlight">\([0, 1]\)</span>) and <span class="math notranslate nohighlight">\([h_{t-1}, x_t]\)</span> is
 the concatenation of <span class="math notranslate nohighlight">\(h_{t-1}\)</span> and <span class="math notranslate nohighlight">\(x_t\)</span> features.</p>
 <p>Finally, the updated cell state <span class="math notranslate nohighlight">\(\tilde{C}_t\)</span> is computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c707a0a0-fee5-40c8-ba01-0c7afd40ae1b">
-<span class="eqno">(24)<a class="headerlink" href="#equation-c707a0a0-fee5-40c8-ba01-0c7afd40ae1b" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-421852e9-8428-4948-b940-85f01ca3d89a">
+<span class="eqno">(24)<a class="headerlink" href="#equation-421852e9-8428-4948-b940-85f01ca3d89a" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \tilde{C}_t = \text{tanh}(W_C \cdot [h_{t-1}, x_t] + b_C) \, .
 \end{equation}\]</div>
 <p>Many variants over these LSTM blocks exist in the literature that still rely
@@ -32134,16 +32134,16 @@ through time.
 A first significant difference between GRUs and LSTMs, though, is that GRUs
 do not resort to the use of a cell state.
 Instead, the update rule for the hidden state is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a5b8a0bf-ff1c-41d7-9679-f0634799cb57">
-<span class="eqno">(25)<a class="headerlink" href="#equation-a5b8a0bf-ff1c-41d7-9679-f0634799cb57" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-e0bf0477-e5d7-4d9c-82e6-4fbcdaa44505">
+<span class="eqno">(25)<a class="headerlink" href="#equation-e0bf0477-e5d7-4d9c-82e6-4fbcdaa44505" title="Permalink to this equation">#</a></span>\[\begin{equation}
     h_t = (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(z_t\)</span> is a gate that balances (per feature) the amount of information
 that is kept from the previous hidden state with the amount of information
 that should be updated using the new candidate hidden state <span class="math notranslate nohighlight">\(\tilde{h}_t\)</span>,
 computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d6ed47cf-1814-4e4b-91c2-503cd57bd2d8">
-<span class="eqno">(26)<a class="headerlink" href="#equation-d6ed47cf-1814-4e4b-91c2-503cd57bd2d8" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-bfce7133-becb-48d4-aa0e-a19f942373cf">
+<span class="eqno">(26)<a class="headerlink" href="#equation-bfce7133-becb-48d4-aa0e-a19f942373cf" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \tilde{h}_t = \text{tanh}(W \cdot [r_t \odot h_{t-1}, x_t] + b) \, ,
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(r_t\)</span> is an extra gate that can hide part of the previous hidden state.</p>
@@ -32172,35 +32172,29 @@ learn meaningful representations.</p>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <div class="docutils container" id="id8">
-<div class="citation" id="id28" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">CVMerrienboerBB14</a><span class="fn-bracket">]</span></span>
-<p>Kyunghyun Cho, Bart Van Merriënboer, Dzmitry Bahdanau, and Yoshua Bengio. On the properties of neural machine translation: encoder-decoder approaches. 2014. <a class="reference external" href="https://arxiv.org/abs/1409.1259">arXiv:1409.1259</a>.</p>
-</div>
-<div class="citation" id="id24" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">FFW+19</a><span class="fn-bracket">]</span></span>
-<p>Hassan Ismail Fawaz, Germain Forestier, Jonathan Weber, Lhassane Idoumghar, and Pierre-Alain Muller. Deep learning for time series classification: a review. <em>Data Mining and Knowledge Discovery</em>, 33(4):917–963, 2019.</p>
-</div>
-<div class="citation" id="id23" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">FLF+20</a><span class="fn-bracket">]</span></span>
-<p>Hassan Ismail Fawaz, Benjamin Lucas, Germain Forestier, Charlotte Pelletier, Daniel F Schmidt, Jonathan Weber, Geoffrey I Webb, Lhassane Idoumghar, Pierre-Alain Muller, and François Petitjean. Inceptiontime: finding alexnet for time series classification. <em>Data Mining and Knowledge Discovery</em>, 34(6):1936–1962, 2020.</p>
-</div>
-<div class="citation" id="id25" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">GSWST14</a><span class="fn-bracket">]</span></span>
-<p>Josif Grabocka, Nicolas Schilling, Martin Wistuba, and Lars Schmidt-Thieme. Learning time-series shapelets. In <em>Proceedings of the ACM SIGKDD International Conference on Knowledge Discovery and Data mining</em>, 392–401. 2014.</p>
-</div>
-<div class="citation" id="id27" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">HS97</a><span class="fn-bracket">]</span></span>
-<p>Sepp Hochreiter and Jürgen Schmidhuber. Long short-term memory. <em>Neural computation</em>, 9(8):1735–1780, 1997.</p>
-</div>
-<div class="citation" id="id22" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">LGMT16</a><span class="fn-bracket">]</span></span>
-<p>Arthur Le Guennec, Simon Malinowski, and Romain Tavenard. Data Augmentation for Time Series Classification using Convolutional Neural Networks. In <em>ECML/PKDD Workshop on Advanced Analytics and Learning on Temporal Data</em>. Riva Del Garda, Italy, September 2016.</p>
-</div>
-<div class="citation" id="id26" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">YK09</a><span class="fn-bracket">]</span></span>
-<p>Lexiang Ye and Eamonn Keogh. Time series shapelets: a new primitive for data mining. In <em>Proceedings of the ACM SIGKDD International Conference on Knowledge Discovery and Data mining</em>, 947–956. 2009.</p>
-</div>
-</div>
+<dl class="citation">
+<dt class="label" id="id28"><span class="brackets"><a class="fn-backref" href="#id7">CVMerrienboerBB14</a></span></dt>
+<dd><p>Kyunghyun Cho, Bart Van Merriënboer, Dzmitry Bahdanau, and Yoshua Bengio. On the properties of neural machine translation: encoder-decoder approaches. 2014. <a class="reference external" href="https://arxiv.org/abs/1409.1259">arXiv:1409.1259</a>.</p>
+</dd>
+<dt class="label" id="id24"><span class="brackets"><a class="fn-backref" href="#id3">FFW+19</a></span></dt>
+<dd><p>Hassan Ismail Fawaz, Germain Forestier, Jonathan Weber, Lhassane Idoumghar, and Pierre-Alain Muller. Deep learning for time series classification: a review. <em>Data Mining and Knowledge Discovery</em>, 33(4):917–963, 2019.</p>
+</dd>
+<dt class="label" id="id23"><span class="brackets"><a class="fn-backref" href="#id2">FLF+20</a></span></dt>
+<dd><p>Hassan Ismail Fawaz, Benjamin Lucas, Germain Forestier, Charlotte Pelletier, Daniel F Schmidt, Jonathan Weber, Geoffrey I Webb, Lhassane Idoumghar, Pierre-Alain Muller, and François Petitjean. Inceptiontime: finding alexnet for time series classification. <em>Data Mining and Knowledge Discovery</em>, 34(6):1936–1962, 2020.</p>
+</dd>
+<dt class="label" id="id25"><span class="brackets"><a class="fn-backref" href="#id5">GSWST14</a></span></dt>
+<dd><p>Josif Grabocka, Nicolas Schilling, Martin Wistuba, and Lars Schmidt-Thieme. Learning time-series shapelets. In <em>Proceedings of the ACM SIGKDD International Conference on Knowledge Discovery and Data mining</em>, 392–401. 2014.</p>
+</dd>
+<dt class="label" id="id27"><span class="brackets"><a class="fn-backref" href="#id6">HS97</a></span></dt>
+<dd><p>Sepp Hochreiter and Jürgen Schmidhuber. Long short-term memory. <em>Neural computation</em>, 9(8):1735–1780, 1997.</p>
+</dd>
+<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="#id1">LGMT16</a></span></dt>
+<dd><p>Arthur Le Guennec, Simon Malinowski, and Romain Tavenard. Data Augmentation for Time Series Classification using Convolutional Neural Networks. In <em>ECML/PKDD Workshop on Advanced Analytics and Learning on Temporal Data</em>. Riva Del Garda, Italy, September 2016.</p>
+</dd>
+<dt class="label" id="id26"><span class="brackets"><a class="fn-backref" href="#id4">YK09</a></span></dt>
+<dd><p>Lexiang Ye and Eamonn Keogh. Time series shapelets: a new primitive for data mining. In <em>Proceedings of the ACM SIGKDD International Conference on Knowledge Discovery and Data mining</em>, 947–956. 2009.</p>
+</dd>
+</dl>
 </div>
 </section>
 </section>

@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Soft-DTW &#8212; Machine Learning for Time Series</title>
   
@@ -398,8 +398,8 @@ limitation.</p>
 <section id="definition">
 <h2>Definition<a class="headerlink" href="#definition" title="Permalink to this heading">#</a></h2>
 <p>The formal definition for soft-DTW is the following:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d5a3e217-aff6-4252-a4c6-32a894247d6f">
-<span class="eqno">(5)<a class="headerlink" href="#equation-d5a3e217-aff6-4252-a4c6-32a894247d6f" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-ee00efea-66a3-4576-a305-df92b8f05099">
+<span class="eqno">(5)<a class="headerlink" href="#equation-ee00efea-66a3-4576-a305-df92b8f05099" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime) =
     \min_{\pi \in \mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)}{}^\gamma
         \sum_{(i, j) \in \pi} d(x_i, x^\prime_j)^2
@@ -410,8 +410,8 @@ factor <span class="math notranslate nohighlight">\(\gamma\)</span>.</p>
 <div class="admonition-a-note-on-soft-min admonition">
 <p class="admonition-title">A note on soft-min</p>
 <p>The soft-min operator <span class="math notranslate nohighlight">\(\min{}^\gamma\)</span> is defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a3841f69-6ac6-4010-9643-dd6d2c1b2e15">
-<span class="eqno">(6)<a class="headerlink" href="#equation-a3841f69-6ac6-4010-9643-dd6d2c1b2e15" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-02402a66-744a-408d-966b-ff4df6546661">
+<span class="eqno">(6)<a class="headerlink" href="#equation-02402a66-744a-408d-966b-ff4df6546661" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \min{}^\gamma(a_1, \dots, a_n) = - \gamma \log \sum_i e^{-a_i / \gamma}
 \end{equation}\]</div>
 <p>Note that when gamma tends to <span class="math notranslate nohighlight">\(0^+\)</span>, the term corresponding to the lower <span class="math notranslate nohighlight">\(a_i\)</span>
@@ -419,8 +419,8 @@ value will dominate other terms in the sum, and the soft-min then tends to the
 hard minimum.</p>
 </div>
 <p>Typically, we have:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-41b14c95-ed0f-4ab3-9a2c-497a7c58f16d">
-<span class="eqno">(7)<a class="headerlink" href="#equation-41b14c95-ed0f-4ab3-9a2c-497a7c58f16d" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-17ecc74e-3a00-4d74-9013-dafa69cfbb75">
+<span class="eqno">(7)<a class="headerlink" href="#equation-17ecc74e-3a00-4d74-9013-dafa69cfbb75" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)
     \xrightarrow{\gamma \to 0^+} DTW(\mathbf{x}, \mathbf{x}^\prime)^2 \, .
 \end{equation}\]</div>
@@ -435,8 +435,8 @@ section.</p>
 <span class="math notranslate nohighlight">\((i, j)\)</span>, how much it will be taken into account in the matching.
 <span class="math notranslate nohighlight">\(A_\gamma\)</span> can be interpreted as a weighted average of paths in
 <span class="math notranslate nohighlight">\(\mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b037cba5-f1ba-4cb0-83fa-372ec67c6b1c">
-<span class="eqno">(8)<a class="headerlink" href="#equation-b037cba5-f1ba-4cb0-83fa-372ec67c6b1c" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
+<div class="amsmath math notranslate nohighlight" id="equation-ff3cc137-d062-4ce1-be14-57738f88905a">
+<span class="eqno">(8)<a class="headerlink" href="#equation-ff3cc137-d062-4ce1-be14-57738f88905a" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
 A_\gamma =&amp; \, \mathbb{E}_{\gamma}[A] \\
 =&amp; \, \frac{1}{k_{\mathrm{GA}}^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)} \sum_{\pi \in \mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)} e^{-\langle A_\pi, D_2(\mathbf{x}, \mathbf{x}^\prime) / \gamma\rangle} A_\pi \, ,
 \end{eqnarray}\]</div>
@@ -531,12 +531,12 @@ squared distances <span class="math notranslate nohighlight">\(d(x_i, x^\prime_j
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/1bf570151c0b140c7504497ecadfc2d87b4695f5273e532de930b5da4000a374.svg" src="../../_images/1bf570151c0b140c7504497ecadfc2d87b4695f5273e532de930b5da4000a374.svg" /><img alt="../../_images/0d2e802c46f1ef4c5ca52b03f717649f32af06f9d98a4ac4c0530214c3a4eaa1.svg" src="../../_images/0d2e802c46f1ef4c5ca52b03f717649f32af06f9d98a4ac4c0530214c3a4eaa1.svg" /><img alt="../../_images/7bfdc2d5a8166185e20f95844650fa95c865e9ea29e5880e6c95f6eff347c9a2.svg" src="../../_images/7bfdc2d5a8166185e20f95844650fa95c865e9ea29e5880e6c95f6eff347c9a2.svg" /></div>
+<img alt="../../_images/b3ca6a9becd461aa525dc4317702aa23c6523a7b8aa0610f9b6589b13216a8b0.svg" src="../../_images/b3ca6a9becd461aa525dc4317702aa23c6523a7b8aa0610f9b6589b13216a8b0.svg" /><img alt="../../_images/36521b3b59b25287eb668249865cf7ff190337f1105b8eacc766d47c277bcb81.svg" src="../../_images/36521b3b59b25287eb668249865cf7ff190337f1105b8eacc766d47c277bcb81.svg" /><img alt="../../_images/5cc68cb317261167df571d34af73b815022e0eaf252934c7166c152cdb5a84f1.svg" src="../../_images/5cc68cb317261167df571d34af73b815022e0eaf252934c7166c152cdb5a84f1.svg" /></div>
 </div>
 <p><span class="math notranslate nohighlight">\(A_\gamma\)</span> can be computed with complexity <span class="math notranslate nohighlight">\(O(mn)\)</span> and there is a link between
 this matrix and the gradients of the soft-DTW similarity measure:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c7b0a63f-1766-4745-b68b-aa3001803723">
-<span class="eqno">(9)<a class="headerlink" href="#equation-c7b0a63f-1766-4745-b68b-aa3001803723" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-2abdcbe7-992f-42b7-ad5c-1e04156d3768">
+<span class="eqno">(9)<a class="headerlink" href="#equation-2abdcbe7-992f-42b7-ad5c-1e04156d3768" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \nabla_{\mathbf{x}} \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime) =
     \left(\frac{\partial D_2(\mathbf{x}, \mathbf{x}^\prime)}{\partial \mathbf{x}} \right)^T A_\gamma
 \end{equation}\]</div>
@@ -578,8 +578,8 @@ This Figure is taken from <span id="id3">[<a class="reference internal" href="#i
 <p>In <span id="id4">[<a class="reference internal" href="#id17" title="Mathieu Blondel, Arthur Mensch, and Jean-Philippe Vert. Differentiable divergences between time series. 2020. arXiv:2010.08354.">Blondel <em>et al.</em>, 2020</a>]</span>, new similarity measures are defined, that rely on
 soft-DTW.</p>
 <p>First, <strong>soft-DTW divergence</strong> is defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b097c890-a4a9-4413-afba-305a65b00fea">
-<span class="eqno">(10)<a class="headerlink" href="#equation-b097c890-a4a9-4413-afba-305a65b00fea" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-f8e27e63-6641-4405-bed4-2893e7cb4c41">
+<span class="eqno">(10)<a class="headerlink" href="#equation-f8e27e63-6641-4405-bed4-2893e7cb4c41" title="Permalink to this equation">#</a></span>\[\begin{equation}
     D^\gamma (\mathbf{x}, \mathbf{x}^\prime) =
         \text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)
         - \frac{1}{2} \left(
@@ -591,8 +591,8 @@ soft-DTW.</p>
 <span class="math notranslate nohighlight">\(\mathbf{x} = \mathbf{x}^\prime\)</span> (and being exactly 0 in that case).</p>
 <p>Second, another interesting similarity measure introduced in the same paper is
 the <strong>sharp soft-DTW</strong> which is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8e85a8c3-1734-4aee-aa12-e99664d20f26">
-<span class="eqno">(11)<a class="headerlink" href="#equation-8e85a8c3-1734-4aee-aa12-e99664d20f26" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-ec2abbbb-aff5-410f-91e9-499a5bd56f86">
+<span class="eqno">(11)<a class="headerlink" href="#equation-ec2abbbb-aff5-410f-91e9-499a5bd56f86" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \text{sharp-soft-}DTW^{\gamma} (\mathbf{x}, \mathbf{x}^\prime) =
         \langle A_\gamma,  D_2(\mathbf{x}, \mathbf{x}^\prime) \rangle
 \end{equation}\]</div>
@@ -602,8 +602,8 @@ the <strong>sharp soft-DTW</strong> which is:</p>
 being minimized at <span class="math notranslate nohighlight">\(\mathbf{x} = \mathbf{x}^\prime\)</span>.</p>
 <p>Further note that, by pushing <span class="math notranslate nohighlight">\(\gamma\)</span> to the <span class="math notranslate nohighlight">\(+\infty\)</span> limit in this formula,
 one gets:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b2a4866c-2f23-45be-a190-88ed73ff5734">
-<span class="eqno">(12)<a class="headerlink" href="#equation-b2a4866c-2f23-45be-a190-88ed73ff5734" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-6913c8ac-d604-4cc5-ac5a-a215f1b9342b">
+<span class="eqno">(12)<a class="headerlink" href="#equation-6913c8ac-d604-4cc5-ac5a-a215f1b9342b" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \text{sharp-soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)
     \xrightarrow{\gamma \to +\infty}
     \left\langle A_\infty, D_2(\mathbf{x}, \mathbf{x}^\prime) \right\rangle \, ,
@@ -638,7 +638,7 @@ one gets:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/2eba0b0e9df4074bbec394c4539b3d4093bcc22f9ce7567f6789e90efef58e9f.svg" src="../../_images/2eba0b0e9df4074bbec394c4539b3d4093bcc22f9ce7567f6789e90efef58e9f.svg" /></div>
+<img alt="../../_images/b985bf5f8826b3d979e467b7ac8052cf04f34a1450a5416c1d6903d27c15890d.svg" src="../../_images/b985bf5f8826b3d979e467b7ac8052cf04f34a1450a5416c1d6903d27c15890d.svg" /></div>
 </div>
 </section>
 <section id="barycenters">
@@ -674,7 +674,7 @@ This is illustrated in the example below:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/e7b75355d8d6b862ddacbb6a20fa3fd59c4f776d176f7b8d8775b800dad4bb78.svg" src="../../_images/e7b75355d8d6b862ddacbb6a20fa3fd59c4f776d176f7b8d8775b800dad4bb78.svg" /></div>
+<img alt="../../_images/eb72aa310963e44f96846ad50806b0c45069bfcca4736aa650ff0445819b3912.svg" src="../../_images/eb72aa310963e44f96846ad50806b0c45069bfcca4736aa650ff0445819b3912.svg" /></div>
 </div>
 <p>Note how large values of <span class="math notranslate nohighlight">\(\gamma\)</span> tend to smooth out the motifs from the input
 time series.
@@ -687,20 +687,17 @@ harder.</p>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <div class="docutils container" id="id5">
-<div class="citation" id="id17" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span>BMV20<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id3">1</a>,<a role="doc-backlink" href="#id4">2</a>)</span>
-<p>Mathieu Blondel, Arthur Mensch, and Jean-Philippe Vert. Differentiable divergences between time series. 2020. <a class="reference external" href="https://arxiv.org/abs/2010.08354">arXiv:2010.08354</a>.</p>
-</div>
-<div class="citation" id="id10" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">CB17</a><span class="fn-bracket">]</span></span>
-<p>Marco Cuturi and Mathieu Blondel. Soft-DTW: a differentiable loss function for time-series. In <em>Proceedings of the International Conference on Machine Learning</em>, 894–903. JMLR. org, 2017.</p>
-</div>
-<div class="citation" id="id15" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">JCG20</a><span class="fn-bracket">]</span></span>
-<p>Hicham Janati, Marco Cuturi, and Alexandre Gramfort. Spatio-temporal alignments: optimal transport through space and time. In <em>Proceedings of the International Conference on Artificial Intelligence and Statistics</em>, 1695–1704. PMLR, 2020.</p>
-</div>
-</div>
+<dl class="citation">
+<dt class="label" id="id17"><span class="brackets">BMV20</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id4">2</a>)</span></dt>
+<dd><p>Mathieu Blondel, Arthur Mensch, and Jean-Philippe Vert. Differentiable divergences between time series. 2020. <a class="reference external" href="https://arxiv.org/abs/2010.08354">arXiv:2010.08354</a>.</p>
+</dd>
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id1">CB17</a></span></dt>
+<dd><p>Marco Cuturi and Mathieu Blondel. Soft-DTW: a differentiable loss function for time-series. In <em>Proceedings of the International Conference on Machine Learning</em>, 894–903. JMLR. org, 2017.</p>
+</dd>
+<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id2">JCG20</a></span></dt>
+<dd><p>Hicham Janati, Marco Cuturi, and Alexandre Gramfort. Spatio-temporal alignments: optimal transport through space and time. In <em>Proceedings of the International Conference on Artificial Intelligence and Statistics</em>, 1695–1704. PMLR, 2020.</p>
+</dd>
+</dl>
 </div>
 </section>
 </section>

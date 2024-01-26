@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Alignment-based Metrics in Machine Learning &#8212; Machine Learning for Time Series</title>
   
@@ -422,8 +422,8 @@ the code is as follows:</p>
 <section id="global-alignment-kernel">
 <span id="sec-gak"></span><h3>Global Alignment Kernel<a class="headerlink" href="#global-alignment-kernel" title="Permalink to this heading">#</a></h3>
 <p>Let us define the Global Alignment Kernel (GAK, <span id="id1">[<a class="reference internal" href="#id16" title="Marco Cuturi, Jean-Philippe Vert, Oystein Birkenes, and Tomoko Matsui. A kernel for time series based on global alignments. In Proceedings of the IEEE International Conference on Acoustics, Speech, and Signal Processing, volume 2, II–413. IEEE, 2007.">Cuturi <em>et al.</em>, 2007</a>]</span>) as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-91e121f7-30c9-40ee-b088-e27eab96a14e">
-<span class="eqno">(13)<a class="headerlink" href="#equation-91e121f7-30c9-40ee-b088-e27eab96a14e" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-0c3124a9-7e1c-4003-a4c3-59d24a432640">
+<span class="eqno">(13)<a class="headerlink" href="#equation-0c3124a9-7e1c-4003-a4c3-59d24a432640" title="Permalink to this equation">#</a></span>\[\begin{equation}
 k_\text{GA}^\gamma(\mathbf{x}, \mathbf{x}^\prime) =
     \exp{- \frac{\text{soft-}DTW^{\gamma}(\mathbf{x}, \mathbf{x}^\prime)}{\gamma}}
 \end{equation}\]</div>
@@ -484,7 +484,7 @@ When doing so, resulting support vectors are hence time series, as shown below:<
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/a77301b1d9f04cc8796e339034bc983e37fece4bee817fc0d1f9e762e17f5b4f.svg" src="../../_images/a77301b1d9f04cc8796e339034bc983e37fece4bee817fc0d1f9e762e17f5b4f.svg" /></div>
+<img alt="../../_images/13592105c58fd11b04481f1157bb55b57eb056313b3eae83eeeeb469ab6dc368.svg" src="../../_images/13592105c58fd11b04481f1157bb55b57eb056313b3eae83eeeeb469ab6dc368.svg" /></div>
 </div>
 <p>Note that methods presented in this section straight-forwardly extend to
 regression setups in
@@ -549,7 +549,7 @@ metric:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/3a3804da7f14142c34f881087ae98de8ece73f783ade3576668e31edc14f1f8d.svg" src="../../_images/3a3804da7f14142c34f881087ae98de8ece73f783ade3576668e31edc14f1f8d.svg" /></div>
+<img alt="../../_images/c2f66c4baea5f5df8914a2ca142bf93ea99a1686aed7cb482eed6d5807a2a12f.svg" src="../../_images/c2f66c4baea5f5df8914a2ca142bf93ea99a1686aed7cb482eed6d5807a2a12f.svg" /></div>
 </div>
 <p>As a result, clusters gather time series of similar shapes, which is due to the
 ability of Dynamic Time Warping (DTW) to deal with time shifts, as explained
@@ -587,7 +587,7 @@ discussed <a class="reference internal" href="softdtw.html#sec-softdtw"><span cl
 <span id="sec-forecasting"></span><h2>Forecasting<a class="headerlink" href="#forecasting" title="Permalink to this heading">#</a></h2>
 <p>As discussed earlier, soft-DTW is differentiable with respect to its inputs.
 This is especially useful for forecasting tasks in which prediction is to be
-made for multiple time steps (<em>multi-step ahead forecasting</em>)<a class="footnote-reference brackets" href="#structpred" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.
+made for multiple time steps (<em>multi-step ahead forecasting</em>)<a class="footnote-reference brackets" href="#structpred" id="id4">1</a>.
 Indeed, in this context, soft-DTW can be used in place of a standard Mean
 Squared Error (MSE) loss in order to better take time shifts into account.</p>
 <p>This is done, for example, in the seminal paper by Cuturi and Blondel
@@ -606,8 +606,8 @@ This is done by introducing an additional penalty to the loss to be optimized,
 which is the dot product between a “soft-mask matrix” <span class="math notranslate nohighlight">\(\Omega\)</span>
 and the computed soft path matrix <span class="math notranslate nohighlight">\(A_\gamma\)</span>, which tends to favor diagonal
 matches :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-55045203-1465-48f2-9e9d-a34b45627651">
-<span class="eqno">(14)<a class="headerlink" href="#equation-55045203-1465-48f2-9e9d-a34b45627651" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-99c49dbd-3697-4390-bb4e-1707112f33df">
+<span class="eqno">(14)<a class="headerlink" href="#equation-99c49dbd-3697-4390-bb4e-1707112f33df" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \mathcal{L}_\text{reg} = \mathcal{L}_\text{soft-DTW} + \langle \Omega , A_\gamma \rangle .
 \end{equation}\]</div>
 <p>The <span class="math notranslate nohighlight">\(\Omega\)</span> matrix typically looks like:</p>
@@ -634,7 +634,7 @@ matches :</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/ae1196f7e3091c84efe9fc4b9fd82869361b3c0f9aa3e046475312f59eb13b3a.svg" src="../../_images/ae1196f7e3091c84efe9fc4b9fd82869361b3c0f9aa3e046475312f59eb13b3a.svg" /></div>
+<img alt="../../_images/9c1bd021cac582d7ae452ba29fc3558ca8290afb190d1ecbda2943d62453828e.svg" src="../../_images/9c1bd021cac582d7ae452ba29fc3558ca8290afb190d1ecbda2943d62453828e.svg" /></div>
 </div>
 <p>As a result, the DILATE method allows to both better model shape matching than
 MSE and better localize shapes than soft-DTW:</p>
@@ -665,37 +665,32 @@ neural networks.</p>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <div class="docutils container" id="id9">
-<div class="citation" id="id21" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">BMV20</a><span class="fn-bracket">]</span></span>
-<p>Mathieu Blondel, Arthur Mensch, and Jean-Philippe Vert. Differentiable divergences between time series. 2020. <a class="reference external" href="https://arxiv.org/abs/2010.08354">arXiv:2010.08354</a>.</p>
-</div>
-<div class="citation" id="id14" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span>CB17<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id5">1</a>,<a role="doc-backlink" href="#id6">2</a>)</span>
-<p>Marco Cuturi and Mathieu Blondel. Soft-DTW: a differentiable loss function for time-series. In <em>Proceedings of the International Conference on Machine Learning</em>, 894–903. JMLR. org, 2017.</p>
-</div>
-<div class="citation" id="id16" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">CVBM07</a><span class="fn-bracket">]</span></span>
-<p>Marco Cuturi, Jean-Philippe Vert, Oystein Birkenes, and Tomoko Matsui. A kernel for time series based on global alignments. In <em>Proceedings of the IEEE International Conference on Acoustics, Speech, and Signal Processing</em>, volume 2, II–413. IEEE, 2007.</p>
-</div>
-<div class="citation" id="id18" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">DGK04</a><span class="fn-bracket">]</span></span>
-<p>Inderjit S Dhillon, Yuqiang Guan, and Brian Kulis. Kernel k-means: spectral clustering and normalized cuts. In <em>Proceedings of the ACM SIGKDD International Conference on Knowledge Discovery and Data mining</em>, 551–556. 2004.</p>
-</div>
-<div class="citation" id="id15" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span>LGT19<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id7">1</a>,<a role="doc-backlink" href="#id8">2</a>)</span>
-<p>Vincent Le Guen and Nicolas Thome. Shape and time distortion loss for training deep time series forecasting models. In <em>Neural Information Processing Systems</em>, 4189–4201. 2019.</p>
-</div>
-</div>
+<dl class="citation">
+<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id2">BMV20</a></span></dt>
+<dd><p>Mathieu Blondel, Arthur Mensch, and Jean-Philippe Vert. Differentiable divergences between time series. 2020. <a class="reference external" href="https://arxiv.org/abs/2010.08354">arXiv:2010.08354</a>.</p>
+</dd>
+<dt class="label" id="id14"><span class="brackets">CB17</span><span class="fn-backref">(<a href="#id5">1</a>,<a href="#id6">2</a>)</span></dt>
+<dd><p>Marco Cuturi and Mathieu Blondel. Soft-DTW: a differentiable loss function for time-series. In <em>Proceedings of the International Conference on Machine Learning</em>, 894–903. JMLR. org, 2017.</p>
+</dd>
+<dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id1">CVBM07</a></span></dt>
+<dd><p>Marco Cuturi, Jean-Philippe Vert, Oystein Birkenes, and Tomoko Matsui. A kernel for time series based on global alignments. In <em>Proceedings of the IEEE International Conference on Acoustics, Speech, and Signal Processing</em>, volume 2, II–413. IEEE, 2007.</p>
+</dd>
+<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="#id3">DGK04</a></span></dt>
+<dd><p>Inderjit S Dhillon, Yuqiang Guan, and Brian Kulis. Kernel k-means: spectral clustering and normalized cuts. In <em>Proceedings of the ACM SIGKDD International Conference on Knowledge Discovery and Data mining</em>, 551–556. 2004.</p>
+</dd>
+<dt class="label" id="id15"><span class="brackets">LGT19</span><span class="fn-backref">(<a href="#id7">1</a>,<a href="#id8">2</a>)</span></dt>
+<dd><p>Vincent Le Guen and Nicolas Thome. Shape and time distortion loss for training deep time series forecasting models. In <em>Neural Information Processing Systems</em>, 4189–4201. 2019.</p>
+</dd>
+</dl>
 </div>
 <hr class="footnotes docutils" />
-<aside class="footnote brackets" id="structpred" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">1</a><span class="fn-bracket">]</span></span>
-<p>This problem is an instance of a more general class of problems
+<dl class="footnote brackets">
+<dt class="label" id="structpred"><span class="brackets"><a class="fn-backref" href="#id4">1</a></span></dt>
+<dd><p>This problem is an instance of a more general class of problems
 known as structured prediction problems, in which the target variable
 (to be predicted) has a specific structure (time series, graph, <em>etc.</em>).</p>
-</aside>
+</dd>
+</dl>
 </section>
 </section>
 

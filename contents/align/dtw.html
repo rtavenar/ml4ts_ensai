@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Dynamic Time Warping &#8212; Machine Learning for Time Series</title>
   
@@ -418,8 +418,8 @@ sequence of <span class="math notranslate nohighlight">\(K\)</span> index pairs
 <span class="math notranslate nohighlight">\(\left((i_0, j_0), \dots , (i_{K-1}, j_{K-1})\right)\)</span>.</p>
 <p>DTW between <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}^\prime\)</span> is formulated as the following
 optimization problem:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-df4940d2-112b-4959-85b2-5bb75c30c8a9">
-<span class="eqno">(1)<a class="headerlink" href="#equation-df4940d2-112b-4959-85b2-5bb75c30c8a9" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-9f458ecf-8688-4f32-b6c1-51b224774555">
+<span class="eqno">(1)<a class="headerlink" href="#equation-9f458ecf-8688-4f32-b6c1-51b224774555" title="Permalink to this equation">#</a></span>\[\begin{equation}
 DTW_q(\mathbf{x}, \mathbf{x}^\prime) =
     \min_{\pi \in \mathcal{A}(\mathbf{x}, \mathbf{x}^\prime)}
         \left( \sum_{(i, j) \in \pi} d(x_i, x^\prime_j)^q \right)^{\frac{1}{q}}
@@ -532,7 +532,7 @@ values.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/a6f4aa10148e0197f25bae1492c40c6cb7298e333f82ffa9794b6ab05a99f068.svg" src="../../_images/a6f4aa10148e0197f25bae1492c40c6cb7298e333f82ffa9794b6ab05a99f068.svg" /></div>
+<img alt="../../_images/0afb80b9d8ab1292483f4ffbb32553c26809c63eff9278f9df60b6e0e6904f0e.svg" src="../../_images/0afb80b9d8ab1292483f4ffbb32553c26809c63eff9278f9df60b6e0e6904f0e.svg" /></div>
 </div>
 </section>
 <section id="algorithmic-solution">
@@ -558,8 +558,8 @@ problem (assuming computation of <span class="math notranslate nohighlight">\(d(
 </div>
 <p>The basic idea behind this algorithm is that there exists a recurrence relationship between partial DTW computations.
 More precisely, if we denote by <span class="math notranslate nohighlight">\(\gamma_{i,j}\)</span> the <span class="math notranslate nohighlight">\(DTW_q\)</span> (at power <span class="math notranslate nohighlight">\(q\)</span>) similarity between sequences <span class="math notranslate nohighlight">\(\mathbf{x}_{\rightarrow i}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}^\prime_{\rightarrow j}\)</span> (where the notation <span class="math notranslate nohighlight">\(\mathbf{x}_{\rightarrow i}\)</span> denotes sequence <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> observed up to time <span class="math notranslate nohighlight">\(i\)</span>), then we have:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-203bcdbd-221c-4d1f-b5bf-340cd504f76a">
-<span class="eqno">(2)<a class="headerlink" href="#equation-203bcdbd-221c-4d1f-b5bf-340cd504f76a" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
+<div class="amsmath math notranslate nohighlight" id="equation-7a7008d6-cc23-40c0-b9bc-dacbbec2ee1c">
+<span class="eqno">(2)<a class="headerlink" href="#equation-7a7008d6-cc23-40c0-b9bc-dacbbec2ee1c" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
 
 \gamma_{i,j} &amp;=&amp; DTW_q(\mathbf{x}_{\rightarrow i}, \mathbf{x}^\prime_{\rightarrow j})^q \\
 &amp;=&amp;
@@ -590,8 +590,8 @@ DTW_q(\mathbf{x}, \mathbf{x}^\prime) =
 \end{equation*}\]</div>
 <p>where <span class="math notranslate nohighlight">\(D_q(\mathbf{x}, \mathbf{x}^\prime)\)</span> stores distances
 <span class="math notranslate nohighlight">\(d(x_i, x^\prime_j)\)</span> at the power <span class="math notranslate nohighlight">\(q\)</span> and</p>
-<div class="amsmath math notranslate nohighlight" id="equation-52124e6f-b380-4514-8922-d3607430779a">
-<span class="eqno">(3)<a class="headerlink" href="#equation-52124e6f-b380-4514-8922-d3607430779a" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-d7ac7c8c-2cdc-4d86-9268-a9e1e8ca3282">
+<span class="eqno">(3)<a class="headerlink" href="#equation-d7ac7c8c-2cdc-4d86-9268-a9e1e8ca3282" title="Permalink to this equation">#</a></span>\[\begin{equation}
 (A_\pi)_{i,j} = \left\{ \begin{array}{rl} 1 &amp; \text{ if } (i, j) \in \pi \\
                                       0 &amp; \text{ otherwise}
                         \end{array} \right. .
@@ -644,7 +644,7 @@ as illustrated below:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/751c78a57bd1bbcb3227705eeab8a39ac242f90643b1e76fc6caedde46dcadb1.svg" src="../../_images/751c78a57bd1bbcb3227705eeab8a39ac242f90643b1e76fc6caedde46dcadb1.svg" /></div>
+<img alt="../../_images/712031f0ff75ee6d704bc71306c3e62dc36d076aad3d7986308b67d399025485.svg" src="../../_images/712031f0ff75ee6d704bc71306c3e62dc36d076aad3d7986308b67d399025485.svg" /></div>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">tslearn tip</p>
@@ -684,7 +684,7 @@ paths, which leads to a parallelogram-shaped constraint:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/88645b6ce8caec29fc8c1c8c2f4706e28f469cee0ae385bd03a8460fcdf97fcf.svg" src="../../_images/88645b6ce8caec29fc8c1c8c2f4706e28f469cee0ae385bd03a8460fcdf97fcf.svg" /></div>
+<img alt="../../_images/8e26b382c7a502aa1c02984c09fdd18b792a97d81c3fca9fc0d654437575e5f2.svg" src="../../_images/8e26b382c7a502aa1c02984c09fdd18b792a97d81c3fca9fc0d654437575e5f2.svg" /></div>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">tslearn tip</p>
@@ -1264,42 +1264,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgcf11121bc9ad4c07ba1f99305ef69744">
+  <img id="_anim_img87ec9d029bee43ecae7c2b9034a94e9c">
   <div class="anim-controls">
-    <input id="_anim_slidercf11121bc9ad4c07ba1f99305ef69744" type="range" class="anim-slider"
+    <input id="_anim_slider87ec9d029bee43ecae7c2b9034a94e9c" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animcf11121bc9ad4c07ba1f99305ef69744.set_frame(parseInt(this.value));"></input>
+           oninput="anim87ec9d029bee43ecae7c2b9034a94e9c.set_frame(parseInt(this.value));"></input>
     <div class="anim-buttons">
-      <button title="Decrease speed" onclick="animcf11121bc9ad4c07ba1f99305ef69744.slower()">
+      <button title="Decrease speed" onclick="anim87ec9d029bee43ecae7c2b9034a94e9c.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" onclick="animcf11121bc9ad4c07ba1f99305ef69744.first_frame()">
+      <button title="First frame" onclick="anim87ec9d029bee43ecae7c2b9034a94e9c.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" onclick="animcf11121bc9ad4c07ba1f99305ef69744.previous_frame()">
+      <button title="Previous frame" onclick="anim87ec9d029bee43ecae7c2b9034a94e9c.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" onclick="animcf11121bc9ad4c07ba1f99305ef69744.reverse_animation()">
+      <button title="Play backwards" onclick="anim87ec9d029bee43ecae7c2b9034a94e9c.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" onclick="animcf11121bc9ad4c07ba1f99305ef69744.pause_animation()">
+      <button title="Pause" onclick="anim87ec9d029bee43ecae7c2b9034a94e9c.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" onclick="animcf11121bc9ad4c07ba1f99305ef69744.play_animation()">
+      <button title="Play" onclick="anim87ec9d029bee43ecae7c2b9034a94e9c.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" onclick="animcf11121bc9ad4c07ba1f99305ef69744.next_frame()">
+      <button title="Next frame" onclick="anim87ec9d029bee43ecae7c2b9034a94e9c.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" onclick="animcf11121bc9ad4c07ba1f99305ef69744.last_frame()">
+      <button title="Last frame" onclick="anim87ec9d029bee43ecae7c2b9034a94e9c.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" onclick="animcf11121bc9ad4c07ba1f99305ef69744.faster()">
+      <button title="Increase speed" onclick="anim87ec9d029bee43ecae7c2b9034a94e9c.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" action="#n" name="_anim_loop_selectcf11121bc9ad4c07ba1f99305ef69744"
+    <form title="Repetition mode" action="#n" name="_anim_loop_select87ec9d029bee43ecae7c2b9034a94e9c"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_cf11121bc9ad4c07ba1f99305ef69744"
+      <input type="radio" name="state" value="once" id="_anim_radio1_87ec9d029bee43ecae7c2b9034a94e9c"
              >
-      <label for="_anim_radio1_cf11121bc9ad4c07ba1f99305ef69744">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_cf11121bc9ad4c07ba1f99305ef69744"
+      <label for="_anim_radio1_87ec9d029bee43ecae7c2b9034a94e9c">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_87ec9d029bee43ecae7c2b9034a94e9c"
              checked>
-      <label for="_anim_radio2_cf11121bc9ad4c07ba1f99305ef69744">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_cf11121bc9ad4c07ba1f99305ef69744"
+      <label for="_anim_radio2_87ec9d029bee43ecae7c2b9034a94e9c">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_87ec9d029bee43ecae7c2b9034a94e9c"
              >
-      <label for="_anim_radio3_cf11121bc9ad4c07ba1f99305ef69744">Reflect</label>
+      <label for="_anim_radio3_87ec9d029bee43ecae7c2b9034a94e9c">Reflect</label>
     </form>
   </div>
 </div>
@@ -1309,9 +1309,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgcf11121bc9ad4c07ba1f99305ef69744";
-    var slider_id = "_anim_slidercf11121bc9ad4c07ba1f99305ef69744";
-    var loop_select_id = "_anim_loop_selectcf11121bc9ad4c07ba1f99305ef69744";
+    var img_id = "_anim_img87ec9d029bee43ecae7c2b9034a94e9c";
+    var slider_id = "_anim_slider87ec9d029bee43ecae7c2b9034a94e9c";
+    var loop_select_id = "_anim_loop_select87ec9d029bee43ecae7c2b9034a94e9c";
     var frames = new Array(10);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -17057,7 +17057,7 @@ RU5ErkJggg==\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animcf11121bc9ad4c07ba1f99305ef69744 = new Animation(frames, img_id, slider_id, 200.0,
+        anim87ec9d029bee43ecae7c2b9034a94e9c = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -17089,27 +17089,23 @@ self-similarity matrices <span id="id5">[<a class="reference internal" href="#id
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <div class="docutils container" id="id6">
-<div class="citation" id="id10" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">CLT+20</a><span class="fn-bracket">]</span></span>
-<p>Samuel Cohen, Giulia Luise, Alexander Terenin, Brandon Amos, and Marc Peter Deisenroth. Aligning time series on incomparable spaces. 2020. <a class="reference external" href="https://arxiv.org/abs/2006.12648">arXiv:2006.12648</a>.</p>
-</div>
-<div class="citation" id="id14" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">PKGanccarski11</a><span class="fn-bracket">]</span></span>
-<p>François Petitjean, Alain Ketterlin, and Pierre Gançarski. A global averaging method for dynamic time warping, with applications to clustering. <em>Elsevier Pattern Recognition</em>, 44(3):678 – 693, 2011.</p>
-</div>
-<div class="citation" id="id7" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">SC78</a><span class="fn-bracket">]</span></span>
-<p>Hiroaki Sakoe and Seibi Chiba. Dynamic programming algorithm optimization for spoken word recognition. <em>IEEE Transactions on Acoustics, Speech and Signal Processing</em>, 26(1):43–49, 1978.</p>
-</div>
-<div class="citation" id="id9" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">VCC+20</a><span class="fn-bracket">]</span></span>
-<p>Titouan Vayer, Laetitia Chapel, Nicolas Courty, Rémi Flamary, Yann Soullard, and Romain Tavenard. Time series alignment with global invariances. 2020. <a class="reference external" href="https://arxiv.org/abs/2002.03848">arXiv:2002.03848</a>.</p>
-</div>
-<div class="citation" id="id8" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">ZT09</a><span class="fn-bracket">]</span></span>
-<p>Feng Zhou and Fernando Torre. Canonical Time Warping for alignment of human behavior. In <em>Neural Information Processing Systems</em>, 2286–2294. 2009.</p>
-</div>
-</div>
+<dl class="citation">
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id5">CLT+20</a></span></dt>
+<dd><p>Samuel Cohen, Giulia Luise, Alexander Terenin, Brandon Amos, and Marc Peter Deisenroth. Aligning time series on incomparable spaces. 2020. <a class="reference external" href="https://arxiv.org/abs/2006.12648">arXiv:2006.12648</a>.</p>
+</dd>
+<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id2">PKGanccarski11</a></span></dt>
+<dd><p>François Petitjean, Alain Ketterlin, and Pierre Gançarski. A global averaging method for dynamic time warping, with applications to clustering. <em>Elsevier Pattern Recognition</em>, 44(3):678 – 693, 2011.</p>
+</dd>
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id1">SC78</a></span></dt>
+<dd><p>Hiroaki Sakoe and Seibi Chiba. Dynamic programming algorithm optimization for spoken word recognition. <em>IEEE Transactions on Acoustics, Speech and Signal Processing</em>, 26(1):43–49, 1978.</p>
+</dd>
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id4">VCC+20</a></span></dt>
+<dd><p>Titouan Vayer, Laetitia Chapel, Nicolas Courty, Rémi Flamary, Yann Soullard, and Romain Tavenard. Time series alignment with global invariances. 2020. <a class="reference external" href="https://arxiv.org/abs/2002.03848">arXiv:2002.03848</a>.</p>
+</dd>
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id3">ZT09</a></span></dt>
+<dd><p>Feng Zhou and Fernando Torre. Canonical Time Warping for alignment of human behavior. In <em>Neural Information Processing Systems</em>, 2286–2294. 2009.</p>
+</dd>
+</dl>
 </div>
 </section>
 </section>
