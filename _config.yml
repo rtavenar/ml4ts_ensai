@@ -27,5 +27,21 @@ html:
   use_issues_button: true
   use_repository_button: true
 
+
+bibtex_bibfiles:
+  - references.bib
+
+sphinx:
+  config:
+    bibtex_reference_style: author_year
+    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+    nb_merge_streams: true
+    jblatex_load_imgconverter: true
+
+
 parse:
-  myst_extended_syntax: true
+  myst_enable_extensions:
+    # don't forget to list any other extensions you want enabled,
+    # including those that are enabled by default!
+    - dollarmath
+    - amsmath

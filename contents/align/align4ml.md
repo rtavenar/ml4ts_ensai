@@ -51,7 +51,7 @@ predicted_labels = knn_clf.predict(X_test)
 (sec:gak)=
 ### Global Alignment Kernel
 
-Let us define the Global Alignment Kernel (GAK, {cite}`cuturi2007kernel`) as:
+Let us define the Global Alignment Kernel (GAK, {cite:p}`cuturi2007kernel`) as:
 
 \begin{equation}
 k_\text{GA}^\gamma(\mathbf{x}, \mathbf{x}^\prime) =
@@ -59,7 +59,7 @@ k_\text{GA}^\gamma(\mathbf{x}, \mathbf{x}^\prime) =
 \end{equation}
 
 Though this kernel is not proved to be positive semi-definite (except in the
-univariate case {cite}`blondelmensch2020`), authors claim
+univariate case {cite:p}`blondelmensch2020`), authors claim
 that, in practice, resulting Gram matrices happen to be psd in most of their
 experiments, hence allowing this kernel to be used in standard kernel methods,
 as discussed in the next section.
@@ -72,6 +72,8 @@ When doing so, resulting support vectors are hence time series, as shown below:
 
 %config InlineBackend.figure_format = 'svg'
 import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings('ignore')
 
 plt.ion()
 ```
@@ -176,7 +178,7 @@ they allow to retrieve a sensible average shape whatever the temporal shifts
 in the cluster.
 
 Another option to deal with such time shifts is to rely on the kernel trick.
-Indeed, the kernel $k$-means algorithm {cite}`dhillon2004kernel`, that is
+Indeed, the kernel $k$-means algorithm {cite:p}`dhillon2004kernel`, that is
 equivalent to a $k$-means
 that would operate in the Reproducing Kernel Hilbert Space associated to the
 chosen kernel, can be used in conjunction
@@ -219,7 +221,7 @@ known as structured prediction problems, in which the target variable
 (to be predicted) has a specific structure (time series, graph, _etc._).
 
 This is done, for example, in the seminal paper by Cuturi and Blondel
-{cite}`cuturi2017soft`:
+{cite:p}`cuturi2017soft`:
 
 ```{figure} ../fig/forecasting_cuturi_blondel.png
 ---
@@ -227,11 +229,11 @@ width: 50%
 name: forecasting_cuturi_blondel
 ---
 Using soft-DTW in place of a standard Euclidean loss for forecasting.
-This Figure is taken from {cite}`cuturi2017soft`.
+This Figure is taken from {cite:p}`cuturi2017soft`.
 ```
 
 An alternative differentiable loss (DILATE) is introduced in
-{cite}`vincent2019shape` that relies on soft-DTW and penalizes
+{cite:p}`vincent2019shape` that relies on soft-DTW and penalizes
 de-synchronized alignments.
 This is done by introducing an additional penalty to the loss to be optimized,
 which is the dot product between a "soft-mask matrix" $\Omega$
@@ -269,7 +271,7 @@ name: forecasting_le_guen
 ---
 Comparison between MSE, soft-DTW (denoted $DTW_\gamma$) and DILATE as loss
 functions for forecasting tasks.
-This Figure is taken from {cite}`vincent2019shape`.
+This Figure is taken from {cite:p}`vincent2019shape`.
 ```
 
 ## Conclusion
@@ -290,6 +292,6 @@ neural networks.
 
 ## References
 
-```{bibliography} ../../references.bib
+```{bibliography}
 :filter: docname in docnames
 ```
